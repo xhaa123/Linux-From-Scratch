@@ -1,0 +1,34 @@
+#!/bin/bash 
+set -e
+ 
+TMP=${TMP:-/tmp/build}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/blfs-sources}
+BUILDLOG=${BUILDLOG:-$(dirname $0)/build}
+ 
+name=tree
+version=1.8.0
+ 
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC  $BUILDLOG
+ 
+tar xf $SRC/$name-$version.tgz -C $TMP
+ 
+{ time \
+   {
+ 
+    cd $TMP/$name-$version
+
+	make
+
+    make MANDIR=/usr/share/man/man1 install
+    chmod -v 644 /usr/share/man/man1/tree.1
+
+    }   
+} 2>&1 | tee $LOG/$name.log
+    
+[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDLOG/$name || exit $PIPESTATUS
+
+rm -fr $TMP	
+	
+

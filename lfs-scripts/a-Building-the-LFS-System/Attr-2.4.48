@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgbase=Attr-2.4.48
+pkgname=attr
+pkgver=2.4.48
+
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC $(dirname $0)/build
+
+tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$pkgname-$pkgver
+    
+    ./configure --prefix=/usr     \
+                --disable-static  \
+                --sysconfdir=/etc \
+                --docdir=/usr/share/doc/$pkgname-$pkgver
+    
+    make
+    
+    make install
+    
+    mv -v /usr/lib/libattr.so.* /lib
+    ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so
+
+    }
+} 2>&1 | tee $LOG/$pkgbase.log
+    
+[ $PIPESTATUS = 0 ] && echo "$pkgname-$pkgver" > $(dirname $0)/build/$pkgbase || exit $PIPESTATUS
+
+rm -fr $TMP

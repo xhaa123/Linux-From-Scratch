@@ -1,0 +1,51 @@
+#!/bin/bash 
+set -e
+ 
+TMP=${TMP:-/tmp/build}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/blfs-sources}
+BUILDLOG=${BUILDLOG:-$(dirname $0)/build}
+ 
+name=lynx
+version=2.8.9rel.1
+ 
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC  $BUILDLOG
+ 
+tar xf $SRC/$name$version.tar.* -C $TMP
+ 
+{ time \
+   {
+
+    cd $TMP/$name$version
+
+    ./configure --prefix=/usr          \
+            --sysconfdir=/etc/lynx \
+            --datadir=/usr/share/doc/lynx-$version \
+            --with-zlib            \
+            --with-bzlib           \
+            --with-ssl             \
+            --with-screen=ncursesw \
+            --enable-locale-charset
+	make
+
+	make install-full
+	chgrp -v -R root /usr/share/doc/lynx-$version/lynx_doc
+
+    sed -e '/#LOCALE/     a LOCALE_CHARSET:TRUE'     \
+            -i /etc/lynx/lynx.cfg
+
+    sed -e '/#DEFAULT_ED/ a DEFAULT_EDITOR:vi'       \
+            -i /etc/lynx/lynx.cfg
+
+	sed -e '/#PERSIST/    a PERSISTENT_COOKIES:TRUE' \
+    		-i /etc/lynx/lynx.cfg
+
+    }   
+} 2>&1 | tee $LOG/$name.log
+    
+[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDLOG/$name || exit $PIPESTATUS
+
+rm -fr $TMP	
+	
+

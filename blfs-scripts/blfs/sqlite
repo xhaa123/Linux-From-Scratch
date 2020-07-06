@@ -1,0 +1,50 @@
+#!/bin/bash 
+set -e
+ 
+TMP=${TMP:-/tmp/build}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/blfs-sources}
+BUILDLOG=${BUILDLOG:-$(dirname $0)/build}
+ 
+name=sqlite
+version=3320300
+_version=3.32.3
+ 
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC  $BUILDLOG
+ 
+tar xf $SRC/$name-autoconf-$version.tar.* -C $TMP
+ 
+{ time \
+   {
+ 
+    cd $TMP/$name-autoconf-$version
+
+	unzip -q $SRC/sqlite-doc-$version.zip
+	
+	./configure --prefix=/usr     \
+		--disable-static  \
+		--enable-fts5     \
+		CFLAGS="-g -O2                    \
+		-DSQLITE_ENABLE_FTS3=1            \
+		-DSQLITE_ENABLE_FTS4=1            \
+		-DSQLITE_ENABLE_COLUMN_METADATA=1 \
+		-DSQLITE_ENABLE_UNLOCK_NOTIFY=1   \
+		-DSQLITE_ENABLE_DBSTAT_VTAB=1     \
+		-DSQLITE_SECURE_DELETE=1          \
+		-DSQLITE_ENABLE_FTS3_TOKENIZER=1"
+	make
+
+	make install
+
+	install -v -m755 -d /usr/share/doc/sqlite-$_version
+	cp -v -R sqlite-doc-3320300/* /usr/share/doc/sqlite-$_version
+
+    }   
+} 2>&1 | tee $LOG/$name.log
+    
+[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDLOG/$name || exit $PIPESTATUS
+
+rm -fr $TMP	
+	
+

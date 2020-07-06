@@ -1,0 +1,38 @@
+#!/bin/bash 
+set -e
+ 
+TMP=${TMP:-/tmp/build}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/blfs-sources}
+BUILDLOG=${BUILDLOG:-$(dirname $0)/build}
+ 
+name=nettle
+version=3.6
+ 
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC  $BUILDLOG
+ 
+tar xf $SRC/$name-$version.tar.* -C $TMP
+ 
+{ time \
+   {
+ 
+    cd $TMP/$name-$version
+
+	./configure --prefix=/usr --disable-static
+	make
+
+	make install
+	chmod   -v   755 /usr/lib/lib{hogweed,nettle}.so
+	install -v -m755 -d /usr/share/doc/nettle-$version
+	install -v -m644 nettle.html /usr/share/doc/nettle-$version
+
+
+    }   
+} 2>&1 | tee $LOG/$name.log
+    
+[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDLOG/$name || exit $PIPESTATUS
+
+rm -fr $TMP	
+	
+

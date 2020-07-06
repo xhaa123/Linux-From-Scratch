@@ -1,0 +1,33 @@
+#!/bin/bash -e
+
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgbase=Gettext-0.20.2
+pkgname=gettext
+pkgver=0.20.2
+
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC $(dirname $0)/build
+
+tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$pkgname-$pkgver
+    
+    ./configure --disable-shared
+    
+    make
+    
+    cp -v gettext-tools/src/{msgfmt,msgmerge,xgettext} /usr/bin
+
+    }
+} 2>&1 | tee $LOG/$pkgbase.log
+    
+[ $PIPESTATUS = 0 ] && echo "$pkgname-$pkgver" > $(dirname $0)/build/$pkgbase || exit $PIPESTATUS
+
+rm -fr $TMP

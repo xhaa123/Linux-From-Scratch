@@ -1,0 +1,33 @@
+#!/bin/bash -e
+
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgbase=File-5.39
+pkgname=file
+pkgver=5.39
+
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC $(dirname $0)/build
+
+tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$pkgname-$pkgver
+    
+    ./configure --prefix=/usr
+    
+    make
+    
+    make install
+
+    }
+} 2>&1 | tee $LOG/$pkgbase.log
+    
+[ $PIPESTATUS = 0 ] && echo "$pkgname-$pkgver" > $(dirname $0)/build/$pkgbase || exit $PIPESTATUS
+
+rm -fr $TMP

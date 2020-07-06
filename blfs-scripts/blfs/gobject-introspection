@@ -1,0 +1,35 @@
+#!/bin/bash  -e
+
+
+TMP=${TMP:-/tmp/build}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/blfs-sources}
+BUILDDIR=${BUILDDIR:-$(dirname $0)/build}
+
+name=gobject-introspection
+version=1.64.1
+
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC $BUILDDIR
+
+tar xf $SRC/$name-$version.tar.* -C $TMP
+ 
+{ time \
+   {
+
+    cd $TMP/$name-$version
+
+	mkdir build 
+	cd    build 
+
+	meson --prefix=/usr -Dgtk_doc=true -Dcairo=enabled .. 
+	ninja
+
+	ninja install
+
+    }
+} 2>&1 | tee $LOG/$name.log
+
+[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDDIR/$name || exit $PIPESTATUS
+
+rm -fr $TMP 

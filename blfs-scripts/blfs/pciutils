@@ -1,0 +1,66 @@
+#!/bin/bash 
+set -e
+ 
+TMP=${TMP:-/tmp/build}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/blfs-sources}
+BUILDLOG=${BUILDLOG:-$(dirname $0)/build}
+ 
+name=pciutils
+version=3.7.0
+ 
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC  $BUILDLOG
+ 
+tar xf $SRC/$name-$version.tar.* -C $TMP
+ 
+{ time \
+   {
+ 
+    cd $TMP/$name-$version
+
+	make PREFIX=/usr                \
+		SHAREDIR=/usr/share/hwdata \
+		SHARED=yes
+
+	make PREFIX=/usr                \
+		SHAREDIR=/usr/share/hwdata \
+		SHARED=yes                 \
+		install install-lib
+
+	chmod -v 755 /usr/lib/libpci.so
+
+	cat > /lib/systemd/system/update-pciids.service << "EOF"
+[Unit]
+Description=Update pci.ids file
+Documentation=man:update-pciids(8)
+DefaultDependencies=no
+After=local-fs.target network-online.target
+Before=shutdown.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/sbin/update-pciids
+EOF
+	cat > /lib/systemd/system/update-pciids.timer << "EOF"
+[Unit]
+Description=Update pci.ids file weekly
+
+[Timer]
+OnCalendar=Sun 02:30:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOF
+	systemctl enable update-pciids.timer
+
+    }   
+} 2>&1 | tee $LOG/$name.log
+    
+[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDLOG/$name || exit $PIPESTATUS
+
+rm -fr $TMP	
+	
+

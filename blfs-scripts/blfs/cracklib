@@ -1,0 +1,51 @@
+#!/bin/bash 
+set -e
+ 
+TMP=${TMP:-/tmp/build}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/blfs-sources}
+BUILDLOG=${BUILDLOG:-$(dirname $0)/build}
+ 
+name=cracklib
+version=2.9.7
+ 
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC  $BUILDLOG
+ 
+tar xf $SRC/$name-$version.tar.* -C $TMP
+ 
+{ time \
+   {
+ 
+    cd $TMP/$name-$version
+
+	sed -i '/skipping/d' util/packer.c
+
+	./configure --prefix=/usr    \
+				--disable-static \
+				--with-default-dict=/lib/cracklib/pw_dict
+	make
+
+	make install                     
+	mv -v /usr/lib/libcrack.so.* /lib
+	ln -sfv ../../lib/$(readlink /usr/lib/libcrack.so) /usr/lib/libcrack.so
+
+	install -v -m644 -D    $SRC/cracklib-words-$version.bz2 \
+							/usr/share/dict/cracklib-words.bz2   
+
+	bunzip2 -v               /usr/share/dict/cracklib-words.bz2   
+	ln -v -sf cracklib-words /usr/share/dict/words                
+	echo $(hostname) >>      /usr/share/dict/cracklib-extra-words 
+	install -v -m755 -d      /lib/cracklib                        
+
+	create-cracklib-dict     /usr/share/dict/cracklib-words \
+							/usr/share/dict/cracklib-extra-words    
+
+    }   
+} 2>&1 | tee $LOG/$name.log
+    
+[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDLOG/$name || exit $PIPESTATUS
+
+rm -fr $TMP	
+	
+

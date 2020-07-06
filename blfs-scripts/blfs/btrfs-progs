@@ -1,0 +1,51 @@
+#!/bin/bash 
+set -e
+ 
+TMP=${TMP:-/tmp/build}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/blfs-sources}
+BUILDLOG=${BUILDLOG:-$(dirname $0)/build}
+ 
+name=btrfs-progs
+version=v5.6.1
+ 
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC  $BUILDLOG
+ 
+tar xf $SRC/$name-$version.tar.* -C $TMP
+ 
+{ time \
+   {
+ 
+    cd $TMP/$name-$version
+
+    ./configure --prefix=/usr \
+            --bindir=/bin \
+            --libdir=/lib
+	make
+
+	make fssum
+
+    sed -i '/found/s/^/: #/' tests/convert-tests.sh
+
+    mv tests/convert-tests/010-reiserfs-basic/test.sh{,.broken}
+    mv tests/convert-tests/011-reiserfs-delete-all-rollback/test.sh{,.broken}
+    mv tests/convert-tests/012-reiserfs-large-hole-extent/test.sh{,.broken}
+    mv tests/convert-tests/013-reiserfs-common-inode-flags/test.sh{,.broken}
+    mv tests/convert-tests/014-reiserfs-tail-handling/test.sh{,.broken}
+
+	make install
+
+	ln -sfv ../../lib/$(readlink /lib/libbtrfs.so) /usr/lib/libbtrfs.so
+	ln -sfv ../../lib/$(readlink /lib/libbtrfsutil.so) /usr/lib/libbtrfsutil.so
+	rm -fv /lib/libbtrfs.{a,so} /lib/libbtrfsutil.{a,so}
+	mv -v /bin/{mkfs,fsck}.btrfs /sbin
+
+    }   
+} 2>&1 | tee $LOG/$name.log
+    
+[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDLOG/$name || exit $PIPESTATUS
+
+rm -fr $TMP	
+	
+

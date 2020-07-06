@@ -1,0 +1,53 @@
+#!/bin/bash  -e
+
+
+TMP=${TMP:-/tmp/build}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/blfs-sources}
+BUILDDIR=${BUILDDIR:-$(dirname $0)/build}
+
+pkgbase=grub-efi
+name=grub
+version=2.04
+
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC $BUILDDIR
+
+tar xf $SRC/$name-$version.tar.* -C $TMP
+ 
+{ time \
+   {
+
+    cd $TMP/$name-$version
+
+	./configure --prefix=/usr                    \
+				--sbindir=/sbin                  \
+				--sysconfdir=/etc                \
+				--disable-efiemu                 \
+				--enable-grub-mkfont             \
+				--with-platform=efi              \
+				--enable-boot-time               \
+				--enable-device-mapper           \
+				--target=x86_64                  \
+				--enable-cache-stats             \
+				--enable-mm-debug                \
+				--enable-nls                     \
+				--prefix="/usr"                  \
+				--bindir="/usr/bin"              \
+				--mandir="/usr/share/man"        \
+				--infodir="/usr/share/info"      \
+				--datarootdir="/usr/share"       \
+				--program-prefix=""              \
+				--with-bootdir="/boot"           \
+				--with-grubdir="grub"            \
+				--disable-silent-rules           \
+				--disable-werror 
+	make
+	make  install
+
+    }
+} 2>&1 | tee $LOG/$pkgbase.log
+
+[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDDIR/$pkgbase || exit $PIPESTATUS
+
+rm -fr $TMP 

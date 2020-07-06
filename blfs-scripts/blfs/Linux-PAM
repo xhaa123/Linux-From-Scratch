@@ -1,0 +1,101 @@
+#!/bin/bash 
+set -e
+ 
+TMP=${TMP:-/tmp/build}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/blfs-sources}
+BUILDLOG=${BUILDLOG:-$(dirname $0)/build}
+ 
+name=Linux-PAM
+version=1.4.0
+ 
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC  $BUILDLOG
+ 
+tar xf $SRC/$name-$version.tar.* -C $TMP
+ 
+{ time \
+   {
+ 
+    cd $TMP/$name-$version
+
+    tar -xf $SRC/Linux-PAM-$version-docs.tar.xz --strip-components=1
+
+	sed -e 's/dummy elinks/dummy lynx/'                                     \
+		-e 's/-no-numbering -no-references/-force-html -nonumbers -stdin/' \
+		-i configure
+
+	./configure --prefix=/usr                    \
+				--sysconfdir=/etc                \
+				--libdir=/usr/lib                \
+				--enable-securedir=/lib/security \
+				--docdir=/usr/share/doc/Linux-PAM-$version
+	make
+
+	make install
+	chmod -v 4755 /sbin/unix_chkpwd
+
+	for file in pam pam_misc pamc
+	do
+	mv -v /usr/lib/lib${file}.so.* /lib
+	ln -sfv ../../lib/$(readlink /usr/lib/lib${file}.so) /usr/lib/lib${file}.so
+	done
+
+	install -vdm755 /etc/pam.d
+	cat > /etc/pam.d/system-account << "EOF"
+# Begin /etc/pam.d/system-account
+
+account   required    pam_unix.so
+
+# End /etc/pam.d/system-account
+EOF
+
+	cat > /etc/pam.d/system-auth << "EOF"
+# Begin /etc/pam.d/system-auth
+
+auth      required    pam_unix.so
+
+# End /etc/pam.d/system-auth
+EOF
+
+	cat > /etc/pam.d/system-session << "EOF"
+# Begin /etc/pam.d/system-session
+
+session   required    pam_unix.so
+
+# End /etc/pam.d/system-session
+EOF
+	cat > /etc/pam.d/system-password << "EOF"
+# Begin /etc/pam.d/system-password
+
+# use sha512 hash for encryption, use shadow, and try to use any previously
+# defined authentication token (chosen password) set by any prior module
+password  required    pam_unix.so       sha512 shadow try_first_pass
+
+# End /etc/pam.d/system-password
+EOF
+
+
+	cat > /etc/pam.d/other << "EOF"
+# Begin /etc/pam.d/other
+
+auth        required        pam_warn.so
+auth        required        pam_deny.so
+account     required        pam_warn.so
+account     required        pam_deny.so
+password    required        pam_warn.so
+password    required        pam_deny.so
+session     required        pam_warn.so
+session     required        pam_deny.so
+
+# End /etc/pam.d/other
+EOF
+
+    }   
+} 2>&1 | tee $LOG/$name.log
+    
+[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDLOG/$name || exit $PIPESTATUS
+
+rm -fr $TMP	
+	
+

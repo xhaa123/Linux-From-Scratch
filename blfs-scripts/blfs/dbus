@@ -1,0 +1,60 @@
+#!/bin/bash  -e
+
+
+TMP=${TMP:-/tmp/build}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/blfs-sources}
+BUILDDIR=${BUILDDIR:-$(dirname $0)/build}
+
+name=dbus
+version=1.12.18
+
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC $BUILDDIR
+
+tar xf $SRC/$name-$version.tar.* -C $TMP
+ 
+{ time \
+   {
+
+    cd $TMP/$name-$version
+
+	./configure --prefix=/usr                        \
+				--sysconfdir=/etc                    \
+				--localstatedir=/var                 \
+				--enable-user-session                \
+				--disable-doxygen-docs               \
+				--disable-xml-docs                   \
+				--disable-static                     \
+				--docdir=/usr/share/doc/dbus-$version \
+				--with-console-auth-dir=/run/console \
+				--with-system-pid-file=/run/dbus/pid \
+				--with-system-socket=/run/dbus/system_bus_socket
+	make
+
+	make install
+
+	mv -v /usr/lib/libdbus-1.so.* /lib
+	ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so
+
+	chown -v root:messagebus /usr/libexec/dbus-daemon-launch-helper
+	chmod -v      4750       /usr/libexec/dbus-daemon-launch-helper
+
+	cat > /etc/dbus-1/session-local.conf << "EOF"
+<!DOCTYPE busconfig PUBLIC
+ "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+<busconfig>
+
+  <!-- Search for .service files in /usr/local -->
+  <servicedir>/usr/local/share/dbus-1/services</servicedir>
+
+</busconfig>
+EOF
+
+    }
+} 2>&1 | tee $LOG/$name.log
+
+[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDDIR/$name || exit $PIPESTATUS
+
+rm -fr $TMP 

@@ -1,0 +1,32 @@
+#!/bin/bash 
+set -e
+ 
+TMP=${TMP:-/tmp/build}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/blfs-sources}
+BUILDLOG=${BUILDLOG:-$(dirname $0)/build}
+
+pkgbase=fonttools-python3
+name=fonttools
+version=4.12.1
+ 
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC  $BUILDLOG
+ 
+unzip -d $TMP $SRC/$name-$version.zip
+ 
+{ time \
+   {
+ 
+    cd $TMP/$name-$version
+
+    python3 setup.py install --optimize=1
+
+    }   
+} 2>&1 | tee $LOG/$pkgbase.log
+    
+[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDLOG/$pkgbase || exit $PIPESTATUS
+
+rm -fr $TMP	
+	
+

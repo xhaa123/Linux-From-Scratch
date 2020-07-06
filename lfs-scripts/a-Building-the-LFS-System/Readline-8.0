@@ -1,0 +1,46 @@
+#!/bin/bash -e
+
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgbase=Readline-8.0
+pkgname=readline
+pkgver=8.0
+
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC $(dirname $0)/build
+
+tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$pkgname-$pkgver
+    
+    sed -i '/MV.*old/d' Makefile.in
+    sed -i '/{OLDSUFF}/c:' support/shlib-install
+    
+    ./configure --prefix=/usr    \
+                --disable-static \
+                --with-curses    \
+                --docdir=/usr/share/doc/$pkgname-$pkgver
+    
+    make SHLIB_LIBS="-lncursesw"
+    
+    make SHLIB_LIBS="-lncursesw" install
+    
+    mv -v /usr/lib/lib{readline,history}.so.* /lib
+    chmod -v u+w /lib/lib{readline,history}.so.*
+    ln -sfv ../../lib/$(readlink /usr/lib/libreadline.so) /usr/lib/libreadline.so
+    ln -sfv ../../lib/$(readlink /usr/lib/libhistory.so ) /usr/lib/libhistory.so
+
+    install -v -m644 doc/*.{ps,pdf,html,dvi} /usr/share/doc/$pkgname-$pkgver
+
+    }
+} 2>&1 | tee $LOG/$pkgbase.log
+    
+[ $PIPESTATUS = 0 ] && echo "$pkgname-$pkgver" > $(dirname $0)/build/$pkgbase || exit $PIPESTATUS
+
+rm -fr $TMP

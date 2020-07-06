@@ -1,0 +1,59 @@
+#!/bin/bash  -e
+
+
+TMP=${TMP:-/tmp/build}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/blfs-sources}
+BUILDDIR=${BUILDDIR:-$(dirname $0)/build}
+
+name=openssh
+version=8.3p1
+
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC $BUILDDIR
+
+tar xf $SRC/$name-$version.tar.* -C $TMP
+ 
+{ time \
+   {
+
+    cd $TMP/$name-$version
+
+	install  -v -m700 -d /var/lib/sshd
+	chown    -v root:sys /var/lib/sshd
+
+	groupadd -g 50 sshd
+	useradd  -c 'sshd PrivSep' \
+			 -d /var/lib/sshd  \
+			 -g sshd           \
+			 -s /bin/false     \
+			 -u 50 sshd
+
+	./configure --prefix=/usr                     \
+				--sysconfdir=/etc/ssh             \
+				--with-md5-passwords              \
+				--with-pam                        \
+				--with-privsep-path=/var/lib/sshd 
+	make
+
+	make install
+	install -v -m755    contrib/ssh-copy-id /usr/bin
+
+	install -v -m644    contrib/ssh-copy-id.1 \
+						/usr/share/man/man1
+	install -v -m755 -d /usr/share/doc/openssh$version
+	install -v -m644    INSTALL LICENCE OVERVIEW README* \
+						/usr/share/doc/openssh$version
+
+
+	sed 's@d/login@d/sshd@g' /etc/pam.d/login > /etc/pam.d/sshd
+	chmod 644 /etc/pam.d/sshd
+
+	mv /etc/ssh/sshd_config{,.backup}
+	cp $SRC/sshd_config /etc/ssh
+    }
+} 2>&1 | tee $LOG/$name.log
+
+[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDDIR/$name || exit $PIPESTATUS
+
+rm -fr $TMP 

@@ -1,0 +1,37 @@
+#!/bin/bash  -e
+
+
+TMP=${TMP:-/tmp/build}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/blfs-sources}
+BUILDDIR=${BUILDDIR:-$(dirname $0)/build}
+
+name=autoconf
+version=2.13
+
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC $BUILDDIR
+
+tar xf $SRC/$name-$version.tar.* -C $TMP
+ 
+{ time \
+   {
+
+    cd $TMP/$name-$version
+
+	patch -Np1 -i $SRC/autoconf-$version-consolidated_fixes-1.patch
+	mv -v autoconf.texi autoconf213.texi
+	rm -v autoconf.info
+	./configure --prefix=/usr --program-suffix=$version
+	make
+
+	make install
+	install -v -m644 autoconf213.info /usr/share/info
+	install-info --info-dir=/usr/share/info autoconf213.info
+
+    }
+} 2>&1 | tee $LOG/$name.log
+
+[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDDIR/$name || exit $PIPESTATUS
+
+rm -fr $TMP 

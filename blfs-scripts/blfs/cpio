@@ -1,0 +1,45 @@
+#!/bin/bash  -e
+
+
+TMP=${TMP:-/tmp/build}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/blfs-sources}
+BUILDDIR=${BUILDDIR:-$(dirname $0)/build}
+
+name=cpio
+version=2.13
+
+rm -fr $TMP
+mkdir -p $TMP $LOG $SRC $BUILDDIR
+
+tar xf $SRC/$name-$version.tar.* -C $TMP
+ 
+{ time \
+   {
+
+    cd $TMP/$name-$version
+
+	sed -i '/The name/,+2 d' src/global.c
+
+	./configure --prefix=/usr \
+				--bindir=/bin \
+				--enable-mt   \
+				--with-rmt=/usr/libexec/rmt
+	make
+	makeinfo --html            -o doc/html      doc/cpio.texi
+	makeinfo --html --no-split -o doc/cpio.html doc/cpio.texi
+	makeinfo --plaintext       -o doc/cpio.txt  doc/cpio.texi
+
+	make install
+	install -v -m755 -d /usr/share/doc/cpio$version/html
+	install -v -m644    doc/html/* \
+						/usr/share/doc/cpio$version/html
+	install -v -m644    doc/cpio.{html,txt} \
+						/usr/share/doc/cpio$version
+
+    }
+} 2>&1 | tee $LOG/$name.log
+
+[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDDIR/$name || exit $PIPESTATUS
+
+rm -fr $TMP 
