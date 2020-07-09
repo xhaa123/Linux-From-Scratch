@@ -5,27 +5,25 @@ TMP=${TMP:-$(mktemp -d)}
 LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
-pkgbase=Libelf-from-Elfutils-0.180
-pkgname=elfutils
-pkgver=0.180
+pkgbase=Check-0.15.0
+pkgname=check
+pkgver=0.15.0
 
 rm -fr $TMP
 mkdir -p $TMP $LOG $SRC $(dirname $0)/build
 
-tar xf $SRC/$pkgname-$pkgver.tar.bz2 -C $TMP
+tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
 
 { time \
    {
 
     cd $TMP/$pkgname-$pkgver
     
-    ./configure --prefix=/usr --disable-debuginfod --libdir=/lib
+    ./configure --prefix=/usr
     
     make
     
-    make -C libelf install
-    install -vm644 config/libelf.pc /usr/lib/pkgconfig
-    rm /usr/lib/libelf.a
+    make docdir=/usr/share/doc/$pkgname-$pkgver install
 
     }
 } 2>&1 | tee $LOG/$pkgbase.log

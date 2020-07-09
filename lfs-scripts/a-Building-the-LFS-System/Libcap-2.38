@@ -5,9 +5,9 @@ TMP=${TMP:-$(mktemp -d)}
 LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
-pkgbase=Libcap-2.36
+pkgbase=Libcap-2.38
 pkgname=libcap
-pkgver=2.36
+pkgver=2.38
 
 rm -fr $TMP
 mkdir -p $TMP $LOG $SRC $(dirname $0)/build

@@ -4,6 +4,9 @@ SCRIPTDIR=$(dirname $0)/a-Building-the-LFS-System
 
 PKG=(
     'Man-pages-5.07'
+    'Tcl-8.6.10'
+    'Expect-5.45.4'
+    'DejaGNU-1.6.2'
     'Iana-Etc-20200429'
     'Glibc-2.31'
     'Zlib-1.2.11'
@@ -13,7 +16,7 @@ PKG=(
     'File-5.39'
     'Readline-8.0'
     'M4-1.4.18'
-    'Bc-2.7.2'
+    'Bc-3.0.3'
     'Flex-2.6.4'
     'Binutils-2.34'
     'GMP-6.2.0'
@@ -21,7 +24,7 @@ PKG=(
     'MPC-1.1.0'
     'Attr-2.4.48'
     'Acl-2.2.53'
-    'Libcap-2.36'
+    'Libcap-2.38'
     'Shadow-4.8.1'
     'GCC-10.1.0'
     'Pkg-config-0.29.2'
@@ -31,8 +34,6 @@ PKG=(
     'Gettext-0.20.2'
     'Bison-3.6.4'
     'Grep-3.4'
-    'Bash-5.0'
-
 )
 
 for script in "${PKG[@]}"; do

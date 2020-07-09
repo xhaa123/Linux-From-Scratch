@@ -23,7 +23,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
             --host=$LFS_TGT                   \
             --build=$(build-aux/config.guess) \
             --disable-static                  \
-            --docdir=/usr/share/doc/xz-$pkgver
+            --docdir=/usr/share/doc/$pkgname-$pkgver
     
     make
     

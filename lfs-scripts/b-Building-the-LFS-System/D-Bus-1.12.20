@@ -5,9 +5,9 @@ TMP=${TMP:-$(mktemp -d)}
 LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
-pkgbase=D-Bus-1.12.18
+pkgbase=D-Bus-1.12.20
 pkgname=dbus
-pkgver=1.12.18
+pkgver=1.12.20
 
 rm -fr $TMP
 mkdir -p $TMP $LOG $SRC $(dirname $0)/build

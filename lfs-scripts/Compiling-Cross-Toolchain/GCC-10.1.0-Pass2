@@ -31,11 +31,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     mv -v gmp-$gmpver gmp
     mv -v mpc-$mpcver mpc
     
-    case $(uname -m) in
-      x86_64)
-        sed -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64
-      ;;
-    esac
+    sed -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64
 
     patch -Np1 -i $SRC/$pkgname-$pkgver-cet_fix-1.patch
 
@@ -45,7 +41,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     mkdir -pv $LFS_TGT/libgcc
     ln -s ../../../libgcc/gthr-posix.h $LFS_TGT/libgcc/gthr-default.h
 
-    ../configure                                     \
+    ../configure                                       \
     	--build=$(../config.guess)                     \
     	--host=$LFS_TGT                                \
     	--prefix=/usr                                  \

@@ -5,24 +5,24 @@ TMP=${TMP:-$(mktemp -d)}
 LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
-pkgbase=Bc-2.7.2
-pkgname=bc
-pkgver=2.7.2
+pkgbase=XML-Parser-2.46
+pkgname=XML-Parser
+pkgver=2.46
 
 rm -fr $TMP
 mkdir -p $TMP $LOG $SRC $(dirname $0)/build
 
-tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
+tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
 
 { time \
    {
 
     cd $TMP/$pkgname-$pkgver
     
-    PREFIX=/usr CC=gcc CFLAGS="-std=c99" ./configure.sh -G -O3
-    
+    perl Makefile.PL
+
     make
-    
+
     make install
 
     }
