@@ -5,7 +5,7 @@ SCRIPTDIR=$(dirname $0)/Compiling-Cross-Toolchain
 PKG=(
     'Binutils-2.34-Pass1'
     'GCC-10.1.0-Pass1'
-    'Linux-5.7.2-API-Headers'
+    'Linux-5.7.7-API-Headers'
     'Glibc-2.31'
     'Libstdc++-from-GCC-10.1.0-Pass1'
     'M4-1.4.18'
