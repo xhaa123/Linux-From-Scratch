@@ -42,7 +42,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
     make
     
     make DESTDIR=$LFS TIC_PATH=$(pwd)/build/progs/tic install
-    ln -s libncursesw.so $LFS/usr/lib/libncurses.so
+    echo "INPUT(-lncursesw)" > $LFS/usr/lib/libncurses.so
 
     mv -v $LFS/usr/lib/libncursesw.so.6* $LFS/lib
 
