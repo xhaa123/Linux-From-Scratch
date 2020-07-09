@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-SCRIPTDIR=$(dirname $0)/Entering-Chroot-and-Building-Additional-Tools
+SCRIPTDIR=$(dirname $0)/chroot_temporary_tools
 
 PKG=(
     'Libstdc++-from-GCC-10.1.0-Pass2'
@@ -17,7 +17,7 @@ for script in "${PKG[@]}"; do
         echo "--- $script skipped ---"
     else
         echo "*** $script ***"
-        SRC=/home/sources $SCRIPTDIR/$script
+        SRC=/home/sources/lfs $SCRIPTDIR/$script
         echo; echo "*** $script done ***"; sleep 10; echo
     fi
 done

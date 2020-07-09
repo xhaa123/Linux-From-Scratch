@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-SCRIPTDIR=$(dirname $0)/Compiling-Cross-Toolchain
+SCRIPTDIR=$(dirname $0)/build_temp_system
 
 PKG=(
     'Binutils-2.34-Pass1'
@@ -32,7 +32,7 @@ for script in "${PKG[@]}"; do
         echo "--- $script skipped ---"
     else
         echo "*** $script ***"
-        SRC=$LFS/home/sources $SCRIPTDIR/$script
+        SRC=$LFS/home/sources/lfs $SCRIPTDIR/$script
         echo; echo "*** $script done ***"; sleep 10; echo
     fi
 done
