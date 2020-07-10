@@ -3,7 +3,7 @@
 
 TMP=${TMP:-$(mktemp -d)}
 LOG=${LOG:-$(dirname $0)/log}
-SRC=${SRC:-/home/sources}
+SRC=${SRC:-/home/sources/lfs}
 
 pkgbase=IPRoute2-5.7.0
 pkgname=iproute2
