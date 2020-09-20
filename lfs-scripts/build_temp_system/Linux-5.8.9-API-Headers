@@ -5,9 +5,9 @@ TMP=${TMP:-$(dirname $0)/Build-TMP}
 LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-$LFS/home/sources/lfs}
 
-pkgbase=Linux-5.7.7-API-Headers
+pkgbase=Linux-5.8.9-API-Headers
 pkgname=linux
-pkgver=5.7.7
+pkgver=5.8.9
 
 rm -fr $TMP
 mkdir -p $TMP $LOG $SRC $(dirname $0)/build
