@@ -5,9 +5,9 @@ TMP=${TMP:-$(dirname $0)/Build-TMP}
 LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-$LFS/home/sources/lfs}
 
-pkgbase=Binutils-2.34-Pass1
+pkgbase=Binutils-2.35-Pass1
 pkgname=binutils
-pkgver=2.34
+pkgver=2.35
 
 rm -fr $TMP
 mkdir -p $TMP $LOG $SRC $(dirname $0)/build
@@ -22,12 +22,11 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     mkdir -v build
     cd       build
 
-    ../configure --prefix=$LFS/tools    \
-             --with-sysroot=$LFS        \
-             --target=$LFS_TGT          \
-             --disable-nls              \
-             --disable-werror
-
+   ../configure --prefix=$LFS/tools       \
+                --with-sysroot=$LFS        \
+                --target=$LFS_TGT          \
+                --disable-nls              \
+                --disable-werror
     make
 
     make install
