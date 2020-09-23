@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.7.&nbsp;GCC-10.2.0 中的 Libstdc++，第二遍
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200915-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200915-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="createfiles.html" title=
+          "创建必要的文件和符号链接">上一页</a>
+          <p>
+            创建必要的文件和符号链接
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gettext.html" title="Gettext-0.21">下一页</a>
+          <p>
+            Gettext-0.21
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200915-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-tools-libstdcpp-pass2" name=
+        "ch-tools-libstdcpp-pass2"></a>7.7. GCC-10.2.0 中的 Libstdc++，第二遍
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          在构建<a class="xref" href="../chapter06/gcc-pass2.html" title=
+          "6.18.&nbsp;GCC-10.2.0 - 第二遍">第二遍的 GCC</a>时，我们不得不暂缓安装 C++
+          标准库，因为当时没有编译器能够编译它。我们不能使用那一节构建的编译器，因为它是一个本地编译器，不应在 chroot
+          外使用，否则可能导致编译产生的库被宿主系统组件污染。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">估计构建时间:</strong> <span class=
+              "segbody">0.8 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">需要硬盘空间:</strong> <span class=
+              "segbody">1.1 GB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          7.7.1. 安装目标系统的 Libstdc++
+        </h2>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            <span class="application">Libstdc++</span> 是 GCC 源代码的一部分。您应该先解压
+            GCC 压缩包并切换到解压出来的 <code class="filename">gcc-10.2.0</code> 目录。
+          </p>
+        </div>
+        <p>
+          创建一个符号链接，允许在 GCC 源码树中构建 Libstdc++：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">ln -s gthr-posix.h libgcc/gthr-default.h</kbd></pre>
+        <p>
+          为 Libstdc++ 创建一个单独的构建目录，并切换到该目录：
+        </p>
+        <pre class="userinput"><kbd class="command">mkdir -v build
+cd       build</kbd></pre>
+        <p>
+          准备编译 Libstdc++:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">../libstdc++-v3/configure            \
+    CXXFLAGS="-g -O2 -D_GNU_SOURCE"  \
+    --prefix=/usr                    \
+    --disable-multilib               \
+    --disable-nls                    \
+    --host=$(uname -m)-lfs-linux-gnu \
+    --disable-libstdcxx-pch</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class="parameter"><code>CXXFLAGS="-g -O2
+              -D_GNU_SOURCE"</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这些编译开关在构建完整的 GCC 时，由顶层目录 Makefile 传递。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class="parameter"><code>--host=$(uname
+              -m)-lfs-linux-gnu</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                我们需要模拟该软件包作为完整编译器的一部分构建时发生的过程。在完整构建时，GCC 构建系统会传递该选项。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-libstdcxx-pch</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个开关防止安装预编译包含文件，它在当前阶段没有必要。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          运行以下命令编译 Libstdc++：
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          安装这个库：
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          该软件包的详细信息可以在<a class="xref" href=
+          "../chapter08/gcc.html#contents-gcc" title=
+          "8.26.2.&nbsp;GCC 的内容">第&nbsp;8.26.2&nbsp;节 “GCC 的内容”</a>中找到。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="createfiles.html" title=
+          "创建必要的文件和符号链接">上一页</a>
+          <p>
+            创建必要的文件和符号链接
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gettext.html" title="Gettext-0.21">下一页</a>
+          <p>
+            Gettext-0.21
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200915-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

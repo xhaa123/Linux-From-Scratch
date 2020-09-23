@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      10.2.&nbsp;创建 /etc/fstab 文件
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200915-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200915-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;10&nbsp;章&nbsp;使 LFS 系统可引导
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="概述">上一页</a>
+          <p>
+            概述
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="kernel.html" title="Linux-5.8.9">下一页</a>
+          <p>
+            Linux-5.8.9
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter10.html" title=
+          "第&nbsp;10&nbsp;章&nbsp;使 LFS 系统可引导">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200915-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-bootable-fstab" name="ch-bootable-fstab"></a>10.2. 创建
+        /etc/fstab 文件
+      </h1>
+      <p>
+        一些程序使用 <code class="filename">/etc/fstab</code>
+        文件，以确定哪些文件系统是默认挂载的，和它们应该按什么顺序挂载，以及哪些文件系统在挂载前必须被检查
+        (确定是否有完整性错误)。参考以下命令，创建一个新的文件系统表：
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">cat &gt; /etc/fstab &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/fstab
+
+# 文件系统     挂载点       类型     选项                转储  检查
+#                                                              顺序
+
+/dev/<em class=
+"replaceable"><code>&lt;xxx&gt;</code></em>     /            <em class=
+"replaceable"><code>&lt;fff&gt;</code></em>    defaults            1     1
+/dev/<em class=
+"replaceable"><code>&lt;yyy&gt;</code></em>     swap         swap     pri=1               0     0
+
+# End /etc/fstab</code>
+EOF</kbd></pre>
+      <p>
+        将 <em class="replaceable"><code>&lt;xxx&gt;</code></em>、<em class=
+        "replaceable"><code>&lt;yyy&gt;</code></em> 和 <em class=
+        "replaceable"><code>&lt;fff&gt;</code></em> 替换为适用于您的系统的值，例如
+        <code class="filename">sda2</code>、<code class="filename">sda5</code>
+        和 <code class="systemitem">ext4</code>。参阅 <span class=
+        "command"><strong>man 5 fstab</strong></span> 了解该文件中 6 个域的详细信息。
+      </p>
+      <p>
+        在挂载来源于 MS-DOS 或 Windows 的文件系统 (如 vfat、ntfs、smbfs、cifs、iso9660、udf)
+        时，需要一个特殊的挂载选项 —— utf8，才能正常解析文件名中的非 ASCII 字符。对于非 UTF-8 locale，选项
+        <code class="option">iocharset</code> 的值应该和您的 locale
+        字符集设定一致，但改写成内核可以识别的写法。该选项能够正常工作的前提是，将相关的字符集定义 (在内核配置选项的 File Systems
+        -&gt; Native Language Support 子菜单中) 编译到内核中，或构建为内核模块。然而，如果使用了 UTF-8
+        locale，对应的 <code class="option">iocharset=utf8</code>
+        会导致文件系统变得大小写敏感。为了避免这个问题，在使用 UTF-8 locale 时，需要用特殊选项 <code class=
+        "option">utf8</code> 代替 <code class=
+        "option">iocharset=utf8</code>。另外，vfat 和 smbfs 文件系统还需要<span class=
+        "quote">“<span class="quote">codepage</span>”</span>选项，它应该被设定为您的语言在
+        MS-DOS 下的代码页编号。例如，为了挂载一个 USB 闪存盘，一个 ru_RU.KOI8-R 用户应该在 <code class=
+        "filename">/etc/fstab</code> 中对应于闪存盘的行添加下列挂载选项：
+      </p>
+      <pre class="screen"><code class=
+      "literal">noauto,user,quiet,showexec,codepage=866,iocharset=koi8r</code></pre>
+      <p>
+        相应的，ru_RU.UTF-8 用户应该使用下列选项：
+      </p>
+      <pre class="screen"><code class=
+      "literal">noauto,user,quiet,showexec,codepage=866,utf8</code></pre>
+      <p>
+        注意此时使用的 <code class="option">iocharset</code> 默认为 <code class=
+        "literal">iso8859-1</code> (这保证文件系统是大小写不敏感的)，而 <code class=
+        "option">utf8</code> 选项告诉内核使用 UTF-8 编码转换文件名，这样它们就能在 UTF-8 locale
+        中被正确解析。
+      </p>
+      <p>
+        也可以在内核配置中，为一些文件系统指定默认 codepage 和 iocharset 选项值。相关的配置参数名为<span class=
+        "quote">“<span class="quote">Default NLS Option</span>”</span>
+        (<code class="option">CONFIG_NLS_DEFAULT</code>)，<span class=
+        "quote">“<span class="quote">Default Remote NLS Option</span>”</span>
+        (<code class="option">CONFIG_SMB_NLS_DEFAULT</code>)，<span class=
+        "quote">“<span class="quote">Default codepage for FAT</span>”</span>
+        (<code class="option">CONFIG_FAT_DEFAULT_CODEPAGE</code>)，以及
+        <span class="quote">“<span class="quote">Default iocharset for
+        FAT</span>”</span> (<code class=
+        "option">CONFIG_FAT_DEFAULT_IOCHARSET</code>)。无法在编译内核时为 ntfs
+        文件系统指定这些默认值。
+      </p>
+      <p>
+        在某些硬盘上，通过将 <code class="option">barrier=1</code> 挂载选项加入 <code class=
+        "filename">/etc/fstab</code>，可以使得 ext3
+        文件系统在发生电源故障时更可靠。为了检查磁盘驱动器是否支持该选项，在可用的磁盘驱动器上运行 <a class="ulink" href=
+        "http://www.linuxfromscratch.org/blfs/view/svn/general/hdparm.html">hdparm</a>。例如：
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">hdparm -I /dev/sda | grep NCQ</kbd></pre>
+      <p>
+        如果输出内容不为空，说明该选项可用。
+      </p>
+      <p>
+        注意：基于逻辑卷管理 (LVM) 的分区不能使用 <code class="option">barrier</code> 选项。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="概述">上一页</a>
+          <p>
+            概述
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="kernel.html" title="Linux-5.8.9">下一页</a>
+          <p>
+            Linux-5.8.9
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter10.html" title=
+          "第&nbsp;10&nbsp;章&nbsp;使 LFS 系统可引导">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200915-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

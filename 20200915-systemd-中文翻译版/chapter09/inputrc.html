@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      9.8.&nbsp;创建 /etc/inputrc 文件
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200915-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200915-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;9&nbsp;章&nbsp;系统配置
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="locale.html" title="配置系统 Locale">上一页</a>
+          <p>
+            配置系统 Locale
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="etcshells.html" title=
+          "创建 /etc/shells 文件">下一页</a>
+          <p>
+            创建 /etc/shells 文件
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter09.html" title=
+          "第&nbsp;9&nbsp;章&nbsp;系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200915-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-config-inputrc" name="ch-config-inputrc"></a>9.8. 创建
+        /etc/inputrc 文件
+      </h1>
+      <p>
+        <code class="filename">inputrc</code> 文件是 Readline
+        库的配置文件，该库在用户从终端输入命令行时提供编辑功能。它的工作原理是将键盘输入翻译为特定动作。Readline 被 Bash
+        和大多数其他 shell，以及许多其他程序使用。
+      </p>
+      <p>
+        多数人不需要 Readline 的用户配置功能，因此以下命令创建全局的 <code class=
+        "filename">/etc/inputrc</code>
+        文件，供所有登录用户使用。如果您之后决定对于某个用户覆盖掉默认值，您可以在该用户的主目录下创建 <code class=
+        "filename">.inputrc</code> 文件，包含需要修改的映射。
+      </p>
+      <p>
+        关于更多如何编写 <code class="filename">inputrc</code> 文件的信息，参考 <span class=
+        "command"><strong>info bash</strong></span> 中 <span class=
+        "emphasis"><em>Readline Init File</em></span> 一节。<span class=
+        "command"><strong>info readline</strong></span> 也是一个很好的信息源。
+      </p>
+      <p>
+        下面是一个通用的全局 <code class="filename">inputrc</code>
+        文件，包含解释一些选项含义的注释。注意注释不能和命令写在同一行。执行以下命令创建该文件：
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">cat &gt; /etc/inputrc &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/inputrc
+# Modified by Chris Lynn &lt;roryo@roryo.dynup.net&gt;
+
+# Allow the command prompt to wrap to the next line
+set horizontal-scroll-mode Off
+
+# Enable 8bit input
+set meta-flag On
+set input-meta On
+
+# Turns off 8th bit stripping
+set convert-meta Off
+
+# Keep the 8th bit for display
+set output-meta On
+
+# none, visible or audible
+set bell-style none
+
+# All of the following map the escape sequence of the value
+# contained in the 1st argument to the readline specific functions
+"\eOd": backward-word
+"\eOc": forward-word
+
+# for linux console
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+"\e[5~": beginning-of-history
+"\e[6~": end-of-history
+"\e[3~": delete-char
+"\e[2~": quoted-insert
+
+# for xterm
+"\eOH": beginning-of-line
+"\eOF": end-of-line
+
+# for Konsole
+"\e[H": beginning-of-line
+"\e[F": end-of-line
+
+# End /etc/inputrc</code>
+EOF</kbd></pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="locale.html" title="配置系统 Locale">上一页</a>
+          <p>
+            配置系统 Locale
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="etcshells.html" title=
+          "创建 /etc/shells 文件">下一页</a>
+          <p>
+            创建 /etc/shells 文件
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter09.html" title=
+          "第&nbsp;9&nbsp;章&nbsp;系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200915-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

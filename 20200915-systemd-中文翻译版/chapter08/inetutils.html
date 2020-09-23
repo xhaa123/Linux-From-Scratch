@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.39.&nbsp;Inetutils-1.9.4
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200915-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200915-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;8&nbsp;章&nbsp;安装基本系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="expat.html" title="Expat-2.2.9">上一页</a>
+          <p>
+            Expat-2.2.9
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="perl.html" title="Perl-5.32.0">下一页</a>
+          <p>
+            Perl-5.32.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200915-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-inetutils" name="ch-system-inetutils"></a>8.39.
+        Inetutils-1.9.4
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Inetutils 软件包包含基本网络程序。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">估计构建时间:</strong> <span class=
+              "segbody">0.3 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">需要硬盘空间:</strong> <span class=
+              "segbody">29 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          8.39.1. 安装 Inetutils
+        </h2>
+        <p>
+          准备编译 Inetutils：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr        \
+            --localstatedir=/var \
+            --disable-logger     \
+            --disable-whois      \
+            --disable-rcp        \
+            --disable-rexec      \
+            --disable-rlogin     \
+            --disable-rsh        \
+            --disable-servers</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-logger</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项防止 Inetutils 安装 <span class=
+                "command"><strong>logger</strong></span>
+                程序，它被脚本文件用于向系统日志守护程序传递消息。这里不安装它，因为 Util-linux 会安装更新的版本。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-whois</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项防止构建过时的 <span class=
+                "command"><strong>whois</strong></span> 客户端，BLFS 手册中有一个更好的
+                <span class="command"><strong>whois</strong></span> 客户端。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-r*</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这些参数禁用过时的程序，由于安全问题，它们不应该被继续使用。它们提供的功能可以由 BLFS 手册中的
+                <span class="application">openssh</span> 软件包代替。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-servers</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项禁用 Inetutils 软件包包含的若干网络服务程序，它们在基本的 LFS
+                系统中注定是不合适的。其中一些服务程序从本质上就不安全，只有在可信的网络环境中才能被认为是安全的。要注意的是，对于其中许多服务程序，都能找到更好的替代品。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译该软件包：
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          运行以下命令以测试编译结果：
+        </p>
+        <pre class="userinput"><kbd class="command">make check</kbd></pre>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            其中一项测试 libls.sh 在初始的 chroot 环境中可能失败，但在 LFS
+            系统构建完成后再重新运行时即可通过。另外，一项名为 ping-localhost.sh 的测试在宿主系统不支持 ipv6
+            时会失败。
+          </p>
+        </div>
+        <p>
+          安装该软件包：
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+        <p>
+          移动一些程序，这样在 <code class="filename">/usr</code> 文件系统不可用时也能使用它们：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">mv -v /usr/bin/{hostname,ping,ping6,traceroute} /bin
+mv -v /usr/bin/ifconfig /sbin</kbd></pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-inetutils" name="contents-inetutils"></a>8.39.2.
+          Inetutils 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">dnsdomainname, ftp, ifconfig, hostname, ping, ping6,
+              talk, telnet, tftp, 以及 traceroute</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要描述
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dnsdomainname" name=
+                    "dnsdomainname"></a><span class="term"><span class=
+                    "command"><strong>dnsdomainname</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示系统的 DNS 域名
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ftp" name="ftp"></a><span class=
+                    "term"><span class="command"><strong>ftp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    文件传输程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="hostname" name="hostname"></a><span class=
+                    "term"><span class=
+                    "command"><strong>hostname</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告或设定主机名称
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ifconfig" name="ifconfig"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ifconfig</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    管理网络接口
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ping" name="ping"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ping</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    发送回显请求数据包并报告响应用时
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ping6" name="ping6"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ping6</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于 IPv6 网络的 <span class=
+                    "command"><strong>ping</strong></span> 版本
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="talk" name="talk"></a><span class=
+                    "term"><span class=
+                    "command"><strong>talk</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于和其他用户聊天
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="telnet" name="telnet"></a><span class=
+                    "term"><span class=
+                    "command"><strong>telnet</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    TELNET 协议的接口
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tftp" name="tftp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>tftp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    简单文件传输程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="traceroute" name="traceroute"></a><span class=
+                    "term"><span class=
+                    "command"><strong>traceroute</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    追踪您的数据包从您工作的主机到网络上另一台主机的路径，显示中间通过的跳跃 (网关)。
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="expat.html" title="Expat-2.2.9">上一页</a>
+          <p>
+            Expat-2.2.9
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="perl.html" title="Perl-5.32.0">下一页</a>
+          <p>
+            Perl-5.32.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200915-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

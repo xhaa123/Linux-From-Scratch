@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.5.&nbsp;创建目录
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200915-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200915-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chroot.html" title="进入 Chroot 环境">上一页</a>
+          <p>
+            进入 Chroot 环境
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="createfiles.html" title=
+          "创建必要的文件和符号链接">下一页</a>
+          <p>
+            创建必要的文件和符号链接
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200915-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-tools-creatingdirs" name="ch-tools-creatingdirs"></a>7.5.
+        创建目录
+      </h1>
+      <p>
+        现在可以在 LFS 文件系统中创建完整的目录结构。
+      </p>
+      <p>
+        首先，执行命令，创建一些位于根目录中的目录，它们不属于之前章节需要的有限目录结构：
+      </p>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          下面给出的一些目录已经在之前使用命令创建，或者在安装一些软件包时被创建。这里出于内容完整性的考虑，仍然给出它们。
+        </p>
+      </div>
+      <pre class="userinput"><kbd class=
+      "command">mkdir -pv /{boot,home,mnt,opt,srv}</kbd></pre>
+      <p>
+        执行以下命令，为这些直接位于根目录中的目录创建次级目录结构：
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">mkdir -pv /etc/{opt,sysconfig}
+mkdir -pv /lib/firmware
+mkdir -pv /media/{floppy,cdrom}
+mkdir -pv /usr/{,local/}{bin,include,lib,sbin,src}
+mkdir -pv /usr/{,local/}share/{color,dict,doc,info,locale,man}
+mkdir -pv /usr/{,local/}share/{misc,terminfo,zoneinfo}
+mkdir -pv /usr/{,local/}share/man/man{1..8}
+mkdir -pv /var/{cache,local,log,mail,opt,spool}
+mkdir -pv /var/lib/{color,misc,locate}
+
+ln -sfv /run /var/run
+ln -sfv /run/lock /var/lock
+
+install -dv -m 0750 /root
+install -dv -m 1777 /tmp /var/tmp</kbd></pre>
+      <p>
+        默认情况下，新创建的目录具有权限码 755，但这并不适合所有目录。在以上命令中，两个目录的访问权限被修改 —— 一个是
+        <code class="systemitem">root</code> 的主目录，另一个是包含临时文件的目录。
+      </p>
+      <p>
+        第一个修改能保证不是所有人都能进入 <code class="filename">/root</code> ——
+        一般用户也可以为他/她的主目录设置同样的 0750 权限码。第二个修改保证任何用户都可写入 <code class=
+        "filename">/tmp</code> 和 <code class="filename">/var/tmp</code>
+        目录，但不能从中删除其他用户的文件，因为所谓的 <span class="quote">“<span class=
+        "quote">粘滞位</span>”</span> (sticky bit)，即八进制权限码 1777 的最高位 (1) 阻止这样做。
+      </p>
+      <div class="sect2" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          7.5.1. FHS 兼容性注记
+        </h2>
+        <p>
+          这个目录树是基于 Filesystem Hierarchy Standard (FHS) (可以在 <a class="ulink"
+          href=
+          "https://refspecs.linuxfoundation.org/fhs.shtml">https://refspecs.linuxfoundation.org/fhs.shtml</a>
+          查阅) 建立的。FHS 标准还规定了某些可选的目录，例如 <code class=
+          "filename">/usr/local/games</code> 和 <code class=
+          "filename">/usr/share/games</code>。我们只创建了必要的目录。不过，如果您需要的话可以自己创建这些可选目录。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chroot.html" title="进入 Chroot 环境">上一页</a>
+          <p>
+            进入 Chroot 环境
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="createfiles.html" title=
+          "创建必要的文件和符号链接">下一页</a>
+          <p>
+            创建必要的文件和符号链接
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200915-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
