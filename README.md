@@ -4,6 +4,7 @@
 
 ### LFS Version 
 **lfs: 20200927-systemd**
+
 **blfs 20200701**
 
 ****
@@ -41,7 +42,7 @@
         PATH=/bin:/usr/bin:/sbin:/usr/sbin \
         /bin/bash --login +h
 
-###　7.5. Creating Directories
+### 7.5. Creating Directories
     mkdir -pv /{boot,home,mnt,opt,srv}
 
     mkdir -pv /etc/{opt,sysconfig}
@@ -127,6 +128,4 @@
     chgrp -v utmp /var/log/lastlog
     chmod -v 664  /var/log/lastlog
     chmod -v 600  /var/log/btmp
-### LFS Version 
-**lfs: 20200619-systemd**
-**blfs 20200701**
+
