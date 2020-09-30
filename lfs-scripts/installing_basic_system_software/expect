@@ -1,0 +1,39 @@
+et -e
+
+
+TMP=${TMP:-$(dirname $0)/Build-TMP}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/sources}
+
+pkgname=expect
+pkgver=5.45.4
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$pkgname$pkgver.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$pkgname$pkgver
+    
+    ./configure --prefix=/usr           \
+                --with-tcl=/usr/lib     \
+                --enable-shared         \
+                --mandir=/usr/share/man \
+                --with-tclinclude=/usr/include
+ 
+    make
+
+    make test
+    
+    make install
+    ln -svf expect$pkgver/libexpect$pkgver.so /usr/lib
+
+    }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

@@ -1,0 +1,44 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/sources}
+
+pkgname=ninja
+pkgver=1.10.1
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$pkgname-$pkgver
+    
+    export NINJAJOBS="$(nproc)"
+    
+    sed -i '/int Guess/a \
+      int   j = 0;\
+      char* jobs = getenv( "NINJAJOBS" );\
+      if ( jobs != NULL ) j = atoi( jobs );\
+      if ( j > 0 ) return j;\
+    ' src/ninja.cc
+            
+    python3 configure.py --bootstrap
+
+    ./ninja ninja_test
+    ./ninja_test --gtest_filter=-SubprocessTest.SetWithLots
+
+    install -vm755 ninja /usr/bin/
+    install -vDm644 misc/bash-completion /usr/share/bash-completion/completions/ninja
+    install -vDm644 misc/zsh-completion  /usr/share/zsh/site-functions/_ninja
+
+    }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

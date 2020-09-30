@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.34.&nbsp;Bash-5.0
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200927-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200927-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;8&nbsp;章&nbsp;安装基本系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="grep.html" title="Grep-3.4">上一页</a>
+          <p>
+            Grep-3.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="libtool.html" title="Libtool-2.4.6">下一页</a>
+          <p>
+            Libtool-2.4.6
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-bash" name="ch-system-bash"></a>8.34. Bash-5.0
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Bash 软件包包含 Bourne-Again SHell。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">估计构建时间:</strong> <span class=
+              "segbody">2.4 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">需要硬盘空间:</strong> <span class=
+              "segbody">48 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          8.34.1. 安装 Bash
+        </h2>
+        <p>
+          整合上游进行的一些修复：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">patch -Np1 -i ../bash-5.0-upstream_fixes-1.patch</kbd></pre>
+        <p>
+          准备编译 Bash：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr                    \
+            --docdir=/usr/share/doc/bash-5.0 \
+            --without-bash-malloc            \
+            --with-installed-readline</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-installed-readline</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项告诉 Bash 使用系统中已经安装的 <code class="filename">readline</code>
+                库，而不是它自己的 readline 版本。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译该软件包：
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          如果不运行测试套件，跳到 <span class="quote">“<span class=
+          "quote">安装该软件包</span>”</span>。
+        </p>
+        <p>
+          为了准备进行测试，确保 <code class="systemitem">tester</code> 用户可以写入源代码目录：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">chown -Rv tester .</kbd></pre>
+        <p>
+          现在以 <code class="systemitem">tester</code> 用户的身份运行测试：
+        </p>
+        <pre class="userinput"><kbd class="command">su tester &lt;&lt; EOF
+PATH=$PATH make tests &lt; $(tty)
+EOF</kbd></pre>
+        <p>
+          安装该软件包，并把主要的可执行文件移动到 <code class="filename">/bin</code>：
+        </p>
+        <pre class="userinput"><kbd class="command">make install
+mv -vf /usr/bin/bash /bin</kbd></pre>
+        <p>
+          执行新编译的 <span class="command"><strong>bash</strong></span> 程序
+          (替换当前正在执行的版本)：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">exec /bin/bash --login +h</kbd></pre>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            上面使用的参数使得 <span class="command"><strong>bash</strong></span>
+            进程是一个可交互的登录 shell，并且仍然禁用散列功能，这样新程序一旦可用就会被找到。
+          </p>
+        </div>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-bash" name="contents-bash"></a>8.34.2. Bash 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">bash, bashbug, 以及 sh (到 bash 的链接)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/usr/include/bash, /usr/lib/bash, 和
+              /usr/share/doc/bash-5.0</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要描述
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bash" name="bash"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bash</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个广泛使用的命令解释器；它在执行命令前对命令行进行多种展开和替换操作，这些操作使得它成为强大的工具。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bashbug" name="bashbug"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bashbug</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个 shell 脚本，用于帮助用户按照电子邮件标准格式编写关于 <span class=
+                    "command"><strong>bash</strong></span> 的 bug 报告
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sh" name="sh"></a><span class="term"><span class=
+                    "command"><strong>sh</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个指向 <span class="command"><strong>bash</strong></span>
+                    程序的符号链接；当以 <span class=
+                    "command"><strong>sh</strong></span> 命令运行时，<span class=
+                    "command"><strong>bash</strong></span> 试图尽可能地模仿
+                    <span class="command"><strong>sh</strong></span>
+                    的历史版本，以符合 POSIX 标准
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="grep.html" title="Grep-3.4">上一页</a>
+          <p>
+            Grep-3.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="libtool.html" title="Libtool-2.4.6">下一页</a>
+          <p>
+            Libtool-2.4.6
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      11.1.&nbsp;收尾工作
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200927-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200927-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;11&nbsp;章&nbsp;尾声
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter11.html" title="尾声">上一页</a>
+          <p>
+            尾声
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="getcounted.html" title="增加 LFS 用户计数">下一页</a>
+          <p>
+            增加 LFS 用户计数
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter11.html" title=
+          "第&nbsp;11&nbsp;章&nbsp;尾声">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-finish-theend" name="ch-finish-theend"></a>11.1. 收尾工作
+      </h1>
+      <p>
+        很好！现在新的 LFS 系统已经安装好了！我们祝愿您的全新的，自定义的 Linux 系统能够成功启动！
+      </p>
+      <p>
+        创建一个 <code class="filename">/etc/lfs-release</code>
+        文件似乎是一个好主意。通过使用它，您 (或者我们，如果您向我们寻求帮助的话) 能够容易地找出当前安装的 LFS
+        系统版本。运行以下命令创建该文件：
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">echo 20200927-systemd &gt; /etc/lfs-release</kbd></pre>
+      <p>
+        后续安装在系统上的软件包可能需要两个描述当前安装的系统的文件，这些软件包可能是二进制包，也可能是需要构建的源代码包。
+      </p>
+      <p>
+        另外，最好创建一个文件，根据 Linux Standards Base (LSB) 的规则显示系统状态。运行命令创建该文件：
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">cat &gt; /etc/lsb-release &lt;&lt; "EOF"
+DISTRIB_ID="Linux From Scratch"
+DISTRIB_RELEASE="20200927-systemd"
+DISTRIB_CODENAME="&lt;your name here&gt;"
+DISTRIB_DESCRIPTION="Linux From Scratch"
+EOF</kbd></pre>
+      <p>
+        第二个文件基本上包含相同的信息，systemd 和一些图形桌面环境会使用它。运行命令创建该文件：
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">cat &gt; /etc/os-release &lt;&lt; "EOF"
+NAME="Linux From Scratch"
+VERSION="20200927-systemd"
+ID=lfs
+PRETTY_NAME="Linux From Scratch 20200927-systemd"
+VERSION_CODENAME="&lt;your name here&gt;"
+EOF</kbd></pre>
+      <p>
+        您可以修改 'DISTRIB_CODENAME' 域，体现您的系统的独特性。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter11.html" title="尾声">上一页</a>
+          <p>
+            尾声
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="getcounted.html" title="增加 LFS 用户计数">下一页</a>
+          <p>
+            增加 LFS 用户计数
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter11.html" title=
+          "第&nbsp;11&nbsp;章&nbsp;尾声">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

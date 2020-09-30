@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.2.&nbsp;Binutils-2.35 - 第一遍
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200927-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200927-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;编译交叉工具链
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="概述">上一页</a>
+          <p>
+            概述
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gcc-pass1.html" title=
+          "GCC-10.2.0 - 第一遍">下一页</a>
+          <p>
+            GCC-10.2.0 - 第一遍
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;编译交叉工具链">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-tools-binutils-pass1" name=
+        "ch-tools-binutils-pass1"></a>5.2. Binutils-2.35 - 第一遍
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Binutils 包含汇编器、链接器以及其他用于处理目标文件的工具。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">估计构建时间:</strong> <span class=
+              "segbody">1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">需要硬盘空间:</strong> <span class=
+              "segbody">617 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          5.2.1. 安装交叉工具链中的 Binutils
+        </h2>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            返回并重新阅读<a class="xref" href=
+            "../partintro/generalinstructions.html" title=
+            "编译过程的一般说明">编译过程的一般说明</a>一节。仔细理解那些标为“重要”的说明，以防止之后出现问题。
+          </p>
+        </div>
+        <p>
+          首先构建 Binutils 相当重要，因为 Glibc 和 GCC
+          都会对可用的链接器和汇编器进行测试，以决定可以启用它们自带的哪些特性。
+        </p>
+        <p>
+          Binutils 文档推荐在一个专用的目录中构建 Binutils：
+        </p>
+        <pre class="userinput"><kbd class="command">mkdir -v build
+cd       build</kbd></pre>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            为了衡量本书其余部分使用的 SBU 值，需要测量本软件包从配置开始直到第一次安装花费的时间。为了容易地完成测量，可以将命令包装在
+            <span class="command"><strong>time</strong></span>
+            命令中，就像这样：<strong class="userinput"><code>time { ../configure ...
+            &amp;&amp; make &amp;&amp; make install; }</code></strong>。
+          </p>
+        </div>
+        <p>
+          现在，准备编译 Binutils：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">../configure --prefix=$LFS/tools       \
+             --with-sysroot=$LFS        \
+             --target=$LFS_TGT          \
+             --disable-nls              \
+             --disable-werror</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--prefix=$LFS/tools</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这告诉配置脚本准备将 Binutils 程序安装在 <code class=
+                "filename">/$LFS/tools</code> 目录中。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-sysroot=$LFS</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项告诉构建系统，交叉编译时在 $LFS 中寻找目标系统的库。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><code class=
+              "envar">--target=$LFS_TGT</code></span>
+            </dt>
+            <dd>
+              <p>
+                由于 <code class="envar">LFS_TGT</code> 变量中的机器描述和 <span class=
+                "command"><strong>config.guess</strong></span> 脚本的输出略有不同,
+                这个开关使得 <span class=
+                "command"><strong>configure</strong></span> 脚本调整 Binutils
+                的构建系统，以构建交叉链接器。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-nls</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项禁用临时工具不需要的国际化功能。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-werror</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项防止宿主系统编译器警告导致构建失败。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          然后编译该软件包：
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          安装该软件包：
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          这个软件包的细节在<a class="xref" href=
+          "../chapter08/binutils.html#contents-binutils" title=
+          "8.18.2.&nbsp;Binutils 的内容">第&nbsp;8.18.2&nbsp;节 “Binutils
+          的内容”</a>中可以找到。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="概述">上一页</a>
+          <p>
+            概述
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gcc-pass1.html" title=
+          "GCC-10.2.0 - 第一遍">下一页</a>
+          <p>
+            GCC-10.2.0 - 第一遍
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;编译交叉工具链">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

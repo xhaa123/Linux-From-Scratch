@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      3.3.&nbsp;必要的补丁
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200927-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200927-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;3&nbsp;章&nbsp;软件包和补丁
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="packages.html" title="全部软件包">上一页</a>
+          <p>
+            全部软件包
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter04/chapter04.html" title=
+          "最后准备工作">下一页</a>
+          <p>
+            最后准备工作
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter03.html" title=
+          "第&nbsp;3&nbsp;章&nbsp;软件包和补丁">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-materials-patches" name="ch-materials-patches"></a>3.3.
+        必要的补丁
+      </h1>
+      <p>
+        除了软件包外，我们还需要一些补丁。有些补丁解决了本应由维护者修复的问题，有些则对软件包进行微小的修改，使得它们更容易使用。构建 LFS
+        系统需要下列补丁：
+      </p>
+      <div class="materials">
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">Autoconf 累积修复补丁 - <span class="token">3.8
+              KB</span>:</span>
+            </dt>
+            <dd>
+              <p>
+                下载地址：<a class="ulink" href=
+                "http://www.linuxfromscratch.org/patches/lfs/development/autoconf-2.69-consolidated_fixes-1.patch">http://www.linuxfromscratch.org/patches/lfs/development/autoconf-2.69-consolidated_fixes-1.patch</a>
+              </p>
+              <p>
+                MD5 校验和：<code class=
+                "literal">3c515415ecdd777990c91e8900279cb9</code>
+              </p>
+            </dd>
+            <dt>
+              <span class="term">Bash 上游修复补丁 - <span class="token">22
+              KB</span>:</span>
+            </dt>
+            <dd>
+              <p>
+                下载地址：<a class="ulink" href=
+                "http://www.linuxfromscratch.org/patches/lfs/development/bash-5.0-upstream_fixes-1.patch">http://www.linuxfromscratch.org/patches/lfs/development/bash-5.0-upstream_fixes-1.patch</a>
+              </p>
+              <p>
+                MD5 校验和：<code class=
+                "literal">c1545da2ad7d78574b52c465ec077ed9</code>
+              </p>
+            </dd>
+            <dt>
+              <span class="term">Bzip2 文档补丁 - <span class="token">1.6
+              KB</span>:</span>
+            </dt>
+            <dd>
+              <p>
+                下载地址：<a class="ulink" href=
+                "http://www.linuxfromscratch.org/patches/lfs/development/bzip2-1.0.8-install_docs-1.patch">http://www.linuxfromscratch.org/patches/lfs/development/bzip2-1.0.8-install_docs-1.patch</a>
+              </p>
+              <p>
+                MD5 校验和：<code class=
+                "literal">6a5ac7e89b791aae556de0f745916f7f</code>
+              </p>
+            </dd>
+            <dt>
+              <span class="term">Coreutils 国际化修复补丁 - <span class="token">166
+              KB</span>:</span>
+            </dt>
+            <dd>
+              <p>
+                下载地址：<a class="ulink" href=
+                "http://www.linuxfromscratch.org/patches/lfs/development/coreutils-8.32-i18n-1.patch">http://www.linuxfromscratch.org/patches/lfs/development/coreutils-8.32-i18n-1.patch</a>
+              </p>
+              <p>
+                MD5 校验和：<code class=
+                "literal">cd8ebed2a67fff2e231026df91af6776</code>
+              </p>
+            </dd>
+            <dt>
+              <span class="term">Glibc FHS 补丁 - <span class="token">2.8
+              KB</span>:</span>
+            </dt>
+            <dd>
+              <p>
+                下载地址：<a class="ulink" href=
+                "http://www.linuxfromscratch.org/patches/lfs/development/glibc-2.32-fhs-1.patch">http://www.linuxfromscratch.org/patches/lfs/development/glibc-2.32-fhs-1.patch</a>
+              </p>
+              <p>
+                MD5 校验和：<code class=
+                "literal">9a5997c3452909b1769918c759eff8a2</code>
+              </p>
+            </dd>
+            <dt>
+              <span class="term">Kbd 退格/删除修复补丁 - <span class="token">12
+              KB</span>:</span>
+            </dt>
+            <dd>
+              <p>
+                下载地址：<a class="ulink" href=
+                "http://www.linuxfromscratch.org/patches/lfs/development/kbd-2.3.0-backspace-1.patch">http://www.linuxfromscratch.org/patches/lfs/development/kbd-2.3.0-backspace-1.patch</a>
+              </p>
+              <p>
+                MD5 校验和：<code class=
+                "literal">f75cca16a38da6caa7d52151f7136895</code>
+              </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <p>
+        以上补丁的总大小：约 208.2 KB
+      </p>
+      <p>
+        除了上述必要的补丁外，LFS 社区还创建了一些可选补丁。它们有的解决了一些微小的问题，有的启用了一些默认没有启用的功能。您可以浏览
+        <a class="ulink" href=
+        "http://www.linuxfromscratch.org/patches/downloads/">http://www.linuxfromscratch.org/patches/downloads/</a>
+        查询 LFS 补丁库，并获取各种适合您需求的补丁。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="packages.html" title="全部软件包">上一页</a>
+          <p>
+            全部软件包
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter04/chapter04.html" title=
+          "最后准备工作">下一页</a>
+          <p>
+            最后准备工作
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter03.html" title=
+          "第&nbsp;3&nbsp;章&nbsp;软件包和补丁">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

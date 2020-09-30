@@ -1,0 +1,731 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.26.&nbsp;GCC-10.2.0
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200927-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200927-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;8&nbsp;章&nbsp;安装基本系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="shadow.html" title="Shadow-4.8.1">上一页</a>
+          <p>
+            Shadow-4.8.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="pkg-config.html" title=
+          "Pkg-config-0.29.2">下一页</a>
+          <p>
+            Pkg-config-0.29.2
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-gcc" name="ch-system-gcc"></a>8.26. GCC-10.2.0
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          GCC 软件包包含 GNU 编译器集合，其中有 C 和 C++ 编译器。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">估计构建时间:</strong> <span class=
+              "segbody">102 SBU (已计入测试时间)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">需要硬盘空间:</strong> <span class=
+              "segbody">4.6 GB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          8.26.1. 安装 GCC
+        </h2>
+        <p>
+          在 x86_64 上构建时，修改存放 64 位库的默认路径为 <span class="quote">“<span class=
+          "quote">lib</span>”</span>:
+        </p>
+        <pre class="userinput"><kbd class="command">case $(uname -m) in
+  x86_64)
+    sed -e '/m64=/s/lib64/lib/' \
+        -i.orig gcc/config/i386/t-linux64
+  ;;
+esac</kbd></pre>
+        <p>
+          GCC 文档推荐在专用的构建目录中构建 GCC：
+        </p>
+        <pre class="userinput"><kbd class="command">mkdir -v build
+cd       build</kbd></pre>
+        <p>
+          准备编译 GCC：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">../configure --prefix=/usr            \
+             LD=ld                    \
+             --enable-languages=c,c++ \
+             --disable-multilib       \
+             --disable-bootstrap      \
+             --with-system-zlib</kbd></pre>
+        <p>
+          请注意，对于其他语言，还有一些尚未满足的依赖项。阅读 <a class="ulink" href=
+          "http://www.linuxfromscratch.org/blfs/view/svn/general/gcc.html">BLFS
+          手册</a>，以了解如何构建 GCC 支持的所有语言。
+        </p>
+        <div class="variablelist">
+          <p class="title">
+            <strong>新的配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>LD=ld</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项使得配置脚本使用之前在本章中构建的 ld，而没有该选项时会使用交叉编译构建的版本。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-system-zlib</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项使得 GCC 链接到系统安装的 Zlib 库，而不是它自带的 Zlib 副本。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译该软件包：
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <div class="admon important">
+          <img alt="[重要]" src="../images/important.png" />
+          <h3>
+            重要
+          </h3>
+          <p>
+            本节中 GCC 的测试套件被认为是关键的，无论如何不能跳过。
+          </p>
+        </div>
+        <p>
+          已知 GCC 测试套件中的一组测试可能耗尽默认栈空间，因此运行测试前要增加栈空间：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">ulimit -s 32768</kbd></pre>
+        <p>
+          以非特权用户身份测试编译结果，但出错时继续执行其他测试：
+        </p>
+        <pre class="userinput"><kbd class="command">chown -Rv tester . 
+su tester -c "PATH=$PATH make -k check"</kbd></pre>
+        <p>
+          输入以下命令查看测试结果的摘要：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">../contrib/test_summary</kbd></pre>
+        <p>
+          如果只想看摘要，将输出用管道送至 <strong class="userinput"><code>grep -A7
+          Summ</code></strong>。
+        </p>
+        <p>
+          可以将结果与 <a class="ulink" href=
+          "http://www.linuxfromscratch.org/lfs/build-logs/development/">http://www.linuxfromscratch.org/lfs/build-logs/development/</a>
+          和 <a class="ulink" href=
+          "https://gcc.gnu.org/ml/gcc-testresults/">https://gcc.gnu.org/ml/gcc-testresults/</a>
+          的结果进行比较。
+        </p>
+        <p>
+          已知有 6 个关于 get_time 的测试会失败。它们似乎与 en_HK locale 有关。
+        </p>
+        <p>
+          另外，与下列文件相关的测试在使用 glibc-2.32 时会失败：asan_test.C,
+          co-ret-17-void-ret-coro.C, pr95519-05-gro.C, pr80166.c。
+        </p>
+        <p>
+          少量意外的失败有时无法避免，GCC 开发者一般知道这类问题，但尚未解决它们。我们可以继续安全地构建系统，除非测试结果和以上 URL
+          的结果截然不同。
+        </p>
+        <p>
+          安装该软件包，并移除一个不需要的目录：
+        </p>
+        <pre class="userinput"><kbd class="command">make install
+rm -rf /usr/lib/gcc/$(gcc -dumpmachine)/10.2.0/include-fixed/bits/</kbd></pre>
+        <p>
+          GCC 构建目录目前属于用户 <code class="systemitem">tester</code>，这会导致安装的头文件目录
+          (及其内容) 具有不正确的所有权。将所有者修改为 <code class="systemitem">root</code> 用户和组：
+        </p>
+        <pre class="userinput"><kbd class="command">chown -v -R root:root \
+    /usr/lib/gcc/*linux-gnu/10.2.0/include{,-fixed}</kbd></pre>
+        <p>
+          创建一个 <a class="ulink" href=
+          "https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s09.html">FHS</a>
+          因 “历史原因” 要求的符号链接。
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">ln -sv ../usr/bin/cpp /lib</kbd></pre>
+        <p>
+          创建一个兼容性符号链接，以支持在构建程序时使用链接时优化 (LTO)：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">install -v -dm755 /usr/lib/bfd-plugins
+ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/10.2.0/liblto_plugin.so \
+        /usr/lib/bfd-plugins/</kbd></pre>
+        <p>
+          现在最终的工具链已经就位，重要的是再次确认编译和链接像我们期望的一样正常工作。我们通过进行一些完整性检查，进行确认：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">echo 'int main(){}' &gt; dummy.c
+cc dummy.c -v -Wl,--verbose &amp;&gt; dummy.log
+readelf -l a.out | grep ': /lib'</kbd></pre>
+        <p>
+          上述命令不应该出现错误，最后一行命令输出的结果应该 (不同平台的动态链接器名称可能不同) 是：
+        </p>
+        <pre class="screen"><code class=
+        "computeroutput">[Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]</code></pre>
+        <p>
+          下面确认我们的设定能够使用正确的启动文件：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log</kbd></pre>
+        <p>
+          以上命令应该输出：
+        </p>
+        <pre class="screen"><code class=
+        "computeroutput">/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crt1.o succeeded
+/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o succeeded
+/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crtn.o succeeded</code></pre>
+        <p>
+          以上结果可能随您的机器体系结构不同而略微不同。差异在于 <code class=
+          "filename">/usr/lib/gcc</code> 之后的目录名。我们关注的重点是，<span class=
+          "command"><strong>gcc</strong></span> 应该找到所有三个 <code class=
+          "filename">crt*.o</code> 文件，它们应该位于 <code class=
+          "filename">/usr/lib</code> 目录中。
+        </p>
+        <p>
+          确认编译器能正确查找头文件：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">grep -B4 '^ /usr/include' dummy.log</kbd></pre>
+        <p>
+          该命令应当输出：
+        </p>
+        <pre class="screen"><code class=
+        "computeroutput">#include &lt;...&gt; search starts here:
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include
+ /usr/local/include
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed
+ /usr/include</code></pre>
+        <p>
+          同样要注意，以您的目标三元组命名的目录由于您体系结构的不同，可能和以上不同。
+        </p>
+        <p>
+          下一步确认新的链接器使用了正确的搜索路径：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'</kbd></pre>
+        <p>
+          那些包含 '-linux-gnu' 的路径应该忽略，除此之外，以上命令应该输出：
+        </p>
+        <pre class="screen"><code class=
+        "computeroutput">SEARCH_DIR("/usr/x86_64-pc-linux-gnu/lib64")
+SEARCH_DIR("/usr/local/lib64")
+SEARCH_DIR("/lib64")
+SEARCH_DIR("/usr/lib64")
+SEARCH_DIR("/usr/x86_64-pc-linux-gnu/lib")
+SEARCH_DIR("/usr/local/lib")
+SEARCH_DIR("/lib")
+SEARCH_DIR("/usr/lib");</code></pre>
+        <p>
+          在 32 位系统上可能显示一些不同的目录。例如，下面是 i686 机器上的输出：
+        </p>
+        <pre class="screen"><code class=
+        "computeroutput">SEARCH_DIR("/usr/i686-pc-linux-gnu/lib32")
+SEARCH_DIR("/usr/local/lib32")
+SEARCH_DIR("/lib32")
+SEARCH_DIR("/usr/lib32")
+SEARCH_DIR("/usr/i686-pc-linux-gnu/lib")
+SEARCH_DIR("/usr/local/lib")
+SEARCH_DIR("/lib")
+SEARCH_DIR("/usr/lib");</code></pre>
+        <p>
+          之后确认我们使用了正确的 libc：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">grep "/lib.*/libc.so.6 " dummy.log</kbd></pre>
+        <p>
+          以上命令应该输出：
+        </p>
+        <pre class="screen"><code class=
+        "computeroutput">attempt to open /lib/libc.so.6 succeeded</code></pre>
+        <p>
+          确认 GCC 使用了正确的动态链接器：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">grep found dummy.log</kbd></pre>
+        <p>
+          以上命令应该输出 (不同平台的动态链接器名称可能不同):
+        </p>
+        <pre class="screen"><code class=
+        "computeroutput">found ld-linux-x86-64.so.2 at /lib/ld-linux-x86-64.so.2</code></pre>
+        <p>
+          如果输出和以上描述不符，或者根本没有输出，那么必然有什么地方出了严重错误。检查并重新跟踪以上步骤，找到问题的原因，并修复它。这里出现的任何问题在继续构建前都必须解决。
+        </p>
+        <p>
+          在确认一切工作良好后，删除测试文件：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">rm -v dummy.c a.out dummy.log</kbd></pre>
+        <p>
+          最后移动一个位置不正确的文件：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">mkdir -pv /usr/share/gdb/auto-load/usr/lib
+mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</kbd></pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-gcc" name="contents-gcc"></a>8.26.2. GCC 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">c++, cc (到 gcc 的链接), cpp, g++, gcc, gcc-ar, gcc-nm,
+              gcc-ranlib, gcov, gcov-dump, 以及 gcov-tool</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libasan.{a,so}, libatomic.{a,so}, libcc1.so,
+              libgcc.a, libgcc_eh.a, libgcc_s.so, libgcov.a, libgomp.{a,so},
+              libitm.{a,so}, liblsan.{a,so}, liblto_plugin.so,
+              libquadmath.{a,so}, libssp.{a,so}, libssp_nonshared.a,
+              libstdc++.{a,so}, libstdc++fs.a, libsupc++.a, libtsan.{a,so},
+              以及 libubsan.{a,so}</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/usr/include/c++, /usr/lib/gcc, /usr/libexec/gcc, 以及
+              /usr/share/gcc-10.2.0</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要描述
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="c" name="c"></a><span class="term"><span class=
+                    "command"><strong>c++</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    C++ 编译器
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="cc" name="cc"></a><span class="term"><span class=
+                    "command"><strong>cc</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    C 编译器
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="cpp" name="cpp"></a><span class=
+                    "term"><span class="command"><strong>cpp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    C 预处理器，编译器使用它展开源文件中的 #include、#define 及类似指令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="g" name="g"></a><span class="term"><span class=
+                    "command"><strong>g++</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    C++ 编译器
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gcc" name="gcc"></a><span class=
+                    "term"><span class="command"><strong>gcc</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    C 编译器
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gcc-ar" name="gcc-ar"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gcc-ar</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <span class="command"><strong>ar</strong></span>
+                    的一个包装器，它在命令行中添加一个插件。这个程序只被用于提供链接时优化功能，对于默认的构建选项来说没有作用。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gcc-nm" name="gcc-nm"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gcc-nm</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <span class="command"><strong>nm</strong></span>
+                    的一个包装器，它在命令行中添加一个插件。这个程序只被用于提供链接时优化功能，对于默认的构建选项来说没有作用。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gcc-ranlib" name="gcc-ranlib"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gcc-ranlib</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <span class="command"><strong>ranlib</strong></span>
+                    的一个包装器，它在命令行中添加一个插件。这个程序只被用于提供链接时优化功能，对于默认的构建选项来说没有作用。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gcov" name="gcov"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gcov</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个覆盖率测试工具；用于分析程序并确定在哪里优化最有效
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gcov-dump" name="gcov-dump"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gcov-dump</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    离线 gcda 和 gcno 性能剖析数据显示工具
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gcov-tool" name="gcov-tool"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gcov-tool</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    离线 gcda 性能剖析预处理工具
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libasan" name="libasan"></a><span class=
+                    "term"><code class="filename">libasan</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    地址完整性检查库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libatomic" name="libatomic"></a><span class=
+                    "term"><code class="filename">libatomic</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    GCC 内建原子操作运行库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libcc1" name="libcc1"></a><span class=
+                    "term"><code class="filename">libcc1</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    C 预处理库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libgcc" name="libgcc"></a><span class=
+                    "term"><code class="filename">libgcc</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含 <span class="command"><strong>gcc</strong></span>
+                    的运行时支持
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libgcov" name="libgcov"></a><span class=
+                    "term"><code class="filename">libgcov</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在 GCC 被指示启动性能剖析时，这个库被链接到程序中
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libgomp" name="libgomp"></a><span class=
+                    "term"><code class="filename">libgomp</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    OpenMP API 的 GNU 实现，用于 C/C++ 和 Fortran 的跨平台共享内存并行编程
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="liblsan" name="liblsan"></a><span class=
+                    "term"><code class="filename">liblsan</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    内存泄露清理检查库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="liblto_plugin" name=
+                    "liblto_plugin"></a><span class="term"><code class=
+                    "filename">liblto_plugin</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    GCC 的链接时优化 (LTO) 插件，使得 GCC 可以进行跨越编译单元的优化
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libquadmath" name="libquadmath"></a><span class=
+                    "term"><code class="filename">libquadmath</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    GCC 四精度数学 API 库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libssp" name="libssp"></a><span class=
+                    "term"><code class="filename">libssp</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含 GCC 的栈溢出保护功能支持子程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libstdc" name="libstdc"></a><span class=
+                    "term"><code class="filename">libstdc++</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    C++ 标准库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libstdcfs" name="libstdcfs"></a><span class=
+                    "term"><code class="filename">libstdc++fs</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    ISO/IEC TS 18822:2015 文件系统库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libsupc" name="libsupc"></a><span class=
+                    "term"><code class="filename">libsupc++</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含 C++ 编程语言支持子程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libtsan" name="libtsan"></a><span class=
+                    "term"><code class="filename">libtsan</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    线程完整性检查库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libubsan" name="libubsan"></a><span class=
+                    "term"><code class="filename">libubsan</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    未定义行为清理检查库
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="shadow.html" title="Shadow-4.8.1">上一页</a>
+          <p>
+            Shadow-4.8.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="pkg-config.html" title=
+          "Pkg-config-0.29.2">下一页</a>
+          <p>
+            Pkg-config-0.29.2
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.32.&nbsp;Bison-3.7.2
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200927-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200927-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;8&nbsp;章&nbsp;安装基本系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gettext.html" title="Gettext-0.21">上一页</a>
+          <p>
+            Gettext-0.21
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="grep.html" title="Grep-3.4">下一页</a>
+          <p>
+            Grep-3.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-bison" name="ch-system-bison"></a>8.32. Bison-3.7.2
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Bison 软件包包含语法分析器生成器。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">估计构建时间:</strong> <span class=
+              "segbody">6.7 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">需要硬盘空间:</strong> <span class=
+              "segbody">54 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          8.32.1. 安装 Bison
+        </h2>
+        <p>
+          准备编译 Bison：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr --docdir=/usr/share/doc/bison-3.7.2</kbd></pre>
+        <p>
+          编译该软件包：
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          如果要测试编译结果 (需要约 5.5 SBU)，运行命令：
+        </p>
+        <pre class="userinput"><kbd class="command">make check</kbd></pre>
+        <p>
+          安装该软件包：
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-bison" name="contents-bison"></a>8.32.2. Bison 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">bison 和 yacc</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">liby.a</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/usr/share/bison</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要描述
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bison" name="bison"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bison</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    根据一组规则，创建一个用于分析文本文件结构的程序；Bison 是 Yacc (Yet Another
+                    Compiler Compiler) 的替代品。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="yacc" name="yacc"></a><span class=
+                    "term"><span class=
+                    "command"><strong>yacc</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <span class="command"><strong>bison</strong></span>
+                    的一个封装器，被那些仍然调用 <span class=
+                    "command"><strong>yacc</strong></span> 而非 <span class=
+                    "command"><strong>bison</strong></span> 的程序使用，它调用
+                    <span class="command"><strong>bison</strong></span> 时附加
+                    <em class="parameter"><code>-y</code></em> 选项。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="liby" name="liby"></a><span class=
+                    "term"><code class="filename">liby</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Yacc 库包含与 Yacc 兼容的 <code class="function">yyerror</code>
+                    和 <code class="function">main</code> 函数实现；它并不是很有用，但 POSIX
+                    需要它
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gettext.html" title="Gettext-0.21">上一页</a>
+          <p>
+            Gettext-0.21
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="grep.html" title="Grep-3.4">下一页</a>
+          <p>
+            Grep-3.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

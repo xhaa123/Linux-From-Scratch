@@ -1,0 +1,33 @@
+#!/bin/bash
+set -e
+
+TMP=${TMP:-$(dirname $0)/Build-TMP}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-$LFS/sources}
+
+mkdir -pv $TMP $LOG
+
+pkgname=bash
+pkgver=5.0
+
+tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
+
+{ time \
+   {
+    
+    cd $TMP/$pkgname-$pkgver
+    ./configure --prefix=/usr                               \
+                --build=$(support/config.guess)             \
+                --host=$LFS_TGT                             \
+                --without-bash-malloc
+    make
+    make DESTDIR=$LFS install
+    mv $LFS/usr/bin/bash $LFS/bin/bash
+    ln -sv bash $LFS/bin/sh
+
+    }
+} 2>&1 | tee $pkgname.log
+
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

@@ -1,0 +1,47 @@
+#!/bin/bash
+set -e
+
+TMP=${TMP:-$(dirname $0)/Build-TMP}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-$LFS/sources}
+
+mkdir -pv $TMP $LOG
+
+pkgname=ncurses
+pkgver=6.2
+
+tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
+
+{ time \
+   {
+    
+    cd $TMP/$pkgname-$pkgver
+    sed -i s/mawk// configure
+    mkdir build
+    pushd build
+      ../configure
+      make -C include
+      make -C progs tic
+    popd
+    ./configure --prefix=/usr                            \
+                --host=$LFS_TGT                          \
+                --build=$(./config.guess)                \
+                --mandir=/usr/share/man                  \
+                --with-manpage-format=normal             \
+                --with-shared                            \
+                --without-debug                          \
+                --without-ada                            \
+                --without-normal                         \
+                --enable-widec
+    make
+    make DESTDIR=$LFS TIC_PATH=$(pwd)/build/progs/tic install
+    echo "INPUT(-lncursesw)" > $LFS/usr/lib/libncurses.so
+    mv -v $LFS/usr/lib/libncursesw.so.6* $LFS/lib
+    ln -sfv ../../lib/$(readlink $LFS/usr/lib/libncursesw.so) $LFS/usr/lib/libncursesw.so
+
+    }
+} 2>&1 | tee $pkgname.log
+
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

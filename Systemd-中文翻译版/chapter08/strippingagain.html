@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.76.&nbsp;再次移除调试符号
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200927-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200927-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;8&nbsp;章&nbsp;安装基本系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="aboutdebug.html" title="关于调试符号">上一页</a>
+          <p>
+            关于调试符号
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="revisedchroot.html" title="清理系统">下一页</a>
+          <p>
+            清理系统
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-strippingagain" name=
+        "ch-system-strippingagain"></a>8.76. 再次移除调试符号
+      </h1>
+      <p>
+        本节是可选的。如果系统不是为程序员设计的，也没有调试系统软件的计划，可以通过从二进制程序和库移除调试符号，将系统的体积减小约 2
+        GB。除了无法再调试全部软件外，这不会造成任何不便。
+      </p>
+      <p>
+        大多数使用以下命令的用户不会遇到什么困难。但是，如果打错了命令，很容易导致新系统无法使用，因此在运行 <span class=
+        "command"><strong>strip</strong></span> 命令前，最好备份 LFS 系统的当前状态。
+      </p>
+      <p>
+        首先将一些库的调试符号保存在单独的文件中。之后在 BLFS 中，如果使用 <a class="ulink" href=
+        "http://www.linuxfromscratch.org/blfs/view/svn//general/valgrind.html">
+        valgrind</a> 或 <a class="ulink" href=
+        "http://www.linuxfromscratch.org/blfs/view/svn//general/gdb.html">gdb</a>
+        运行退化测试，则需要这些调试信息的存在。
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">save_lib="ld-2.32.so libc-2.32.so libpthread-2.32.so libthread_db-1.0.so"
+
+cd /lib
+
+for LIB in $save_lib; do
+    objcopy --only-keep-debug $LIB $LIB.dbg 
+    strip --strip-unneeded $LIB
+    objcopy --add-gnu-debuglink=$LIB.dbg $LIB 
+done    
+
+save_usrlib="libquadmath.so.0.0.0 libstdc++.so.6.0.28
+             libitm.so.1.0.0 libatomic.so.1.2.0" 
+
+cd /usr/lib
+
+for LIB in $save_usrlib; do
+    objcopy --only-keep-debug $LIB $LIB.dbg
+    strip --strip-unneeded $LIB
+    objcopy --add-gnu-debuglink=$LIB.dbg $LIB
+done
+
+unset LIB save_lib save_usrlib</kbd></pre>
+      <p>
+        现在即可移除程序和库的调试符号：
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">find /usr/lib -type f -name \*.a \
+   -exec strip --strip-debug {} ';'
+
+find /lib /usr/lib -type f -name \*.so* ! -name \*dbg \
+   -exec strip --strip-unneeded {} ';'
+
+find /{bin,sbin} /usr/{bin,sbin,libexec} -type f \
+    -exec strip --strip-all {} ';'</kbd></pre>
+      <p>
+        这里会有很多文件被报告为格式无法识别。这些警告可以安全地忽略。它们表明那些文件是脚本文件，而不是二进制文件。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="aboutdebug.html" title="关于调试符号">上一页</a>
+          <p>
+            关于调试符号
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="revisedchroot.html" title="清理系统">下一页</a>
+          <p>
+            清理系统
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

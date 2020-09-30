@@ -1,0 +1,34 @@
+#!/bin/bash
+set -e
+
+TMP=${TMP:-$(dirname $0)/Build-TMP}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-$LFS/sources}
+
+mkdir -pv $TMP $LOG
+
+pkgname=binutils-pass1
+pkgver=2.35
+
+tar xf $SRC/binutils-$pkgver.tar.xz -C $TMP
+
+{ time \
+   {
+    
+    cd $TMP/binutils-$pkgver
+    mkdir -v build
+    cd       build
+    ../configure --prefix=$LFS/tools                    \
+                --with-sysroot=$LFS                     \
+                --target=$LFS_TGT                       \
+                --disable-nls                           \
+                --disable-werror
+    make
+    make install
+
+    }
+} 2>&1 | tee $pkgname.log
+
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

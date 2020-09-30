@@ -1,0 +1,523 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      工具链技术说明
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200927-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200927-systemd，中文翻译版
+      </h4>
+      <h3>
+        重要的提前阅读资料
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="概述">上一页</a>
+          <p>
+            概述
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="generalinstructions.html" title=
+          "编译过程的一般说明">下一页</a>
+          <p>
+            编译过程的一般说明
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="partintro.html" title="重要的提前阅读资料">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-tools-toolchaintechnotes" name=
+        "ch-tools-toolchaintechnotes"></a>ii. 工具链技术说明
+      </h1>
+      <p>
+        本节综合地解释构建方法中的逻辑和技术细节。您现在并不需要立刻理解本节的所有内容，在实际进行构建的过程中，可以更清晰地理解本节的信息。在整个构建过程中，您随时可以回来翻阅本节。
+      </p>
+      <p>
+        <a class="xref" href="../chapter05/chapter05.html" title=
+        "第&nbsp;5&nbsp;章&nbsp;编译交叉工具链">第 5 章</a>和<a class="xref" href=
+        "../chapter06/chapter06.html" title="第&nbsp;6&nbsp;章&nbsp;交叉编译临时工具">第
+        6 章</a>的总目标是构造一个临时环境，它包含一组可靠的，能够与宿主系统完全分离的工具。这样，通过使用 <span class=
+        "command"><strong>chroot</strong></span>
+        命令，其余各章中执行的命令就被限制在这个临时环境中。这确保我们能够干净、顺利地构建 LFS
+        系统。整个构建过程被精心设计，以尽量降低新读者可能面临的风险，同时提供尽可能多的教育价值。
+      </p>
+      <p>
+        构建过程是基于<span class=
+        "emphasis"><em>交叉编译</em></span>过程的。交叉编译通常被用于为一台与本机完全不同的计算机构建编译器及其工具链。这对于
+        LFS
+        并不严格必要，因为新系统运行的机器就是构建它时使用的。但是，交叉编译拥有一项重要优势，即任何交叉编译产生的程序都不可能依赖于宿主环境。
+      </p>
+      <div class="sect2" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="cross-compile" name="cross-compile"></a>关于交叉编译
+        </h2>
+        <p>
+          交叉编译涉及一些概念，值得专门用一节讨论。尽管您可以在初次阅读时跳过本节，但强烈建议您之后回头阅读本节，以完全掌握构建过程。
+        </p>
+        <p>
+          首先我们定义讨论交叉编译时常用的术语：
+        </p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">build</span>
+            </dt>
+            <dd>
+              <p>
+                指构建程序时使用的机器。注意在某些其他章节，这台机器被称为<span class=
+                "quote">“<span class="quote">host</span>”</span>(宿主)。
+              </p>
+            </dd>
+            <dt>
+              <span class="term">host</span>
+            </dt>
+            <dd>
+              <p>
+                指将来会运行被构建的程序的机器。注意这里说的<span class="quote">“<span class=
+                "quote">host</span>”</span>与其他章节使用的“宿主”(host) 一词不同。
+              </p>
+            </dd>
+            <dt>
+              <span class="term">target</span>
+            </dt>
+            <dd>
+              <p>
+                只有编译器使用这个术语。编译器为这台机器产生代码。它可能和 build 与 host 都不同。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          例如，我们考虑下列场景 (有时称为<span class="quote">“<span class="quote">Canadian
+          Cross</span>”</span>)：我们仅在一台运行缓慢的机器上有编译器，称这台机器为 A，这个编译器为
+          ccA。我们还有一台运行较快的机器 (B)，但它没有安装编译器，而我们希望为另一台缓慢的机器 (C) 生成代码。如果要为 C
+          构建编译器，可以通过三个阶段完成：
+        </p>
+        <div class="informaltable">
+          <table class="informaltable" border="1">
+            <colgroup>
+              <col align="center" />
+              <col align="center" />
+              <col align="center" />
+              <col align="center" />
+              <col align="left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th align="center">
+                  阶段
+                </th>
+                <th align="center">
+                  Build
+                </th>
+                <th align="center">
+                  Host
+                </th>
+                <th align="center">
+                  Target
+                </th>
+                <th align="left">
+                  操作描述
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="center">
+                  1
+                </td>
+                <td align="center">
+                  A
+                </td>
+                <td align="center">
+                  A
+                </td>
+                <td align="center">
+                  B
+                </td>
+                <td align="left">
+                  在机器 A 上，使用 ccA 构建交叉编译器 cc1
+                </td>
+              </tr>
+              <tr>
+                <td align="center">
+                  2
+                </td>
+                <td align="center">
+                  A
+                </td>
+                <td align="center">
+                  B
+                </td>
+                <td align="center">
+                  C
+                </td>
+                <td align="left">
+                  在机器 A 上，使用 cc1 构建交叉编译器 cc2
+                </td>
+              </tr>
+              <tr>
+                <td align="center">
+                  3
+                </td>
+                <td align="center">
+                  B
+                </td>
+                <td align="center">
+                  C
+                </td>
+                <td align="center">
+                  C
+                </td>
+                <td align="left">
+                  在机器 B 上，使用 cc2 构建交叉编译器 ccC
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          这样，我们可以为机器 C 使用 cc2 在快速的机器 B 上构建所有其他程序。注意除非 B 能运行为 C
+          编译的程序，我们无法测试编译得到的程序，直到在 C 上运行它。例如，如果要测试 ccC，我们可以增加第四个阶段：
+        </p>
+        <div class="informaltable">
+          <table class="informaltable" border="1">
+            <colgroup>
+              <col align="center" />
+              <col align="center" />
+              <col align="center" />
+              <col align="center" />
+              <col align="left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th align="center">
+                  阶段
+                </th>
+                <th align="center">
+                  Build
+                </th>
+                <th align="center">
+                  Host
+                </th>
+                <th align="center">
+                  Target
+                </th>
+                <th align="left">
+                  操作描述
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="center">
+                  4
+                </td>
+                <td align="center">
+                  C
+                </td>
+                <td align="center">
+                  C
+                </td>
+                <td align="center">
+                  C
+                </td>
+                <td align="left">
+                  在机器 C 上，用 ccC 重新构建它本身，并测试
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          在上面的例子中，只有 cc1 和 cc2 是交叉编译器，它们为与它们本身运行的机器不同的机器产生代码。而另外的编译器 ccA 和
+          ccC 为它们本身运行的机器产生代码，它们称为<span class=
+          "emphasis"><em>本地</em></span>编译器。
+        </p>
+      </div>
+      <div class="sect2" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="lfs-cross" name="lfs-cross"></a>LFS 的交叉编译实现
+        </h2>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            几乎所有构建系统都使用形如
+            CPU-供应商-内核-操作系统，称为三元组的名称表示目标机器。好奇的读者可能感到奇怪，为什么一个<span class=
+            "quote">“<span class=
+            "quote">三元组</span>”</span>却包含四个部分。这是历史遗留的：最早，三个部分就足以无歧义地描述一台机器。但是随着新的机器和系统不断出现，最终证明三个部分是不够的。然而，<span class="quote">“<span class="quote">三元组</span>”</span>这个术语保留了下来。有一种简单方法可以获得您的机器的三元组，即运行许多软件包附带的
+            <span class="command"><strong>config.guess</strong></span> 脚本。解压缩
+            Binutils 源码，然后运行脚本：<strong class=
+            "userinput"><code>./config.guess</code></strong>，观察输出。例如，对于 32 位
+            Intel 处理器，输出应该是 <span class=
+            "emphasis"><em>i686-pc-linux-gnu</em></span>，而对于 64 位系统输出应该是
+            <span class="emphasis"><em>x86_64-pc-linux-gnu</em></span>。
+          </p>
+          <p>
+            另外注意平台的动态链接器的名称，它又被称为动态加载器 (不要和 Binutils 中的普通链接器 <span class=
+            "command"><strong>ld</strong></span> 混淆)。动态链接器由 Glibc
+            提供，它寻找并加载程序所需的共享库，为程序运行做好准备，然后运行程序。在 32 位 Intel 机器上动态链接器的名称是
+            <code class="filename">ld-linux.so.2</code> (在 64 位系统上是
+            <code class=
+            "filename">ld-linux-x86-64.so.2</code>)。一个确定动态链接器名称的准确方法是从宿主系统找一个二进制可执行文件，然后执行：<strong class="userinput"><code>readelf
+            -l &lt;二进制文件名&gt; | grep interpreter</code></strong>
+            并观察输出。包含所有平台的权威参考可以在 Glibc 源码树根目录的 <code class=
+            "filename">shlib-versions</code> 文件中找到。
+          </p>
+        </div>
+        <p>
+          为了将本机伪装成交叉编译目标机器，我们在 <code class="envar">LFS_TGT</code>
+          变量中，对宿主系统三元组的 "vendor" 域进行修改。我们还会在构建交叉链接器和交叉编译器时使用 <em class=
+          "parameter"><code>--with-sysroot</code></em> 选项，指定查找所需的 host
+          系统文件的位置。这保证在<a class="xref" href="../chapter06/chapter06.html"
+          title="第&nbsp;6&nbsp;章&nbsp;交叉编译临时工具">第 6 章</a>中的其他程序在构建时不会链接到宿主
+          (build) 系统的库。前两个阶段是必要的，第三个阶段可以用于测试：
+        </p>
+        <div class="informaltable">
+          <table class="informaltable" border="1">
+            <colgroup>
+              <col align="center" />
+              <col align="center" />
+              <col align="center" />
+              <col align="center" />
+              <col align="left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th align="center">
+                  阶段
+                </th>
+                <th align="center">
+                  Build
+                </th>
+                <th align="center">
+                  Host
+                </th>
+                <th align="center">
+                  Target
+                </th>
+                <th align="left">
+                  操作描述
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="center">
+                  1
+                </td>
+                <td align="center">
+                  pc
+                </td>
+                <td align="center">
+                  pc
+                </td>
+                <td align="center">
+                  lfs
+                </td>
+                <td align="left">
+                  在 pc 上使用 cc-pc 构建交叉编译器 cc1
+                </td>
+              </tr>
+              <tr>
+                <td align="center">
+                  2
+                </td>
+                <td align="center">
+                  pc
+                </td>
+                <td align="center">
+                  lfs
+                </td>
+                <td align="center">
+                  lfs
+                </td>
+                <td align="left">
+                  在 pc 上使用 cc1 构建 cc-lfs
+                </td>
+              </tr>
+              <tr>
+                <td align="center">
+                  3
+                </td>
+                <td align="center">
+                  lfs
+                </td>
+                <td align="center">
+                  lfs
+                </td>
+                <td align="center">
+                  lfs
+                </td>
+                <td align="left">
+                  在 lfs 上使用 cc-lfs 重新构建并测试它本身
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          在上表中，<span class="quote">“<span class="quote">在 pc 上</span>”</span>
+          意味着命令在已经安装好的发行版中执行。<span class="quote">“<span class="quote">在 lfs
+          上</span>”</span> 意味着命令在 chroot 环境中执行。
+        </p>
+        <p>
+          现在，关于交叉编译，还有更多要处理的问题：C 语言并不仅仅由一个编译器实现，它还规定了一个标准库。在本书中，我们使用 GNU C
+          运行库，即 glibc。它必须为 lfs 目标机器使用交叉编译器 cc1
+          编译。但是，编译器本身使用一个库，实现汇编指令集并不支持的一些复杂指令。这个内部库称为 libgcc，它必须链接到 glibc
+          库才能实现完整功能！另外，C++ 标准库 (libstdc++) 也必须链接到
+          glibc。为了解决这个”先有鸡还是先有蛋“的问题，只能先构建一个降级的 cc1，它的 libgcc
+          缺失线程和异常等功能，再用这个降级的编译器构建 glibc (这不会导致 glibc 缺失功能)，再构建
+          libstdc++。但是这种方法构建的 libstdc++ 和 libgcc 一样，会缺失一些功能。
+        </p>
+        <p>
+          讨论还没有结束：上面一段的结论是 cc1 无法构建功能完整的 libstdc++，但这是我们在阶段 2 构建 C/C++
+          库时唯一可用的编译器！当然，在阶段 2 中构建的编译器 cc-lfs 将会可以构建这些库，但是 (1) GCC
+          构建系统不知道这个编译器在 pc 上可以使用，而且 (2) 它是一个本地编译器，因此在 pc 上使用它可能产生链接到 pc
+          (宿主系统) 库的风险。因此我们必须在进入 chroot 后再次构建 libstdc++。
+        </p>
+      </div>
+      <div class="sect2" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="other-details" name="other-details"></a>构建过程的其他细节
+        </h2>
+        <p>
+          交叉编译器会被安装在独立的 <code class="filename">$LFS/tools</code>
+          目录，因为它不属于最终构建的系统。
+        </p>
+        <p>
+          我们首先安装 Binutils。这是由于 GCC 和 Glibc 的 <span class=
+          "command"><strong>configure</strong></span>
+          脚本首先测试汇编器和链接器的一些特性，以决定启用或禁用一些软件特性。初看起来这并不重要，但没有正确配置的 GCC 或者 Glibc
+          可以导致工具链中潜伏的故障。这些故障可能到整个构建过程快要结束时才突然爆发，不过在花费大量无用功之前，测试套件的失败可以将这类错误凸显出来。
+        </p>
+        <p>
+          Binutils 将汇编器和链接器安装在两个位置，一个是 <code class=
+          "filename">$LFS/tools/bin</code>，另一个是 <code class=
+          "filename">$LFS/tools/$LFS_TGT/bin</code>。这两个位置中的工具互为硬链接。链接器的一项重要属性是它搜索库的顺序，通过向
+          <span class="command"><strong>ld</strong></span> 命令加入 <em class=
+          "parameter"><code>--verbose</code></em>
+          参数，可以得到关于搜索路径的详细信息。例如，<span class="command"><strong>ld --verbose |
+          grep SEARCH</strong></span> 会输出当前的搜索路径及其顺序。此外，通过编译一个样品 (dummy)
+          程序并向链接器 <span class="command"><strong>ld</strong></span> 传递
+          <em class="parameter"><code>--verbose</code></em>
+          参数，可以知道哪些文件被链接。例如，<span class="command"><strong>gcc dummy.c
+          -Wl,--verbose 2&gt;&amp;1 | grep succeeded</strong></span>
+          将显示所有在链接过程中被成功打开的文件。
+        </p>
+        <p>
+          下一步安装 GCC。在执行它的 <span class=
+          "command"><strong>configure</strong></span> 脚本时，您会看到类似下面这样的输出：
+        </p>
+        <pre class="screen"><code class=
+        "computeroutput">checking what assembler to use... /tools/i686-lfs-linux-gnu/bin/as
+checking what linker to use... /mnt/lfs/tools/i686-lfs-linux-gnu/bin/ld</code></pre>
+        <p>
+          基于我们上面论述的原因，这些输出非常重要。这说明 GCC 的配置脚本没有在 PATH 变量指定的目录中搜索工具。然而，在
+          <span class="command"><strong>gcc</strong></span>
+          的实际运行中，未必会使用同样的搜索路径。为了查询 <span class=
+          "command"><strong>gcc</strong></span>
+          会使用哪个链接器，需要执行以下命令：<span class="command"><strong>$LFS_TGT-gcc
+          -print-prog-name=ld</strong></span>。
+        </p>
+        <p>
+          通过向 <span class="command"><strong>gcc</strong></span> 传递 <em class=
+          "parameter"><code>-v</code></em>
+          参数，可以知道在编译样品程序时发生的细节。例如，<span class="command"><strong>gcc -v
+          dummy.c</strong></span> 会输出预处理、编译和汇编阶段中的详细信息，包括 <span class=
+          "command"><strong>gcc</strong></span> 的包含文件搜索路径和顺序。
+        </p>
+        <p>
+          下一步安装“净化的” (sanitized) Linux API 头文件。这允许 C 标准库 (Glibc) 与 Linux
+          内核提供的各种特性交互。
+        </p>
+        <p>
+          下一步安装 Glibc。在构建 Glibc 时需要着重考虑编译器，二进制工具，以及内核头文件。编译器一般不成问题，Glibc
+          总是使用传递给配置脚本的 <em class="parameter"><code>--host</code></em>
+          参数相关的编译器。例如，在我们的例子中，使用的编译器是 <span class=
+          "command"><strong>$LFS_TGT-gcc</strong></span>。但二进制工具和内核头文件的问题比较复杂。安全起见，我们使用配置脚本提供的开关，保证正确的选择。在
+          <span class="command"><strong>configure</strong></span>
+          脚本运行完成后，可以检查 <code class="filename">build</code> 目录中的 <code class=
+          "filename">config.make</code> 文件，了解全部重要的细节。注意参数 <em class=
+          "parameter"><code>CC="$LFS_TGT-gcc"</code></em> (其中 <code class=
+          "envar">$LFS_TGT</code> 会被展开) 控制构建系统使用正确的二进制工具，而参数 <em class=
+          "parameter"><code>-nostdinc</code></em> 和 <em class=
+          "parameter"><code>-isystem</code></em> 控制编译器的包含文件搜索路径。这些事项凸显了 Glibc
+          软件包的一个重要性质 —— 它的构建机制是相当自给自足的，通常不依赖于工具链默认值。
+        </p>
+        <p>
+          正如前文所述，接下来构建 C++ 标准库，然后是<a class="xref" href=
+          "../chapter06/chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;交叉编译临时工具">第 6
+          章</a>中那些需要自身才能构建的程序后。在安装这些软件包时使用 <code class="envar">DESTDIR</code>
+          变量，将它安装到 LFS 文件系统中。
+        </p>
+        <p>
+          在<a class="xref" href="../chapter06/chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;交叉编译临时工具">第 6 章</a>一节的末尾，构建 lfs
+          本地编译器。首先使用和其他程序相同的 <code class="envar">DESTDIR</code> 第二次构建
+          binutils，然后第二次构建 GCC，构建时忽略 libstdc++ 和其他不重要的库。由于 GCC
+          配置脚本的一些奇怪逻辑，<code class="envar">CC_FOR_TARGET</code> 变量在 host 系统和
+          target 相同，但与 build 不同时，被设定为 <span class=
+          "command"><strong>cc</strong></span>。因此我们必须显式地在配置选项中指定 <em class=
+          "parameter"><code>CC_FOR_TARGET=$LFS_TGT-gcc</code></em>。
+        </p>
+        <p>
+          在<a class="xref" href="../chapter07/chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具">第 7 章</a>中，进入 chroot
+          环境后，首先安装
+          libstdc++。之后临时性地安装工具链的正常工作所必须的程序。还要构建测试其他程序时必须的程序。此后，核心工具链成为自包含的本地工具链。在<a class="xref"
+          href="../chapter08/chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">第 8
+          章</a>中，构建、测试并最后一次安装所有软件包，它们组成功能完整的系统。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="概述">上一页</a>
+          <p>
+            概述
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="generalinstructions.html" title=
+          "编译过程的一般说明">下一页</a>
+          <p>
+            编译过程的一般说明
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="partintro.html" title="重要的提前阅读资料">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

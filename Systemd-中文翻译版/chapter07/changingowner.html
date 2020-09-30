@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.2.&nbsp;改变所有者
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200927-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200927-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="概述">上一页</a>
+          <p>
+            概述
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="kernfs.html" title="准备虚拟内核文件系统">下一页</a>
+          <p>
+            准备虚拟内核文件系统
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-tools-changingowner" name="ch-tools-changingowner"></a>7.2.
+        改变所有者
+      </h1>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          本书中后续的所有命令都应该在以 <code class="systemitem">root</code> 用户登录的情况下完成，而不是
+          <code class="systemitem">lfs</code> 用户。另外，请再次检查 <code class=
+          "envar">$LFS</code> 变量已经在 <code class="systemitem">root</code>
+          用户的环境中设定好。
+        </p>
+      </div>
+      <p>
+        目前，<code class="filename">$LFS</code> 中整个目录树的所有者都是 <code class=
+        "systemitem">lfs</code>，这个用户只在宿主系统存在。如果不改变 <code class=
+        "filename">$LFS</code> 中文件和目录的所有权，它们会被一个没有对应账户的用户 ID
+        所有。这是危险的，因为后续创建的新用户可能获得这个用户 ID，并成为 <code class="filename">$LFS</code>
+        中全部文件的所有者，从而产生恶意操作这些文件的可能。
+      </p>
+      <p>
+        为了避免这样的问题，执行以下命令，将 <code class="filename">$LFS/*</code> 目录的所有者改变为
+        <code class="systemitem">root</code>：
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">chown -R root:root $LFS/{usr,lib,var,etc,bin,sbin,tools}
+case $(uname -m) in
+  x86_64) chown -R root:root $LFS/lib64 ;;
+esac</kbd></pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="概述">上一页</a>
+          <p>
+            概述
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="kernfs.html" title="准备虚拟内核文件系统">下一页</a>
+          <p>
+            准备虚拟内核文件系统
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

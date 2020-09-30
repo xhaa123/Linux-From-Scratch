@@ -1,0 +1,38 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/sources}
+
+pkgname=bash
+pkgver=5.0
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$pkgname-$pkgver
+    
+    patch -Np1 -i $SRC/$pkgname-$pkgver-upstream_fixes-1.patch
+
+    ./configure --prefix=/usr                    \
+                --docdir=/usr/share/doc/$pkgname-$pkgver \
+                --without-bash-malloc            \
+                --with-installed-readline
+
+    make
+
+    make install
+    mv -vf /usr/bin/bash /bin
+
+    }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

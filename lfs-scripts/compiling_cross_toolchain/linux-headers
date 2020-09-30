@@ -1,0 +1,30 @@
+#!/bin/bash
+set -e
+
+TMP=${TMP:-$(dirname $0)/Build-TMP}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-$LFS/sources}
+
+mkdir -pv $TMP $LOG
+
+pkgname=linux-headers
+pkgver=5.8.12
+
+tar xf $SRC/linux-$pkgver.tar.xz -C $TMP 
+
+{ time \
+   {
+
+    cd $TMP/linux-$pkgver
+    make mrproper
+    make headers
+    find usr/include -name '.*' -delete
+    rm usr/include/Makefile
+    cp -rv usr/include $LFS/usr
+
+    }
+} 2>&1 | tee $pkgname.log
+
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

@@ -1,8 +1,5 @@
 cat > ~/.bash_profile << "EOF"
-exec env -i \
-    HOME=$HOME TERM=$TERM \
-    PS1="\[\e[37;40m\][\[\e[32;40m\]\u\[\e[37;40m\]@\h \[\e[36;40m\]\w\[\e[0m\]]\\$ " \
-    /bin/bash
+exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash
 EOF
 
 cat > ~/.bashrc << "EOF"
@@ -14,13 +11,13 @@ LFS_TGT=$(uname -m)-lfs-linux-gnu
 PATH=/usr/bin
 if [ ! -L /bin ]; then PATH=/bin:$PATH; fi
 PATH=$LFS/tools/bin:$PATH
-MAKEFLAGS="-j$$(nproc)"
-export LFS LC_ALL LFS_TGT PATH MAKEFLAGS
+CONFIG_SITE=$LFS/usr/share/config.site
+export LFS LC_ALL LFS_TGT PATH CONFIG_SITE
+
+export MAKEFLAGS="-j$(nproc)"
 
 alias ls='ls --color=auto'
-alias ll='ls -F -b -T 0 --group-directories-first --color=auto --format=long --time-style="+%%y-%m-%d %H:%M:%S" --human-readable'
-egrep='egrep --color=auto'
-grep='grep --color=auto'
+alias ll='ls -F -b -T 0 --group-directories-first --color=auto --format=long --time-style="+%y-%m-%d %H:%M:%S" --human-readable'
 
 EOF
 

@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.11.&nbsp;Python-3.8.5
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200927-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200927-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="perl.html" title="Perl-5.32.0">上一页</a>
+          <p>
+            Perl-5.32.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="texinfo.html" title="Texinfo-6.7">下一页</a>
+          <p>
+            Texinfo-6.7
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-tools-Python" name="ch-tools-Python"></a>7.11. Python-3.8.5
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Python 3 软件包包含 Python 开发环境。它被用于面向对象编程，编写脚本，为大型程序建立原型，或者开发完整的应用。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">估计构建时间:</strong> <span class=
+              "segbody">1.2 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">需要硬盘空间:</strong> <span class=
+              "segbody">353 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          7.11.1. 安装 Python
+        </h2>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            该软件包包含两个以 <span class="quote">“<span class=
+            "quote">python</span>”</span> 开头的压缩包。我们应该解压的包是 <code class=
+            "filename">Python-3.8.5.tar.xz</code> (注意首字母是大写的)。
+          </p>
+        </div>
+        <p>
+          准备编译 Python：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr   \
+            --enable-shared \
+            --without-ensurepip</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-shared</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项防止安装静态库。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--without-ensurepip</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项禁止构建 Python 软件包安装器，它在当前阶段没有必要。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译该软件包：
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          安装该软件包：
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          关于该软件包的详细信息可以在<a class="xref" href=
+          "../chapter08/Python.html#contents-python" title=
+          "8.49.2.&nbsp;Python 3 的内容">第&nbsp;8.49.2&nbsp;节 “Python 3
+          的内容”</a>中找到。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="perl.html" title="Perl-5.32.0">上一页</a>
+          <p>
+            Perl-5.32.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="texinfo.html" title="Texinfo-6.7">下一页</a>
+          <p>
+            Texinfo-6.7
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

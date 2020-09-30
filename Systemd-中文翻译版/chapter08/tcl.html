@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.4.&nbsp;Tcl-8.6.10
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200927-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200927-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;8&nbsp;章&nbsp;安装基本系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="man-pages.html" title=
+          "Man-pages-5.08">上一页</a>
+          <p>
+            Man-pages-5.08
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="expect.html" title="Expect-5.45.4">下一页</a>
+          <p>
+            Expect-5.45.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-tools-tcl" name="ch-tools-tcl"></a>8.4. Tcl-8.6.10
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          <span class="application">Tcl</span>
+          软件包包含工具命令语言，它是一个可靠的通用脚本语言。<span class="application">Except</span>
+          软件包是用 <span class="application">Tcl</span> 语言编写的.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">估计构建时间:</strong> <span class=
+              "segbody">4.0 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">需要硬盘空间:</strong> <span class=
+              "segbody">83 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          8.4.1. 安装 Tcl
+        </h2>
+        <p>
+          为了支持 GCC 和 Binutils 等软件包测试套件的运行，需要安装这个软件包和接下来的两个 (Expect 与
+          DejaGNU)。为了测试目的安装三个软件包看似浪费，但是只有运行了测试，才能放心地确定多数重要工具可以正常工作，即使测试不是必要的。我们必须安装这些软件包，才能执行本章中的测试套件。
+        </p>
+        <p>
+          首先，运行以下命令解压文档：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">tar -xf ../tcl8.6.10-html.tar.gz --strip-components=1</kbd></pre>
+        <p>
+          准备编译 Tcl：
+        </p>
+        <pre class="userinput"><kbd class="command">SRCDIR=$(pwd)
+cd unix
+./configure --prefix=/usr           \
+            --mandir=/usr/share/man \
+            $([ "$(uname -m)" = x86_64 ] &amp;&amp; echo --enable-64bit)</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class="parameter"><code>$([ "$(uname
+              -m)" = x86_64 ] &amp;&amp; echo
+              --enable-64bit)</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                <em class="parameter"><code>$(&lt;shell 命令&gt;)</code></em>
+                会被 shell 替换为 shell 命令的输出。这里，如果在 32 位机器上，输出是空的，而如果在 64
+                位机器上，输出是 <em class=
+                "parameter"><code>--enable-64bit</code></em>。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          构建该软件包：
+        </p>
+        <pre class="userinput"><kbd class="command">make
+
+sed -e "s|$SRCDIR/unix|/usr/lib|" \
+    -e "s|$SRCDIR|/usr/include|"  \
+    -i tclConfig.sh
+
+sed -e "s|$SRCDIR/unix/pkgs/tdbc1.1.1|/usr/lib/tdbc1.1.1|" \
+    -e "s|$SRCDIR/pkgs/tdbc1.1.1/generic|/usr/include|"    \
+    -e "s|$SRCDIR/pkgs/tdbc1.1.1/library|/usr/lib/tcl8.6|" \
+    -e "s|$SRCDIR/pkgs/tdbc1.1.1|/usr/include|"            \
+    -i pkgs/tdbc1.1.1/tdbcConfig.sh
+
+sed -e "s|$SRCDIR/unix/pkgs/itcl4.2.0|/usr/lib/itcl4.2.0|" \
+    -e "s|$SRCDIR/pkgs/itcl4.2.0/generic|/usr/include|"    \
+    -e "s|$SRCDIR/pkgs/itcl4.2.0|/usr/include|"            \
+    -i pkgs/itcl4.2.0/itclConfig.sh
+
+unset SRCDIR</kbd></pre>
+        <p>
+          <span class="quote">“<span class=
+          "quote">make</span>”</span>命令之后的若干<span class="quote">“<span class=
+          "quote">sed</span>”</span>命令从配置文件中删除构建目录，并用安装目录替换它们。构建 LFS
+          的后续过程不对此严格要求，但如果之后构建使用 Tcl 的软件包，则可能需要这样的操作。
+        </p>
+        <p>
+          运行以下命令，以测试编译结果：
+        </p>
+        <pre class="userinput"><kbd class="command">make test</kbd></pre>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            在测试结果中，一些与 clock.test 相关的输出会显示测试失败，但是最终给出的测试结果摘要显示没有发生测试失败。clock
+            测试在完整的 LFS 系统上正常通过。
+          </p>
+        </div>
+        <p>
+          安装该软件包：
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+        <p>
+          将安装好的库加上写入权限，以便将来移除调试符号：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">chmod -v u+w /usr/lib/libtcl8.6.so</kbd></pre>
+        <p>
+          安装 Tcl 的头文件。下一个软件包 Expect 需要它们才能构建。
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">make install-private-headers</kbd></pre>
+        <p>
+          创建一个必要的符号链接：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">ln -sfv tclsh8.6 /usr/bin/tclsh</kbd></pre>
+        <p>
+          最后，重命名一个与 Perl man 页面文件名冲突的 man 页面：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">mv /usr/share/man/man3/{Thread,Tcl_Thread}.3</kbd></pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-tcl" name="contents-tcl"></a>8.4.2. Tcl 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">tclsh (到 tclsh8.6 的链接) 和 tclsh8.6</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libtcl8.6.so 和 libtclstub8.6.a</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要描述
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tclsh8.6" name="tclsh8.6"></a><span class=
+                    "term"><span class=
+                    "command"><strong>tclsh8.6</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Tcl 命令行 shell
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tclsh" name="tclsh"></a><span class=
+                    "term"><span class=
+                    "command"><strong>tclsh</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个指向 tclsh8.6 的链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libtcl8.6.so" name="libtcl8.6.so"></a><span class=
+                    "term"><code class="filename">libtcl8.6.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Tcl 运行库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libtclstub8.6.a" name=
+                    "libtclstub8.6.a"></a><span class="term"><code class=
+                    "filename">libtclstub8.6.a</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Tcl 端桩库
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="man-pages.html" title=
+          "Man-pages-5.08">上一页</a>
+          <p>
+            Man-pages-5.08
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="expect.html" title="Expect-5.45.4">下一页</a>
+          <p>
+            Expect-5.45.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

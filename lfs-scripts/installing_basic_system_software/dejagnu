@@ -1,0 +1,37 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$(dirname $0)/Build-TMP}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/sources}
+
+pkgname=dejagnu
+pkgver=1.6.2
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$pkgname-$pkgver
+    
+    ./configure --prefix=/usr
+    makeinfo --html --no-split -o doc/dejagnu.html doc/dejagnu.texi
+    makeinfo --plaintext       -o doc/dejagnu.txt  doc/dejagnu.texi
+            
+    make install
+    install -v -dm755  /usr/share/doc/$pkgname-$pkgver
+    install -v -m644   doc/dejagnu.{html,txt} /usr/share/doc/$pkgname-$pkgver
+
+    make check
+
+    }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

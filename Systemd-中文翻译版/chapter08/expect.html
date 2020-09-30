@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.5.&nbsp;Expect-5.45.4
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200927-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200927-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;8&nbsp;章&nbsp;安装基本系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="tcl.html" title="Tcl-8.6.10">上一页</a>
+          <p>
+            Tcl-8.6.10
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="dejagnu.html" title="DejaGNU-1.6.2">下一页</a>
+          <p>
+            DejaGNU-1.6.2
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-tools-expect" name="ch-tools-expect"></a>8.5. Expect-5.45.4
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          <span class="application">Expect</span> 软件包包含通过脚本控制的对话，自动化
+          <span class="command"><strong>telnet</strong></span>，<span class=
+          "command"><strong>ftp</strong></span>，<span class=
+          "command"><strong>passwd</strong></span>，<span class=
+          "command"><strong>fsck</strong></span>，<span class=
+          "command"><strong>rlogin</strong></span>，以及 <span class=
+          "command"><strong>tip</strong></span> 等交互应用的工具。<span class=
+          "application">Expect</span>
+          对于测试这类程序也很有用，它简化了这类通过其他方式很难完成的工作。<span class=
+          "application">DejaGnu</span> 框架是使用 <span class=
+          "application">Expect</span> 编写的。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">估计构建时间:</strong> <span class=
+              "segbody">0.2 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">需要硬盘空间:</strong> <span class=
+              "segbody">3.9 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          8.5.1. 安装 Expect
+        </h2>
+        <p>
+          准备编译 Expect：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr           \
+            --with-tcl=/usr/lib     \
+            --enable-shared         \
+            --mandir=/usr/share/man \
+            --with-tclinclude=/usr/include</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-tcl=/usr/lib</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                需要使用该选项告知 <span class=
+                "command"><strong>configure</strong></span> 配置脚本 <span class=
+                "command"><strong>tclConfig.sh</strong></span> 的位置。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-tclinclude=/usr/include</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项显式指定查找 Tcl 内部头文件的位置。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          构建该软件包：
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          运行以下命令，以测试编译结果：
+        </p>
+        <pre class="userinput"><kbd class="command">make test</kbd></pre>
+        <p>
+          安装该软件包：
+        </p>
+        <pre class="userinput"><kbd class="command">make install
+ln -svf expect5.45.4/libexpect5.45.4.so /usr/lib</kbd></pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-expect" name="contents-expect"></a>8.5.2. Expect
+          的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">expect</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libexpect-5.45.so</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要描述
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="expect" name="expect"></a><span class=
+                    "term"><span class=
+                    "command"><strong>expect</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    根据一个脚本与其他交互程序交流
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libexpect" name="libexpect"></a><span class=
+                    "term"><code class=
+                    "filename">libexpect-5.45.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含一些函数，使得 Expect 可以作为 Tcl 扩展使用，也可以直接在 C 或 C++ 中使用 (不使用
+                    Tcl)
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="tcl.html" title="Tcl-8.6.10">上一页</a>
+          <p>
+            Tcl-8.6.10
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="dejagnu.html" title="DejaGNU-1.6.2">下一页</a>
+          <p>
+            DejaGNU-1.6.2
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

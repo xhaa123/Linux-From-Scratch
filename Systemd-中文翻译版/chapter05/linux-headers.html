@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.4.&nbsp;Linux-5.8.9 API 头文件
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200927-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200927-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;编译交叉工具链
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gcc-pass1.html" title=
+          "GCC-10.2.0 - 第一遍">上一页</a>
+          <p>
+            GCC-10.2.0 - 第一遍
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="glibc.html" title="Glibc-2.32">下一页</a>
+          <p>
+            Glibc-2.32
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;编译交叉工具链">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-tools-linux-headers" name="ch-tools-linux-headers"></a>5.4.
+        Linux-5.8.9 API 头文件
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Linux API 头文件 (在 linux-5.8.9.tar.xz 中) 导出内核 API 供 Glibc 使用。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">估计构建时间:</strong> <span class=
+              "segbody">0.2 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">需要硬盘空间:</strong> <span class=
+              "segbody">3.8 GB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          5.4.1. 安装 Linux API 头文件
+        </h2>
+        <p>
+          Linux 内核需要导出一个应用程序编程接口 (API) 供系统的 C 运行库 (例如 LFS 中的 Glibc)
+          使用。这通过净化内核源码包中提供的若干 C 头文件完成。
+        </p>
+        <p>
+          确保软件包中没有遗留陈旧的文件：
+        </p>
+        <pre class="userinput"><kbd class="command">make mrproper</kbd></pre>
+        <p>
+          下面从源代码中提取用户可见的头文件。我们不能使用推荐的 make 目标<span class=
+          "quote">“<span class="quote">headers_install</span>”</span>，因为它需要
+          <span class="application">rsync</span>，这个程序在宿主系统中未必可用。头文件会先被放置在
+          <code class="filename">./usr</code> 目录中，之后再将它们复制到最终的位置。
+        </p>
+        <pre class="userinput"><kbd class="command">make headers
+find usr/include -name '.*' -delete
+rm usr/include/Makefile
+</kbd><kbd class="command">cp -rv usr/include $LFS/usr</kbd></pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-linux-headers" name=
+          "contents-linux-headers"></a>5.4.2. Linux API 头文件的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的头文件:</strong> <span class=
+              "segbody">/usr/include/asm/*.h, /usr/include/asm-generic/*.h,
+              /usr/include/drm/*.h, /usr/include/linux/*.h,
+              /usr/include/misc/*.h, /usr/include/mtd/*.h,
+              /usr/include/rdma/*.h, /usr/include/scsi/*.h,
+              /usr/include/sound/*.h, /usr/include/video/*.h, 以及
+              /usr/include/xen/*.h</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/usr/include/asm, /usr/include/asm-generic,
+              /usr/include/drm, /usr/include/linux, /usr/include/misc,
+              /usr/include/mtd, /usr/include/rdma, /usr/include/scsi,
+              /usr/include/sound, /usr/include/video, 以及
+              /usr/include/xen</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要描述
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="asm" name="asm"></a><span class=
+                    "term"><code class="filename">/usr/include/asm/*.h</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Linux API 汇编头文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="asm-generic" name="asm-generic"></a><span class=
+                    "term"><code class=
+                    "filename">/usr/include/asm-generic/*.h</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Linux API 通用汇编头文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="drm" name="drm"></a><span class=
+                    "term"><code class="filename">/usr/include/drm/*.h</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Linux API DRM 头文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="linux" name="linux"></a><span class=
+                    "term"><code class=
+                    "filename">/usr/include/linux/*.h</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Linux API Linux 头文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="misc" name="misc"></a><span class=
+                    "term"><code class=
+                    "filename">/usr/include/misc/*.h</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Linux API 杂项头文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mtd" name="mtd"></a><span class=
+                    "term"><code class="filename">/usr/include/mtd/*.h</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Linux API MTD 头文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="rdma" name="rdma"></a><span class=
+                    "term"><code class=
+                    "filename">/usr/include/rdma/*.h</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Linux API RDMA 头文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="scsi" name="scsi"></a><span class=
+                    "term"><code class=
+                    "filename">/usr/include/scsi/*.h</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Linux API SCSI 头文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sound" name="sound"></a><span class=
+                    "term"><code class=
+                    "filename">/usr/include/sound/*.h</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Linux API 音频头文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="video" name="video"></a><span class=
+                    "term"><code class=
+                    "filename">/usr/include/video/*.h</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Linux API 视频头文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xen" name="xen"></a><span class=
+                    "term"><code class="filename">/usr/include/xen/*.h</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Linux API Xen 头文件
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gcc-pass1.html" title=
+          "GCC-10.2.0 - 第一遍">上一页</a>
+          <p>
+            GCC-10.2.0 - 第一遍
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="glibc.html" title="Glibc-2.32">下一页</a>
+          <p>
+            Glibc-2.32
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;编译交叉工具链">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

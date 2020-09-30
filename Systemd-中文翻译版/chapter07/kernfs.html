@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.3.&nbsp;准备虚拟内核文件系统
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200927-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200927-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="changingowner.html" title="改变所有者">上一页</a>
+          <p>
+            改变所有者
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="chroot.html" title="进入 Chroot 环境">下一页</a>
+          <p>
+            进入 Chroot 环境
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-tools-kernfs" name="ch-tools-kernfs"></a>7.3. 准备虚拟内核文件系统
+      </h1>
+      <p>
+        内核对外提供了一些文件系统，以便自己和用户空间进行通信。它们是虚拟文件系统，并不占用磁盘空间，其内容保留在内存中。
+      </p>
+      <p>
+        首先创建这些文件系统的挂载点：
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">mkdir -pv $LFS/{dev,proc,sys,run}</kbd></pre>
+      <div class="sect2" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          7.3.1. 创建初始设备节点
+        </h2>
+        <p>
+          在内核引导系统时，它需要一些设备节点，特别是 <code class="filename">console</code> 和
+          <code class="filename">null</code> 两个设备。它们需要创建在硬盘上，这样在内核填充
+          <code class="systemitem">/dev</code> 前，或者 Linux 使用 <em class=
+          "parameter"><code>init=/bin/bash</code></em>
+          内核选项启动时，也能使用它们。运行以下命令创建它们：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">mknod -m 600 $LFS/dev/console c 5 1
+mknod -m 666 $LFS/dev/null c 1 3</kbd></pre>
+      </div>
+      <div class="sect2" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="ch-tools-bindmount" name="ch-tools-bindmount"></a>7.3.2.
+          挂载和填充 /dev
+        </h2>
+        <p>
+          用设备文件填充 <code class="filename">/dev</code> 目录的推荐方法是挂载一个虚拟文件系统 (例如
+          <code class="systemitem">tmpfs</code>) 到 <code class=
+          "filename">/dev</code>，然后在设备被发现或访问时动态地创建设备文件。这个工作通常由 Udev
+          在系统引导时完成。然而，我们的新系统还没有 Udev，也没有被引导过，因此必须手工挂载和填充 <code class=
+          "filename">/dev</code>。这可以通过绑定挂载宿主系统的 <code class=
+          "filename">/dev</code>
+          目录就实现。绑定挂载是一种特殊挂载类型，它允许在另外的位置创建某个目录或挂载点的映像。运行以下命令进行绑定挂载：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">mount -v --bind /dev $LFS/dev</kbd></pre>
+      </div>
+      <div class="sect2" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="ch-tools-kernfsmount" name="ch-tools-kernfsmount"></a>7.3.3.
+          挂载虚拟内核文件系统
+        </h2>
+        <p>
+          现在挂载其余的虚拟内核文件系统：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">mount -v --bind /dev/pts $LFS/dev/pts
+mount -vt proc proc $LFS/proc
+mount -vt sysfs sysfs $LFS/sys
+mount -vt tmpfs tmpfs $LFS/run</kbd></pre>
+        <p>
+          在某些宿主系统上，<code class="filename">/dev/shm</code> 是一个指向 <code class=
+          "filename">/run/shm</code> 的符号链接。我们已经在 /run 下挂载了 tmpfs
+          文件系统，因此在这里只需要创建一个目录。
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">if [ -h $LFS/dev/shm ]; then
+  mkdir -pv $LFS/$(readlink $LFS/dev/shm)
+fi</kbd></pre>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="changingowner.html" title="改变所有者">上一页</a>
+          <p>
+            改变所有者
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="chroot.html" title="进入 Chroot 环境">下一页</a>
+          <p>
+            进入 Chroot 环境
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

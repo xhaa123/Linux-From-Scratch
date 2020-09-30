@@ -1,0 +1,36 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/sources}
+
+pkgname=gdbm
+pkgver=1.18.1
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$pkgname-$pkgver
+    
+    sed -r -i '/^char.*parseopt_program_(doc|args)/d' src/parseopt.c
+    
+    ./configure --prefix=/usr    \
+                --disable-static \
+                --enable-libgdbm-compat
+    
+    make
+    
+    make install
+
+    }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

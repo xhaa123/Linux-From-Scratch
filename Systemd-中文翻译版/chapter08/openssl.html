@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.48.&nbsp;OpenSSL-1.1.1g
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200927-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200927-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;8&nbsp;章&nbsp;安装基本系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="libffi.html" title="Libffi-3.3">上一页</a>
+          <p>
+            Libffi-3.3
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="Python.html" title="Python-3.8.5">下一页</a>
+          <p>
+            Python-3.8.5
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-openssl" name="ch-system-openssl"></a>8.48.
+        OpenSSL-1.1.1g
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          OpenSSL 软件包包含密码学相关的管理工具和库。它们被用于向其他软件包提供密码学功能，例如 OpenSSH，电子邮件程序和 Web
+          浏览器 (以访问 HTTPS 站点)。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">估计构建时间:</strong> <span class=
+              "segbody">2.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">需要硬盘空间:</strong> <span class=
+              "segbody">150 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          8.48.1. 安装 OpenSSL
+        </h2>
+        <p>
+          准备编译 OpenSSL：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./config --prefix=/usr         \
+         --openssldir=/etc/ssl \
+         --libdir=lib          \
+         shared                \
+         zlib-dynamic</kbd></pre>
+        <p>
+          编译该软件包：
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          运行以下命令以测试编译结果：
+        </p>
+        <pre class="userinput"><kbd class="command">make test</kbd></pre>
+        <p>
+          一项名为 30-test_afalg.t 的测试在某些内核配置下会失败 (它假定选择了一些未说明的内核配置选项)。
+        </p>
+        <p>
+          安装该软件包：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile
+make MANSUFFIX=ssl install</kbd></pre>
+        <p>
+          如果需要的话，安装文档：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">mv -v /usr/share/doc/openssl /usr/share/doc/openssl-1.1.1g
+cp -vfr doc/* /usr/share/doc/openssl-1.1.1g</kbd></pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-openssl" name="contents-openssl"></a>8.48.2.
+          OpenSSL 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">c_rehash 和 openssl</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libcrypto.so 和 libssl.so</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/etc/ssl, /usr/include/openssl, /usr/lib/engines 以及
+              /usr/share/doc/openssl-1.1.1g</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要描述
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="c_rehash" name="c_rehash"></a><span class=
+                    "term"><span class=
+                    "command"><strong>c_rehash</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个 <span class="application">Perl</span>
+                    脚本，扫描一个目录中的所有文件，并添加它们的符号链接，符号链接名为对应文件的散列值。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="openssl-prog" name="openssl-prog"></a><span class=
+                    "term"><span class=
+                    "command"><strong>openssl</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个命令行工具，用于从 shell 使用 <span class=
+                    "application">OpenSSL</span>的密码学库的一些密码学函数。它可以被用于
+                    <span class="command"><strong>man 1
+                    openssl</strong></span>描述的许多功能。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libcrypto" name="libcrypto"></a><span class=
+                    "term"><code class="filename">libcrypto.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    实现不同 Internet 标准使用的许多密码学算法。该库提供的服务被 <span class=
+                    "application">OpenSSL</span> 的 SSL、TLS 和 S/MIME
+                    实现使用，也被用于实现 <span class=
+                    "application">OpenSSH</span>、<span class=
+                    "application">OpenPGP</span>，以及其他密码学标准。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libssl" name="libssl"></a><span class=
+                    "term"><code class="filename">libssl.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    实现传输层安全 (TLS v1) 协议。它提供了丰富的 API，这些 API 的文档可以通过执行
+                    <span class="command"><strong>man 3
+                    ssl</strong></span>查阅。
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="libffi.html" title="Libffi-3.3">上一页</a>
+          <p>
+            Libffi-3.3
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="Python.html" title="Python-3.8.5">下一页</a>
+          <p>
+            Python-3.8.5
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;安装基本系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+#!/bin/bash
+set -e
+
+TMP=${TMP:-$(dirname $0)/Build-TMP}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-$LFS/sources}
+
+mkdir -pv $TMP $LOG
+
+pkgname=libstdc++-gcc-pass1
+pkgver=10.2.0
+
+tar xf $SRC/gcc-$pkgver.tar.xz -C $TMP
+
+{ time \
+   {
+    
+    cd $TMP/gcc-$pkgver
+    mkdir -v build
+    cd       build 
+    ../libstdc++-v3/configure               \
+        --host=$LFS_TGT                     \
+        --build=$(../config.guess)          \
+        --prefix=/usr                       \
+        --disable-multilib                  \
+        --disable-nls                       \
+        --disable-libstdcxx-pch             \
+        --with-gxx-include-dir=/tools/$LFS_TGT/include/c++/$pkgver
+    make
+    make DESTDIR=$LFS install
+
+    }
+} 2>&1 | tee $pkgname.log
+
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

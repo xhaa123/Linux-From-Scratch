@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      4.4.&nbsp;配置环境
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-20200927-systemd，中文翻译版">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 20200927-systemd，中文翻译版
+      </h4>
+      <h3>
+        第&nbsp;4&nbsp;章&nbsp;最后准备工作
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="addinguser.html" title="添加 LFS 用户">上一页</a>
+          <p>
+            添加 LFS 用户
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="aboutsbus.html" title="关于 SBU">下一页</a>
+          <p>
+            关于 SBU
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter04.html" title=
+          "第&nbsp;4&nbsp;章&nbsp;最后准备工作">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-preps-settingenviron" name=
+        "ch-preps-settingenviron"></a>4.4. 配置环境
+      </h1>
+      <p>
+        为了配置一个良好的工作环境，我们为 <span class="command"><strong>bash</strong></span>
+        创建两个新的启动脚本。以 <code class="systemitem">lfs</code> 的身份，执行以下命令，创建一个新的
+        <code class="filename">.bash_profile</code>：
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">cat &gt; ~/.bash_profile &lt;&lt; "EOF"
+<code class=
+"literal">exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash</code>
+EOF</kbd></pre>
+      <p>
+        在以 <code class="systemitem">lfs</code> 用户登录时，初始的 shell
+        一般是一个<span class="emphasis"><em>登录</em></span> shell。它读取宿主系统的
+        <code class="filename">/etc/profile</code> 文件 (可能包含一些设置和环境变量)，然后读取
+        <code class="filename">.bash_profile</code>。我们在 <code class=
+        "filename">.bash_profile</code> 中使用 <span class=
+        "command"><strong>exec env -i.../bin/bash</strong></span> 命令，新建一个除了
+        <code class="envar">HOME</code>, <code class="envar">TERM</code> 以及
+        <code class="envar">PS1</code> 外没有任何环境变量的 shell，替换当前
+        shell，防止宿主环境中不必要和有潜在风险的环境变量进入编译环境。通过使用以上技巧，我们创建了一个干净环境。
+      </p>
+      <p>
+        新的 shell 实例是 <span class="emphasis"><em>非登录</em></span>
+        shell，它不会读取和执行 <code class="filename">/etc/profile</code> 或者
+        <code class="filename">.bash_profile</code> 的内容，而是读取并执行 <code class=
+        "filename">.bashrc</code> 文件。现在我们就创建一个 <code class=
+        "filename">.bashrc</code> 文件：
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">cat &gt; ~/.bashrc &lt;&lt; "EOF"
+<code class="literal">set +h
+umask 022
+LFS=/mnt/lfs
+LC_ALL=POSIX
+LFS_TGT=$(uname -m)-lfs-linux-gnu
+PATH=/usr/bin
+if [ ! -L /bin ]; then PATH=/bin:$PATH; fi
+PATH=$LFS/tools/bin:$PATH
+CONFIG_SITE=$LFS/usr/share/config.site
+export LFS LC_ALL LFS_TGT PATH CONFIG_SITE</code>
+EOF</kbd></pre>
+      <div class="variablelist">
+        <p class="title">
+          <strong><code class="filename">.bashrc</code> 中设定的含义：</strong>
+        </p>
+        <dl class="variablelist">
+          <dt>
+            <span class="term"><em class="parameter"><code>set
+            +h</code></em></span>
+          </dt>
+          <dd>
+            <p>
+              <span class="command"><strong>set +h</strong></span> 命令关闭
+              <span class="command"><strong>bash</strong></span>
+              的散列功能。一般情况下，散列是很有用的 —— <span class=
+              "command"><strong>bash</strong></span>
+              使用一个散列表维护各个可执行文件的完整路径，这样就不用每次都在 <code class="envar">PATH</code>
+              指定的目录中搜索可执行文件。然而，在构建 LFS 时，我们希望总是使用最新安装的工具。因此，需要关闭散列功能，使得 shell
+              在运行程序时总是搜索 <code class="envar">PATH</code>。这样，shell 总是能够找到
+              <code class="filename">$LFS/tools</code>
+              目录中那些最新编译的工具，而不是使用之前记忆的另一个目录中的程序。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code>umask
+            022</code></em></span>
+          </dt>
+          <dd>
+            <p>
+              将用户的文件创建掩码 (umask) 设定为
+              022，保证只有文件所有者可以写新创建的文件和目录，但任何人都可读取、执行它们。(如果 <code class=
+              "function">open(2)</code> 系统调用使用默认模式，则新文件将具有权限码 644，而新目录具有权限码
+              755)。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class=
+            "parameter"><code>LFS=/mnt/lfs</code></em></span>
+          </dt>
+          <dd>
+            <p>
+              <code class="envar">LFS</code> 环境变量必须被设定为之前选择的挂载点。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class=
+            "parameter"><code>LC_ALL=POSIX</code></em></span>
+          </dt>
+          <dd>
+            <p>
+              <code class="envar">LC_ALL</code>
+              环境变量控制某些程序的本地化行为，使得它们以特定国家的语言和惯例输出消息。将 <code class=
+              "envar">LC_ALL</code> 设置为 <span class="quote">“<span class=
+              "quote">POSIX</span>”</span> 或者 <span class=
+              "quote">“<span class="quote">C</span>”</span>(这两种设置是等价的) 可以保证在
+              chroot 环境中所有命令的行为完全符合预期，而与宿主的本地化设置无关。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code>LFS_TGT=(uname
+            -m)-lfs-linux-gnu</code></em></span>
+          </dt>
+          <dd>
+            <p>
+              <code class=
+              "envar">LFS_TGT</code>变量设定了一个非默认，但与宿主系统兼容的机器描述符。该描述符被用于构建交叉编译器和交叉编译临时工具链。<a class="xref"
+              href="../partintro/toolchaintechnotes.html" title=
+              "工具链技术说明">工具链技术说明</a>包含了关于这个描述符的更多信息。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class=
+            "parameter"><code>PATH=/usr/bin</code></em></span>
+          </dt>
+          <dd>
+            <p>
+              许多现代 Linux 发行版合并了 <code class="filename">/bin</code> 和
+              <code class="filename">/usr/bin</code>。在这种情况下，标准 <code class=
+              "envar">PATH</code> 变量只需要被设定为 <code class=
+              "filename">/usr/bin</code>，即可满足<a class="xref" href=
+              "../chapter06/chapter06.html" title=
+              "第&nbsp;6&nbsp;章&nbsp;交叉编译临时工具">第 6 章</a>的环境。否则，后续命令将会增加
+              <code class="filename">/bin</code> 到搜索路径中。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code>if [ ! -L /bin ];
+            then PATH=/bin:$PATH; fi</code></em></span>
+          </dt>
+          <dd>
+            <p>
+              如果 <code class="filename">/bin</code> 不是符号链接，则它需要被添加到
+              <code class="envar">PATH</code> 变量中。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class=
+            "parameter"><code>PATH=$LFS/tools/bin:$PATH</code></em></span>
+          </dt>
+          <dd>
+            <p>
+              我们将 <code class="filename">$LFS/tools/bin</code> 附加在默认的
+              <code class="envar">PATH</code> 环境变量之前，这样在<a class="xref" href=
+              "../chapter05/chapter05.html" title=
+              "第&nbsp;5&nbsp;章&nbsp;编译交叉工具链">第 5 章</a>中，我们一旦安装了新的程序，shell
+              就能立刻使用它们。这与关闭散列功能相结合，降低了在第 5 章环境中新程序可用时错误地使用宿主系统中旧程序的风险。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class=
+            "parameter"><code>CONFIG_SITE=$LFS/usr/share/config.site</code></em></span>
+          </dt>
+          <dd>
+            <p>
+              在<a class="xref" href="../chapter05/chapter05.html" title=
+              "第&nbsp;5&nbsp;章&nbsp;编译交叉工具链">第 5 章</a>和<a class="xref" href=
+              "../chapter06/chapter06.html" title=
+              "第&nbsp;6&nbsp;章&nbsp;交叉编译临时工具">第 6
+              章</a>中，如果没有设定这个变量，<span class=
+              "command"><strong>configure</strong></span> 脚本可能会从宿主系统的
+              <code class="filename">/usr/share/config.site</code>
+              加载一些发行版特有的配置信息。覆盖这一默认路径，避免宿主系统可能造成的污染。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code>export
+            ...</code></em></span>
+          </dt>
+          <dd>
+            <p>
+              前面的命令设定了一些变量，为了让所有子 shell 都能使用这些变量，需要导出它们。
+            </p>
+          </dd>
+        </dl>
+      </div>
+      <div class="admon important">
+        <img alt="[重要]" src="../images/important.png" />
+        <h3>
+          重要
+        </h3>
+        <p>
+          一些商业发行版未做文档说明地将 <code class="filename">/etc/bash.bashrc</code> 引入
+          <span class="command"><strong>bash</strong></span> 初始化过程。该文件可能修改
+          <code class="systemitem">lfs</code> 用户的环境，并影响 LFS 关键软件包的构建。为了保证
+          <code class="systemitem">lfs</code> 用户环境的纯净，检查 <code class=
+          "filename">/etc/bash.bashrc</code> 是否存在，如果它存在就将它移走。以 <code class=
+          "systemitem">root</code> 用户身份，运行：
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">[ ! -e /etc/bash.bashrc ] || mv -v /etc/bash.bashrc /etc/bash.bashrc.NOUSE</kbd></pre>
+        <p>
+          <code class="systemitem">lfs</code> 用户在<a class="xref" href=
+          "../chapter07/chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;进入 Chroot 并构建其他临时工具">第 7 章</a>一章开始后，就不再被使用，您
+          (如果希望的话) 可以复原 <code class="filename">/etc/bash.bashrc</code> 文件。
+        </p>
+        <p>
+          注意我们将会在<a class="xref" href="../chapter08/bash.html" title=
+          "8.34.&nbsp;Bash-5.0">第&nbsp;8.34&nbsp;节 “Bash-5.0”</a>中构建的 LFS
+          Bash 软件包未被配置为读取或执行 <code class=
+          "filename">/etc/bash.bashrc</code>，因此它在完整的 LFS 系统中没有作用。
+        </p>
+      </div>
+      <p>
+        最后，为了完全准备好编译临时工具的环境，指示 shell 读取刚才创建的配置文件：
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">source ~/.bash_profile</kbd></pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="addinguser.html" title="添加 LFS 用户">上一页</a>
+          <p>
+            添加 LFS 用户
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="aboutsbus.html" title="关于 SBU">下一页</a>
+          <p>
+            关于 SBU
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter04.html" title=
+          "第&nbsp;4&nbsp;章&nbsp;最后准备工作">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 20200927-systemd，中文翻译版">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

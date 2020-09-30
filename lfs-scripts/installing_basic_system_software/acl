@@ -1,0 +1,38 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/sources}
+
+pkgname=acl
+pkgver=2.2.53
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$pkgname-$pkgver
+
+    ./configure --prefix=/usr          \
+                --disable-static       \
+                 --libexecdir=/usr/lib \
+                --docdir=/usr/share/doc/$pkgname-$pkgver
+
+    make
+
+    make install
+
+    mv -v /usr/lib/libacl.so.* /lib
+    ln -sfv ../../lib/$(readlink /usr/lib/libacl.so) /usr/lib/libacl.so
+
+    }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP
