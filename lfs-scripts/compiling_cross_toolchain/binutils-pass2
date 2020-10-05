@@ -8,7 +8,7 @@ SRC=${SRC:-$LFS/sources}
 mkdir -pv $TMP $LOG
 
 pkgname=binutils-pass2
-pkgver=2.35
+pkgver=2.35.1
 
 tar xf $SRC/binutils-$pkgver.tar.xz -C $TMP
 
@@ -18,14 +18,14 @@ tar xf $SRC/binutils-$pkgver.tar.xz -C $TMP
     cd $TMP/binutils-$pkgver
     mkdir -v build
     cd       build
-    ../configure                       \
-        --prefix=/usr                  \
-        --build=$(../config.guess)     \
-        --host=$LFS_TGT                \
-        --disable-nls                  \
-        --enable-shared                \
-        --disable-werror               \
-        --enable-64-bit-bfd
+   ../configure                   \
+       --prefix=/usr              \
+       --build=$(../config.guess) \
+       --host=$LFS_TGT            \
+       --disable-nls              \
+       --enable-shared            \
+       --disable-werror           \
+       --enable-64-bit-bfd
     make
     make DESTDIR=$LFS install
 
