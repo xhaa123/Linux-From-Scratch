@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/sources}
 
 pkgname=openssl
-pkgver=1.1.1g
+pkgver=1.1.1h
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
