@@ -7,7 +7,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-$/sources}
 
 pkgname=python3
-pkgver=3.8.5
+pkgver=3.8.6
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,9 +18,9 @@ tar xf $SRC/Python-$pkgver.tar.xz -C $TMP
    {
 
     cd $TMP/Python-$pkgver
-    ./configure --prefix=/usr               \
-                --enable-shared             \
-                --without-ensurepip
+   ./configure --prefix=/usr   \
+               --enable-shared \
+               --without-ensurepip
     make
     make install
     
