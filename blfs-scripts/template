@@ -1,0 +1,31 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$(dirname $0)/Build-TMP}
+LOG=${LOG:-$HOME/log}
+SRC=${SRC:-$LFS/sources}
+
+pkgname=
+pkgver=
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$pkgname-$pkgver
+    
+
+
+    }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP
+	
+
