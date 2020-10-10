@@ -3,11 +3,10 @@ set -e
  
 TMP=${TMP:-/tmp/build}
 LOG=${LOG:-$(dirname $0)/log}
-SRC=${SRC:-/home/blfs-sources}
-BUILDLOG=${BUILDLOG:-$(dirname $0)/build}
- 
+SRC=${SRC:-/sources}
+
 name=LVM2
-version=2.03.09
+version=2.03.10
  
 rm -fr $TMP
 mkdir -p $TMP $LOG $SRC  $BUILDLOG
@@ -17,26 +16,28 @@ tar xf $SRC/$name.$version.tgz -C $TMP
 { time \
    {
  
-    cd $TMP/$name.$version
+	 cd $TMP/$name.$version
 
 	SAVEPATH=$PATH
 	PATH=$PATH:/sbin:/usr/sbin
 	./configure --prefix=/usr       \
-				--exec-prefix=      \
-				--enable-cmdlib     \
-				--enable-pkgconfig  \
-				--enable-udev_sync
+		    --exec-prefix=      \
+		    --enable-cmdlib     \
+		    --enable-pkgconfig  \
+		    --enable-udev_sync  \
+		    --with-cache=internal  \
+		    --with-thin=internal
 	make
 	PATH=$SAVEPATH
 	unset SAVEPATH
 
 	make install
+	make install_systemd_units
 
     }   
-} 2>&1 | tee $LOG/$name.log
+} 2>&1 | tee $name.log
     
-[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDLOG/$name || exit $PIPESTATUS
-
+[ $PIPESTATUS = 0 ] && mv $name $LOG|| exit $PIPESTATUS
 rm -fr $TMP	
 	
 
