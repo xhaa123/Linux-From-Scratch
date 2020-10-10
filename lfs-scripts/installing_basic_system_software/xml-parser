@@ -16,7 +16,7 @@ tar xf $SRC/XML-Parser-$pkgver.tar.gz -C $TMP
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/XML-Parser-$pkgver
     
     perl Makefile.PL
 
