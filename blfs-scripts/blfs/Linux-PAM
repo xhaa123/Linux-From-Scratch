@@ -3,7 +3,7 @@ set -e
  
 TMP=${TMP:-/tmp/build}
 LOG=${LOG:-$(dirname $0)/log}
-SRC=${SRC:-/home/blfs-sources}
+SRC=${SRC:-/sources}
  
 name=Linux-PAM
 version=1.4.0
@@ -91,10 +91,9 @@ session     required        pam_deny.so
 EOF
 
     }   
-} 2>&1 | tee $LOG/$name.log
+} 2>&1 | tee $name.log
     
-[ $PIPESTATUS = 0 ] && echo "$name-$version" > $BUILDLOG/$name || exit $PIPESTATUS
-
+[ $PIPESTATUS = 0 ] && mv $name $LOG || exit $PIPESTATUS
 rm -fr $TMP	
 	
 
