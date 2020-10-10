@@ -28,7 +28,7 @@ PKG=(
 )
 
 for script in "${PKG[@]}"; do
-    if [ -f "$SCRIPTDIR/build/$script" ]; then
+    if [ -f "$SCRIPTDIR/log/$script.log" ]; then
         echo "--- $script skipped ---"
     else
         echo "*** $script ***"
