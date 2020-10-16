@@ -8,7 +8,7 @@ SRC=${SRC:-$LFS/sources}
 mkdir -pv $TMP $LOG
 
 pkgname=linux-headers
-pkgver=5.8.14
+pkgver=5.9
 
 tar xf $SRC/linux-$pkgver.tar.xz -C $TMP 
 
