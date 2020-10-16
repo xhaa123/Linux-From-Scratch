@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/sources}
 
 pkgname=iana-etc
-pkgver=20200821
+pkgver=20201012
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
