@@ -91,7 +91,7 @@ rpc: files
 # End /etc/nsswitch.conf
 EOF
 
-    tar -xf $SRC/tzdata2020a.tar.gz
+    tar -xf $SRC/tzdata2020b.tar.gz
 
     ZONEINFO=/usr/share/zoneinfo
     mkdir -pv $ZONEINFO/{posix,right}
