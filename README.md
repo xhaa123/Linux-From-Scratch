@@ -3,7 +3,7 @@
 **lvm + btrfs + efi**
 
 ### Version 
-**lfs: 202001001-systemd**
+**lfs: 20201015-systemd**
 
 **blfs 20200701-systemd**
 
