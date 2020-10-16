@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/sources}
 
 pkgname=python3
-pkgver=3.8.6
+pkgver=3.9.0
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
