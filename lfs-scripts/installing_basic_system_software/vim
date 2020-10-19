@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/sources}
 
 pkgname=vim
-pkgver=8.2.1845
+pkgver=8.2.1852
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
