@@ -38,7 +38,7 @@
     chroot "$LFS" /usr/bin/env -i   \
         HOME=/root                  \
         TERM="$TERM"                \
-        PS1='(lfs chroot) \u:\w\$ ' \
+        PS1="\[\e[37;40m\][\[\e[31;40m\](lfs chroot) \[\e[32;40m\]\u:\[\e[36;40m\]\w \[\e[0m\]]\\$ " \
         PATH=/bin:/usr/bin:/sbin:/usr/sbin \
         /bin/bash --login +h
 
