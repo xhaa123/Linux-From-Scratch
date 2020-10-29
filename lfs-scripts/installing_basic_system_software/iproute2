@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/sources}
 
 pkgname=iproute2
-pkgver=5.8.0
+pkgver=5.9.0
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
