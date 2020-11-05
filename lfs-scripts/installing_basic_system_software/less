@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/sources}
 
 pkgname=less
-pkgver=551
+pkgver=563
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
