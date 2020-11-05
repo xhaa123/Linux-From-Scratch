@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/sources}
 
 pkgname=mpc
-pkgver=1.2.0
+pkgver=1.2.1
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
