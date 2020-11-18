@@ -7,7 +7,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-$/sources}
 
 pkgname=bison
-pkgver=3.7.3
+pkgver=3.7.4
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
