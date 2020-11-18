@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/sources}
 
 pkgname=man-pages
-pkgver=5.08
+pkgver=5.09
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
