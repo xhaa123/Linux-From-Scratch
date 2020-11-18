@@ -11,7 +11,7 @@ pkgname=gcc-pass2
 pkgver=10.2.0
 
 mpfr_ver=4.1.0
-gmp_ver=6.2.0
+gmp_ver=6.2.1
 mpc_ver=1.2.1
 
 tar xf $SRC/gcc-$pkgver.tar.xz -C $TMP 
