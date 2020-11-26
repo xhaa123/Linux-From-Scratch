@@ -3,6 +3,12 @@ LFS=/mnt/lfs
 
 export LFS=/mnt/lfs
 
+mkdir -pv $LFS
+
+##################################
+# Mount the hard drive
+#################################
+
 mkdir -v $LFS/sources
 chmod -v a+wt $LFS/sources
 
