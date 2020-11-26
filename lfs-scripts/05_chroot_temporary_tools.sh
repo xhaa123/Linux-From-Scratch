@@ -1,5 +1,13 @@
 #!/bin/bash -e
 
+cat > ~/.bashrc << "EOF"
+export MAKEFLAGS="-j$(nproc)"
+alias ls='ls --color=auto'
+alias ll='ls -F -b -T 0 --group-directories-first --color=auto --format=long --time-style="+%y-%m-%d %H:%M:%S" --human-readable'
+EOF
+
+. ~/.bashrc
+
 SCRIPTDIR=$(dirname $0)/entering_chroot_building_additional_temporary_tools
 
 PKG=(
