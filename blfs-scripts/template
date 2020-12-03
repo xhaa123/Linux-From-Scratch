@@ -16,10 +16,10 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+   cd $TMP/$pkgname-$pkgver
+   1
 
-
-    }
+   }
 } 2>&1 | tee $pkgname.log
     
 [ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
