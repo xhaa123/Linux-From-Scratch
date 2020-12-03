@@ -1,0 +1,60 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgname=mesa
+pkgver=20.2.3
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$pkgname-$pkgver
+
+    export XORG_PREFIX=/usr
+    export XORG_CONFIG="--prefix=$XORG_PREFIX --sysconfdir=/etc \
+        --localstatedir=/var --disable-static"
+
+    patch -Np1 -i $SRC/$pkgname-$pkgver-add_xdemos-1.patch
+
+    sed '1s/python/&3/' -i bin/symbols-check.py
+
+    GALLIUM_DRV="i915,iris,nouveau,r600,radeonsi,svga,swrast,virgl"
+    DRI_DRIVERS="i965,nouveau"
+
+    mkdir build
+    cd    build
+
+    meson --prefix=$XORG_PREFIX        \
+        -Dbuildtype=release            \
+        -Ddri-drivers=$DRI_DRIVERS     \
+        -Dgallium-drivers=$GALLIUM_DRV \
+        -Dgallium-nine=false           \
+        -Dglx=dri                      \
+        -Dosmesa=gallium               \
+        -Dvalgrind=false               \
+        -Dlibunwind=false              \
+        ..
+
+    unset GALLIUM_DRV DRI_DRIVERS
+
+    ninja
+
+    ninja install
+
+    install -v -dm755 /usr/share/doc/$pkgname-$pkgver
+    cp -rfv ../docs/* /usr/share/doc/$pkgname-$pkgver
+
+    }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

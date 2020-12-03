@@ -5,8 +5,8 @@ TMP=${TMP:-$(mktemp -d)}
 LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
-pkgname=
-pkgver=
+pkgname=gtk-doc
+pkgver=1.33.1
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,7 +18,11 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     cd $TMP/$pkgname-$pkgver
 
+    autoreconf -fiv
+    ./configure --prefix=/usr
+    make
 
+    make install
     }
 } 2>&1 | tee $pkgname.log
     

@@ -5,19 +5,24 @@ TMP=${TMP:-$(mktemp -d)}
 LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
-pkgname=
-pkgver=
+pkgname=icu
+pkgver=68.1
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+tar xf $SRC/icu4c-68_1-src.tgz -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/$pkgname/source 
 
+
+    ./configure --prefix=/usr
+    make
+
+    make install
 
     }
 } 2>&1 | tee $pkgname.log

@@ -5,19 +5,20 @@ TMP=${TMP:-$(mktemp -d)}
 LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
-pkgname=
-pkgver=
+pkgname=python3-pygments
+pkgver=2.7.2
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+tar xf $SRC/Pygments-$pkgver.tar.gz -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/Pygments-$pkgver
 
+    python3 setup.py install --optimize=1
 
     }
 } 2>&1 | tee $pkgname.log

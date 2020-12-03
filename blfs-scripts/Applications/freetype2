@@ -5,7 +5,7 @@ TMP=${TMP:-$(mktemp -d)}
 LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
-pkgname=
+pkgname=freetype2
 pkgver=
 
 rm -fr $TMP

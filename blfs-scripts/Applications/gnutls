@@ -5,8 +5,8 @@ TMP=${TMP:-$(mktemp -d)}
 LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
-pkgname=
-pkgver=
+pkgname=gnutls
+pkgver=3.6.15
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -17,6 +17,14 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
    {
 
     cd $TMP/$pkgname-$pkgver
+
+    ./configure --prefix=/usr \
+                --docdir=/usr/share/doc/gnutls-3.6.15 \
+                --disable-guile \
+                --with-default-trust-store-pkcs11="pkcs11:" --enable-gtk-doc
+    make
+
+    make install
 
 
     }

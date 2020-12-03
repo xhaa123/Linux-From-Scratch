@@ -1,0 +1,35 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgname=libxdmcp
+pkgver=1.1.3
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/libXdmcp-$pkgver.tar.* -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/libXdmcp-$pkgver
+
+    export XORG_PREFIX=/usr
+    export XORG_CONFIG="--prefix=$XORG_PREFIX --sysconfdir=/etc \
+        --localstatedir=/var --disable-static"
+
+    ./configure $XORG_CONFIG --docdir=/usr/share/doc/libXdmcp-$pkgver
+    make
+
+    make install
+    
+    }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

@@ -1,0 +1,40 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgname=sgml-common
+pkgver=0.6.3
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$pkgname-$pkgver
+
+    patch -Np1 -i $SRC/$pkgname-$pkgver-manpage-1.patch
+    autoreconf -f -i
+
+    ./configure --prefix=/usr --sysconfdir=/etc
+    make
+
+    make docdir=/usr/share/doc install
+
+    install-catalog --add /etc/sgml/sgml-ent.cat \
+        /usr/share/sgml/sgml-iso-entities-8879.1986/catalog
+
+    install-catalog --add /etc/sgml/sgml-docbook.cat \
+        /etc/sgml/sgml-ent.cat
+
+    }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

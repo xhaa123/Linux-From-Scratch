@@ -1,0 +1,51 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgname=aspell
+pkgver=0.60.8
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$pkgname-$pkgver
+
+    ./configure --prefix=/usr
+    make
+
+    make install
+    ln -svfn aspell-0.60 /usr/lib/aspell
+
+    install -v -m755 -d /usr/share/doc/$pkgname-$pkgver/aspell{,-dev}.html 
+
+    install -v -m644 manual/aspell.html/* \
+        /usr/share/doc/$pkgname-$pkgver/aspell.html 
+
+    install -v -m644 manual/aspell-dev.html/* \
+        /usr/share/doc/$pkgname-$pkgver/aspell-dev.html
+
+    install -v -m 755 scripts/ispell /usr/bin/
+
+    install -v -m 755 scripts/spell /usr/bin/
+
+#   wget https://ftp.gnu.org/gnu/aspell/dict/en/aspell6-en-2019.10.06-0.tar.bz2 -P $SRC
+#   tar xf $SRC/aspell6-en-2019.10.06-0.tar.bz2
+#   cd aspell6-en-2019.10.06
+#   ./configure
+#   make
+#   make install
+    
+    }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP
