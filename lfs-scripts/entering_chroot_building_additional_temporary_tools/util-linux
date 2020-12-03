@@ -7,7 +7,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-$/sources}
 
 pkgname=util-linux
-pkgver=2.36
+pkgver=2.36.1
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
