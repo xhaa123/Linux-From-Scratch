@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=colord
-pkgver=
+pkgver=1.4.5
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,6 +18,28 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     cd $TMP/$pkgname-$pkgver
 
+    groupadd -g 71 colord
+    useradd -c "Color Daemon Owner" -d /var/lib/colord -u 71 \
+            -g colord -s /bin/false colord
+
+    mv po/fur.po po/ur.po
+    sed -i 's/fur/ur/' po/LINGUAS
+
+    mkdir build
+    cd build
+
+    meson --prefix=/usr            \
+        -Ddaemon_user=colord     \
+        -Dvapi=true              \
+        -Dsystemd=true           \
+        -Dlibcolordcompat=true   \
+        -Dargyllcms_sensor=false \
+        -Dbash_completion=false  \
+        -Ddocs=true              \
+        -Dman=false ..           
+    ninja
+
+    ninja install
 
     }
 } 2>&1 | tee $pkgname.log

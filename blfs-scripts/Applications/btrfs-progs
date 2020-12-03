@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=btrfs-progs
-pkgver=
+pkgver=v5.9
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,6 +18,18 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     cd $TMP/$pkgname-$pkgver
 
+    ./configure --prefix=/usr \
+                --bindir=/bin \
+                --libdir=/lib \
+                --with-pkgconfigdir=/usr/lib/pkgconfig
+    make
+
+    make install
+
+    ln -sfv ../../lib/$(readlink /lib/libbtrfs.so) /usr/lib/libbtrfs.so
+    ln -sfv ../../lib/$(readlink /lib/libbtrfsutil.so) /usr/lib/libbtrfsutil.so
+    rm -fv /lib/libbtrfs.{a,so} /lib/libbtrfsutil.{a,so}
+    mv -v /bin/{mkfs,fsck}.btrfs /sbin
 
     }
 } 2>&1 | tee $pkgname.log
