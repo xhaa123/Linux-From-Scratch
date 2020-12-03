@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/sources}
 
 pkgname=ninja
-pkgver=1.10.1
+pkgver=1.10.2
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -28,9 +28,6 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
     ' src/ninja.cc
             
     python3 configure.py --bootstrap
-
-    ./ninja ninja_test
-    ./ninja_test --gtest_filter=-SubprocessTest.SetWithLots
 
     install -vm755 ninja /usr/bin/
     install -vDm644 misc/bash-completion /usr/share/bash-completion/completions/ninja
