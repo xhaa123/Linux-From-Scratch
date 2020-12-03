@@ -17,7 +17,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
    {
 
    cd $TMP/$pkgname-$pkgver
-   1
+
 
    }
 } 2>&1 | tee $pkgname.log
