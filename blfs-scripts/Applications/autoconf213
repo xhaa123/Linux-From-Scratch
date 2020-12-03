@@ -6,19 +6,28 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=autoconf213
-pkgver=
+pkgver=2.13
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+tar xf $SRC/autocon-$pkgver.tar.* -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/autocon-$pkgver
 
+    patch -Np1 -i $SRC/autoconf-$pkgver-consolidated_fixes-1.patch
+    mv -v autoconf.texi autoconf$pkgver.texi
+    rm -v autoconf.info
+    ./configure --prefix=/usr --program-suffix=$pkgver
+    make
 
+    make install
+    install -v -m644 autoconf$pkgver.info /usr/share/info
+    install-info --info-dir=/usr/share/info autoconf$pkgver.info
+    
     }
 } 2>&1 | tee $pkgname.log
     
