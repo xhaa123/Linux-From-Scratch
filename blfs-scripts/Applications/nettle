@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=nettle
-pkgver=
+pkgver=3.6
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,6 +18,13 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     cd $TMP/$pkgname-$pkgver
 
+    ./configure --prefix=/usr --disable-static
+    make
+
+    make install
+    chmod   -v   755 /usr/lib/lib{hogweed,nettle}.so
+    install -v -m755 -d /usr/share/doc/$pkgname-$pkgver
+    install -v -m644 nettle.html /usr/share/doc/$pkgname-$pkgver
 
     }
 } 2>&1 | tee $pkgname.log

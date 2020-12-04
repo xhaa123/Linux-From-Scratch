@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=pcre
-pkgver=
+pkgver=8.44
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,6 +18,20 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     cd $TMP/$pkgname-$pkgver
 
+    ./configure --prefix=/usr                     \
+                --docdir=/usr/share/doc/$pkgname-$pkgver \
+                --enable-unicode-properties       \
+                --enable-pcre16                   \
+                --enable-pcre32                   \
+                --enable-pcregrep-libz            \
+                --enable-pcregrep-libbz2          \
+                --enable-pcretest-libreadline     \
+                --disable-static   --with-pcre=system 
+    make
+
+    make install
+    mv -v /usr/lib/libpcre.so.* /lib
+    ln -sfv ../../lib/$(readlink /usr/lib/libpcre.so) /usr/lib/libpcre.so
 
     }
 } 2>&1 | tee $pkgname.log

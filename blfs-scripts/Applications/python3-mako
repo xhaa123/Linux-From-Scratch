@@ -6,18 +6,19 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=python3-mako
-pkgver=
+pkgver=1.1.3
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+tar xf $SRC/Mako-$pkgver.tar.* -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/Mako-$pkgver
 
+    python3 setup.py install --optimize=1
 
     }
 } 2>&1 | tee $pkgname.log

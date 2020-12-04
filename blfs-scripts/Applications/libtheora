@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=libtheora
-pkgver=
+pkgver=1.1.1
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,6 +18,16 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     cd $TMP/$pkgname-$pkgver
 
+    sed -i 's/png_\(sizeof\)/\1/g' examples/png2theora.c
+    ./configure --prefix=/usr --disable-static
+    make
+
+    make install
+
+    cd examples/.libs
+    for E in *; do
+      install -v -m755 $E /usr/bin/theora_${E}
+    done
 
     }
 } 2>&1 | tee $pkgname.log

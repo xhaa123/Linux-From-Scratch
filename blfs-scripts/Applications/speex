@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=speex
-pkgver=
+pkgver=1.2.0
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,6 +18,23 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     cd $TMP/$pkgname-$pkgver
 
+    ./configure --prefix=/usr    \
+                --disable-static \
+                --docdir=/usr/share/doc/$pkgname-$pkgver --enable-binaries
+    make
+
+    make install
+
+    cd ..                         
+    tar -xf speexdsp-$pkgver.tar.gz
+    cd speexdsp-$pkgver            
+
+    ./configure --prefix=/usr    \
+                --disable-static \
+                --docdir=/usr/share/doc/speexdsp-$pkgver
+    make
+
+    make install
 
     }
 } 2>&1 | tee $pkgname.log

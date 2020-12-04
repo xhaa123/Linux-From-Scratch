@@ -16,7 +16,7 @@ mkdir -p $TMP $LOG
 
     export XORG_PREFIX=/usr
     export XORG_CONFIG="--prefix=$XORG_PREFIX --sysconfdir=/etc \
-    --localstatedir=/var --disable-static"
+        --localstatedir=/var --disable-static"
 
     mkdir -pv $SRC/$pkgname
     cd $SRC/$pkgname

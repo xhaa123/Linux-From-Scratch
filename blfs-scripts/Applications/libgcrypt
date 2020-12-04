@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=libgcrypt
-pkgver=
+pkgver=1.8.7
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,6 +18,25 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     cd $TMP/$pkgname-$pkgver
 
+    ./configure --prefix=/usr --with-capabilities
+    make                     
+
+    make -C doc html                                                      
+    makeinfo --html --no-split -o doc/gcrypt_nochunks.html doc/gcrypt.texi
+    makeinfo --plaintext       -o doc/gcrypt.txt           doc/gcrypt.texi
+
+    make install
+    install -v -dm755   /usr/share/doc/$pkgname-$pkgver
+    install -v -m644    README doc/{README.apichanges,fips*,libgcrypt*} \
+                        /usr/share/doc/$pkgname-$pkgver
+
+    install -v -dm755   /usr/share/doc/$pkgname-$pkgver/html
+    install -v -m644 doc/gcrypt.html/* \
+                        /usr/share/doc/$pkgname-$pkgver/html
+    install -v -m644 doc/gcrypt_nochunks.html \
+                        /usr/share/doc/$pkgname-$pkgver     
+    install -v -m644 doc/gcrypt.{txt,texi} \
+                        /usr/share/doc/$pkgname-$pkgver
 
     }
 } 2>&1 | tee $pkgname.log

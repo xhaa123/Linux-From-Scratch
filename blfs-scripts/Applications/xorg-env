@@ -11,13 +11,21 @@ pkgver=
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cat > /etc/profile.d/xorg.sh << EOF
+XORG_PREFIX="/usr"
+XORG_CONFIG="--prefix=\$XORG_PREFIX --sysconfdir=/etc --localstatedir=/var --disable-static"
+export XORG_PREFIX XORG_CONFIG
+EOF
+    chmod 644 /etc/profile.d/xorg.sh
 
+    cat > /etc/sudoers.d/xorg << EOF
+Defaults env_keep += XORG_PREFIX
+Defaults env_keep += XORG_CONFIG
+EOF
 
     }
 } 2>&1 | tee $pkgname.log

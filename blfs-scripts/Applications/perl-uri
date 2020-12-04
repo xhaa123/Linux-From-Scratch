@@ -6,18 +6,23 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=perl-uri
-pkgver=
+pkgver=5.05
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+tar xf $SRC/URI-$pkgver.tar.gz -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/URI-$pkgver
 
+    perl Makefile.PL
+    make            
+    make test
+
+    make install
 
     }
 } 2>&1 | tee $pkgname.log
