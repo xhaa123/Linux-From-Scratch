@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=jasper
-pkgver=
+pkgver=2.0.14
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,6 +18,18 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     cd $TMP/$pkgname-$pkgver
 
+    mkdir BUILD
+    cd    BUILD
+
+    cmake -DCMAKE_INSTALL_PREFIX=/usr    \
+          -DCMAKE_BUILD_TYPE=Release     \
+          -DCMAKE_SKIP_INSTALL_RPATH=YES \
+          -DJAS_ENABLE_DOC=NO            \
+          -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/j$pkgname-$pkgver \
+          .. 
+    make
+
+    make install
 
     }
 } 2>&1 | tee $pkgname.log

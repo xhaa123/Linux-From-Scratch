@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=giflib
-pkgver=
+pkgver=5.2.1
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,6 +18,15 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     cd $TMP/$pkgname-$pkgver
 
+    make
+
+    make PREFIX=/usr install
+
+    find doc \( -name Makefile\* -o -name \*.1 \
+            -o -name \*.xml \) -exec rm -v {} \;
+
+    install -v -dm755 /usr/share/doc/$pkgname-$pkgver
+    cp -v -R doc/* /usr/share/doc/$pkgname-$pkgver
 
     }
 } 2>&1 | tee $pkgname.log

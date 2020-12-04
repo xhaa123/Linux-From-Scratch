@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=gptfdisk
-pkgver=
+pkgver=1.0.5
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,6 +18,12 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     cd $TMP/$pkgname-$pkgver
 
+    patch -Np1 -i $SRC/$pkgname-$pkgver-convenience-1.patch
+    sed -i 's|ncursesw/||' gptcurses.cc
+
+    make
+
+    make install
 
     }
 } 2>&1 | tee $pkgname.log

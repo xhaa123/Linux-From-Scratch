@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=libdaemon
-pkgver=
+pkgver=0.14
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,6 +18,14 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     cd $TMP/$pkgname-$pkgver
 
+    ./configure --prefix=/usr --disable-static
+    make
+
+    make docdir=/usr/share/doc/$pkgname-$pkgver install
+
+    install -v -m755 -d /usr/share/doc/$pkgname-$pkgver/reference/html
+    install -v -m644 doc/reference/html/* /usr/share/doc/$pkgname-$pkgver/reference/html
+    install -v -m644 doc/reference/man/man3/* /usr/share/man/man3
 
     }
 } 2>&1 | tee $pkgname.log

@@ -6,18 +6,33 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=freetype2
-pkgver=
+pkgver=2.10.4
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+tar xf $SRC/freetype-$pkgver.tar.* -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/freetype-$pkgver
 
+    tar -xf $SRC/freetype-doc-$pkgver.tar.xz --strip-components=2 -C docs
+
+    sed -ri "s:.*(AUX_MODULES.*valid):\1:" modules.cfg
+
+    sed -r "s:.*(#.*SUBPIXEL_RENDERING) .*:\1:" \
+        -i include/freetype/config/ftoption.h
+
+    ./configure --prefix=/usr --enable-freetype-config --disable-static --without-harfbuz
+    make
+
+    make install
+
+    install -v -m755 -d /usr/share/doc/freetype-$pkgver
+    cp -v -R docs/*     /usr/share/doc/freetype-$pkgver
+    rm -v /usr/share/doc/freetype-$pkgver/freetype-config.1
 
     }
 } 2>&1 | tee $pkgname.log
