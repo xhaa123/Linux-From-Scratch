@@ -3,8 +3,8 @@ set -e
 
 PKG=(
 cracklib
-libpwquality
 linux-pam
+libpwquality
 shadow
 icu
 libxml2
@@ -220,7 +220,7 @@ plasma
 SCRIPTDIR=$(dirname $0)/Applications
 
 for script in ${PKG[@]}; do
-        if [ -f "$SCRIPTDIR/build/$script" ]; then
+        if [ -f "$SCRIPTDIR/log/$script.log" ]; then
 		echo "--- $script skipped ---"
 	else
 		echo "*** $script ***"
