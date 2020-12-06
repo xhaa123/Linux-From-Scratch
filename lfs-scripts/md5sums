@@ -3,7 +3,7 @@ bc1e5cb5c96d99b24886f1f527d3bb3d  attr-2.4.48.tar.gz
 50f97f4159805e374639a73e2636f22e  autoconf-2.69.tar.xz
 c27f608a4e1f302ec7ce42f1251c184e  automake-1.16.3.tar.xz
 2b44b47b905be16f45709648f671820b  bash-5.0.tar.gz
-c5b85b98a71880798cff3833ac7929e0  bc-3.2.1.tar.xz
+ef031f3d0ffd02a0965a670efa95c3e8  bc-3.2.3.tar.xz
 7126f370ffbd46c08fcc5ce7aee2805d  binutils-2.35.1.tar.xz
 bcd5f37396b061f2f00e5b1db58172ed  bison-3.7.4.tar.xz
 67e051268d0c475ea773822f7500d0e5  bzip2-1.0.8.tar.gz
@@ -41,7 +41,7 @@ e4d4c04ad28a3b601e374c0367113236  libcap-2.45.tar.xz
 6313289e32f1d38a9df4770b014a2ca7  libffi-3.3.tar.gz
 dad443d0911cf9f0f1bd90a334bc9004  libpipeline-1.5.3.tar.gz
 1bfb9b923f2c1339b4d2ce1807064aa5  libtool-2.4.6.tar.xz
-530543935698468bf30dfacd4a20d84f  linux-5.9.11.tar.xz
+63c6408b3ef9c853b0849a5111c310b9  linux-5.9.12.tar.xz
 730bb15d96fffe47e148d1e09235af82  m4-1.4.18.tar.xz
 fc7a67ea86ace13195b0bce683fd4469  make-4.3.tar.gz
 4c8721faa54a4c950c640e5e5c713fb0  man-db-2.9.3.tar.xz
@@ -62,8 +62,8 @@ e8dc8455e573bdc40b8381d572bbb89b  procps-ng-3.3.16.tar.xz
 7e6c1f16aee3244a69aba6e438295ca3  readline-8.0.tar.gz
 6d906edfdb3202304059233f51f9a71d  sed-4.8.tar.xz
 4b05eff8a427cf50e615bda324b5bc45  shadow-4.8.1.tar.xz
-a3e9efa72d0309dd26513a221cdff31b  systemd-246.tar.gz
-819cc8ccffe51cb1863846fcb59a784a  systemd-man-pages-246.tar.xz
+b0d6e603b814908acc69db29bbfb023c  systemd-247.tar.gz
+438c98be200e1c3b308e58a3399d4465  systemd-man-pages-247.tar.xz
 83e38700a80a26e30b2df054e69956e5  tar-1.32.tar.xz
 97c55573f8520bcab74e21bfd8d0aadc  tcl8.6.10-src.tar.gz
 a012711241ba3a5bd4a04e833001d489  tcl8.6.10-html.tar.gz
@@ -81,3 +81,4 @@ c1545da2ad7d78574b52c465ec077ed9  bash-5.0-upstream_fixes-1.patch
 cd8ebed2a67fff2e231026df91af6776  coreutils-8.32-i18n-1.patch
 9a5997c3452909b1769918c759eff8a2  glibc-2.32-fhs-1.patch
 f75cca16a38da6caa7d52151f7136895  kbd-2.3.0-backspace-1.patch
+573a166f3620875208f78bf4dc431c8b  systemd-247-upstream_fixes-1.patch
