@@ -98,6 +98,7 @@ session         required pam_unix.so
 session         optional pam_ck_connector.so
 EOF
 
+   systemctl enable sddm
    }
 } 2>&1 | tee $pkgname.log
     
