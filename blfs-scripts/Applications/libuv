@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=libuv
-pkgver=1.40.0
+pkgver=v1.40.0
 
 rm -fr $TMP
 mkdir -p $TMP $LOG

@@ -2,219 +2,286 @@
 set -e
 
 PKG=(
-cracklib
-linux-pam
-libpwquality
-shadow
-icu
-libxml2
-sgml-common
-unzip
-docbook-xml
-docbook-xsl
-libxslt
-pcre
-itstool
-python3-pygments
-gtk-doc
-gobject-introspection
-glib
-autoconf213
-libtasn1
-nspr
-sqlite
-nss
-p11-kit
-make-ca
-curl
-libuv
-libarchive
-nghttp2
-cmake
-libssh2
-llvm
-rustc
-which
-js78
-polkit
-systemd
-libpng
-freetype2
-fontconfig
-xorg-env
-util-macros
-xorgproto
-libxau
-xcb-proto
-libxdmcp
-libxcb
-xorg-libraries
-dbus
-dbus-glib
-at-spi2-core
-atk
-at-spi2-atk
-fribidi
-nasm
-yasm
-libjpeg-turbo
-xmlto
-shared-mime-info
-pixman
-cairo
-graphite2
-harfbuzz
-pango
-graphviz
-vala
-librsvg
-libtiff
-gdk-pixbuf
-libdrm
-python3-markupsafe
-python3-mako
-libva
-libvdpau
-wayland
-wayland-protocols
-mesa
-libepoxy
-adwaita-icon-theme
-hicolor-icon-theme
-iso-codes
-xkeyboard-config
-libxkbcommon
-sassc
-gtk3
-gconf
-gtk2
-boost
-extra-cmake-modules
-giflib
-libgpg-error
-libgcrypt
-lmdb
-alsa-lib
-nettle
-libunistring
-gnutls
-lcms2
-libgudev
-libusb
-wget
-usbutils
-libgusb
-colord
-lynx
-libevent
-links
-xbitmaps
-xcb-util
-xorg-applications
-xdg-utils
-cups
-gstreamer
-cdparanoia
-libogg
-libvorbis
-libtheora
-gst-plugins-base
-jasper
-libmng
-sdl
-libwebp
-krb5
-mtdev
-pcre2
-xcb-util-image
-xcb-util-keysyms
-xcb-util-renderutil
-xcb-util-wm
-qt5
-phonon
-plasma-wayland-protocols
-perl-test-needs
-perl-uri
-aspell
-libdaemon
-libglade
-avahi
-libdbusmenu-qt
-libndp
-jansson
-popt
-slang
-gpm
-newt
-python3-pycairo
-python3-pygobject
-upower
-desktop-file-utils
-libnl
-wpa_supplicant
-networkmanager
-polkit-qt
-plasma-frameworks-info
-libical
-bluez
-libmbim
-libqmi
-modemmanager
-oxygen-fonts
-noto-fonts
-libatasmart
-libbytesize
-libyaml
-libaio
-thin-provisioning-tools
-lvm2
-parted
-json-c
-cryptsetup
-libassuan
-gpgme
-swig
-volume_key
-libblockdev
-lzo
-asciidoc
-btrfs-progs
-dosfstools
-gptfdisk
-ntfs-3g
-udisks
-media-player-info
-plasma-frameworks
-libass
-fdk-aac
-lame
-libvpx
-opus
-x264
-x265
-sdl2
-ffmpeg
-flac
-libsndfile
-libcap-pam
-speex
-pulseaudio
-sbc
-glu
-v4l-utils
-pipewire
-qca
-taglib
-xcb-util-cursor
-fftw
-gsettings-desktop-schemas
-libcanberra
-libevdev
-libinput
-lm-sensors
-oxygen-icons5
-pciutils
-plasma
+    cracklib
+    linux-pam
+    libpwquality
+    sudo
+    openssh
+    icu
+    libxml2
+    sgml-common
+    unzip
+    docbook-xml
+    docbook-xsl
+    itstool
+    libxslt
+    python3-pygments
+    gtk-doc
+    libtasn1
+    nspr
+    sqlite
+    nss
+    p11-kit
+    make-ca
+    curl
+    xmlto
+    asciidoc
+    git
+    shadow
+    xorg-env
+    util-macros
+    xorgproto
+    libxau
+    libxdmcp
+    xcb-proto
+    libxcb
+    wget
+    libpng
+    which
+    freetype2
+    fontconfig
+    xorg-libraries
+    xcb-util
+    xcb-util-image
+    xcb-util-keysyms
+    xcb-util-renderutil
+    xcb-util-wm
+    xcb-util-cursor
+    libdrm
+    python3-markupsafe
+    python3-mako
+    libva
+    libvdpau
+    libuv
+    libarchive
+    nghttp2
+    cmake
+    python3-packaging
+    python3-requests
+    python3-imagesize
+    python3-alabaster
+    python3-babel
+    python3-snowballstemmer
+    python3-docutils
+    python3-sphinxcontrib-qthelp
+    python3-sphinxcontrib-serializinghtml
+    python3-sphinx
+    python3-recommonmark
+    llvm
+    wayland
+    wayland-protocols
+    mesa
+    xbitmaps
+    xorg-applications
+    xcursor-themes
+    xorg-fonts
+    libevdev
+    mtdev
+    pixman
+    xkeyboard-config
+    libepoxy
+    pcre
+    gobject-introspection
+    glib
+    autoconf213
+    libssh2
+    rustc
+    js78
+    polkit
+    lzo
+    libaio
+    boost
+    thin-provisioning-tools
+    lvm2
+    btrfs-progs
+    json-c
+    popt
+    cryptsetup
+    nettle
+    libunistring
+    gnutls
+    libgpg-error
+    libgcrypt
+    libidn2
+    libseccomp
+    libxkbcommon
+    gnu-efi
+    lz4
+    systemd
+    xorg-server
+    xf86-input-evdev
+    libinput
+    xf86-input-libinput
+    xf86-input-synaptics
+    xf86-video-fbdev
+    xf86-video-intel
+    xf86-video-vmware
+    graphite2
+    harfbuzz
+    fribidi
+    nasm
+    libass
+    fdk-aac
+    lame
+    libogg
+    libvorbis
+    libtheora
+    yasm
+    libvpx
+    opus
+    x264
+    x265
+    alsa-lib
+    sdl2
+    ffmpeg
+    libvdpau-va-gl
+    xorg-legacy
+    twm
+    libspiro
+    libuninameslist
+    dbus
+    at-spi2-core
+    atk
+    at-spi2-atk
+    libjpeg-turbo
+    shared-mime-info
+    cairo
+    pango
+    graphviz
+    vala
+    librsvg
+    libtiff
+    gdk-pixbuf
+    adwaita-icon-theme
+    hicolor-icon-theme
+    iso-codes
+    sassc
+    gtk3
+    fontforge
+    dejavu-fonts-ttf
+    xterm
+    xclock
+    xinit
+    extra-cmake-modules
+    giflib
+    lmdb
+    lcms2
+    libgudev
+    libusb
+    usbutils
+    libgusb
+    colord
+    lynx
+    libevent
+    links
+    xdg-utils
+    cups
+    gstreamer
+    cdparanoia
+    gst-plugins-base
+    jasper
+    libmng
+    sdl
+    libwebp
+    krb5
+    pcre2
+    qt5
+    phonon
+    plasma-wayland-protocols
+    perl-test-needs
+    perl-uri
+    aspell
+    gtk2
+    libdaemon
+    libglade
+    avahi
+    libdbusmenu-qt
+    dbus-glib
+    libndp
+    jansson
+    slang
+    gpm
+    newt
+    python3-pycairo
+    python3-pygobject
+    upower
+    desktop-file-utils
+    libnl
+    wpa_supplicant
+    networkmanager
+    polkit-qt
+    plasma-frameworks-info
+    libical
+    bluez
+    libmbim
+    libqmi
+    modemmanager
+    oxygen-fonts
+    noto-fonts
+    libatasmart
+    libbytesize
+    libyaml
+    parted
+    libassuan
+    gpgme
+    swig
+    volume_key
+    libblockdev
+    dosfstools
+    gptfdisk
+    ntfs-3g
+    udisks
+    media-player-info
+    plasma-frameworks
+    cpio
+    p7zip
+    unrar
+    zip
+    ark
+    gavl
+    frei0r-plugins
+    mlt
+    glu
+    v4l-utils
+    breeze-icons
+    kdenlive
+    kmix
+    grantlee
+    xapian
+    khelpcenter
+    konsole
+    exiv2
+    libkexiv2
+    openjpeg
+    poppler
+    okular
+    libraw
+    libkdcraw
+    gwenview
+    gconf
+    flac
+    libsndfile
+    libcap-pam
+    speex
+    sbc
+    pulseaudio
+    pipewire
+    qca
+    taglib
+    fftw
+    gsettings-desktop-schemas
+    libcanberra
+    lm-sensors
+    oxygen-icons5
+    pciutils
+    plasma
+    sddm
+    efivar
+    efibootmgr
+    unifont
+    grub-efi
+    rsync
+    vim
 )
 
 SCRIPTDIR=$(dirname $0)/Applications
@@ -224,7 +291,7 @@ for script in ${PKG[@]}; do
 		echo "--- $script skipped ---"
 	else
 		echo "*** $script ***"
-		SRC=/home/sources $SCRIPTDIR/$script
+		ldconfig && SRC=/home/sources $SCRIPTDIR/$script
 		echo; echo "*** $script done ***"; sleep 10; echo
 	fi
 done

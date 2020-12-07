@@ -11,12 +11,12 @@ pkgver=3.2.6
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/Gconf-$pkgver.tar.* -C $TMP
+tar xf $SRC/GConf-$pkgver.tar.* -C $TMP
 
 { time \
    {
 
-    cd $TMP/Gconf-$pkgver
+    cd $TMP/GConf-$pkgver
 
     ./configure --prefix=/usr \
                 --sysconfdir=/etc \

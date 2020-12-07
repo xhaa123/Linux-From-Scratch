@@ -21,7 +21,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
     mkdir build 
     cd    build 
 
-    meson --prefix=/usr -Dgtk_doc=tru ..
+    meson --prefix=/usr -Dgtk_doc=true ..
     ninja
 
     ninja install

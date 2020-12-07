@@ -1,0 +1,46 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgname=poppler
+pkgver=20.12.0
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+
+{ time \
+   {
+
+   cd $TMP/$pkgname-$pkgver
+
+    mkdir build                        
+    cd    build                        
+
+    cmake  -DCMAKE_BUILD_TYPE=Release   \
+           -DCMAKE_INSTALL_PREFIX=/usr  \
+           -DTESTDATADIR=$PWD/testfiles \
+           -DENABLE_UNSTABLE_API_ABI_HEADERS=ON     \
+           ..                          
+    make
+
+    make install
+
+    install -v -m755 -d           /usr/share/doc/$pkgname-$pkgver
+    cp -vr ../glib/reference/html /usr/share/doc/$pkgname-$pkgver
+
+    tar -xf $SRC/poppler-data-0.4.10.tar.gz
+    cd poppler-data-0.4.10
+
+    make prefix=/usr install
+
+   }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

@@ -11,12 +11,12 @@ pkgver=2.8.9rel.1
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+tar xf $SRC/$pkgname$pkgver.tar.* -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/$pkgname$pkgver
 
     ./configure --prefix=/usr          \
                 --sysconfdir=/etc/lynx \

@@ -1,0 +1,50 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgname=vim
+pkgver=8.2.2098
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+
+{ time \
+   {
+
+   cd $TMP/$pkgname-$pkgver
+
+    echo '#define SYS_VIMRC_FILE  "/etc/vimrc"' >>  src/feature.h
+    echo '#define SYS_GVIMRC_FILE "/etc/gvimrc"' >> src/feature.h
+
+    ./configure --prefix=/usr         \
+                --with-features=huge  \
+                --enable-gui=gtk3     \
+                --with-tlib=ncursesw  \
+                --enable-luainterp    \
+                --enable-perlinterp   \
+                --enable-pythoninterp \
+                --enable-tclinterp    \
+                --enable-rubyinterp
+    make
+
+    make install
+
+    ln -snfv ../vim/vim82/doc /usr/share/doc/$pkgname-$pkgver
+
+    rsync -avzcP --exclude="/dos/" --exclude="/spell/" \
+        ftp.nluug.nl::Vim/runtime/ ./runtime/
+
+    make -C src installruntime &&
+    vim -c ":helptags /usr/share/doc/$pkgname-$pkgver" -c ":q"
+
+   }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

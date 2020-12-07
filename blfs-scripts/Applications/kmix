@@ -1,0 +1,39 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgname=kmix
+pkgver=20.08.0
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+
+{ time \
+   {
+
+   cd $TMP/$pkgname-$pkgver
+
+    export KF5_PREFIX=/usr
+    
+    mkdir build
+    cd    build
+
+    cmake -DCMAKE_INSTALL_PREFIX=$KF5_PREFIX \
+          -DCMAKE_BUILD_TYPE=Release         \
+          -DBUILD_TESTING=OFF                \
+          -Wno-dev ..
+    make
+
+    make install
+
+   }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

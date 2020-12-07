@@ -6,12 +6,12 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=cups
-pkgver=$pkgver
+pkgver=2.3.3
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+tar xf $SRC/$pkgname-$pkgver-source.tar.* -C $TMP
 
 { time \
    {

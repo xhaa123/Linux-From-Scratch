@@ -1,0 +1,55 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgname=openssh
+pkgver=8.4p1
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$pkgname-$pkgver
+
+    install  -v -m700 -d /var/lib/sshd
+    chown    -v root:sys /var/lib/sshd
+
+    groupadd -g 50 sshd       
+    useradd  -c 'sshd PrivSep' \
+             -d /var/lib/sshd  \
+             -g sshd           \
+             -s /bin/false     \
+             -u 50 sshd
+
+    ./configure --prefix=/usr                     \
+                --sysconfdir=/etc/ssh             \
+                --with-md5-passwords              \
+                --with-privsep-path=/var/lib/sshd --with-pam
+    make
+
+    make install
+    install -v -m755    contrib/ssh-copy-id /usr/bin    
+
+    install -v -m644    contrib/ssh-copy-id.1 \
+                        /usr/share/man/man1             
+    install -v -m755 -d /usr/share/doc/openssh-8.4p1    
+    install -v -m644    INSTALL LICENCE OVERVIEW README* \
+                        /usr/share/doc/$pkgname-$pkgver
+
+    tar xf $SRC/blfs-systemd-units-20200828.tar.xz
+    cd blfs-systemd-units-20200828
+    make install-sshd                            
+
+   }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

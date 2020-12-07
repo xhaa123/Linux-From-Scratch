@@ -48,9 +48,7 @@ EOF
 
     export -f as_root
 
-    bash -e
-
-    for package in $(grep -v '^#' ../font-7.md5 | awk '{print $2}')
+    for package in $(grep -v '^#' font-7.md5 | awk '{print $2}')
     do
       packagedir=${package%.tar.bz2}
       tar -xf $package
@@ -61,8 +59,6 @@ EOF
       popd
       as_root rm -rf $packagedir
     done
-
-    exit
 
     install -v -d -m755 /usr/share/fonts
     ln -svfn $XORG_PREFIX/share/fonts/X11/OTF /usr/share/fonts/X11-OTF

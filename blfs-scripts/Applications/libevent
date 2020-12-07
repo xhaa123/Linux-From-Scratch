@@ -11,12 +11,12 @@ pkgver=2.1.12
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+tar xf $SRC/$pkgname-$pkgver-stable.tar.* -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/$pkgname-$pkgver-stable
 
     ./configure --prefix=/usr --disable-static
     make

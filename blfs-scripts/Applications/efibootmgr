@@ -1,0 +1,39 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgname=efibootmgr
+pkgver=17
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+pushd $SRC
+    git clone https://github.com/rhboot/efibootmgr.git $pkgname-$pkgver
+    tar cf $pkgname-$pkgver.tar.gz $pkgname-$pkgver
+    rm -rf $pkgname-$pkgver
+popd
+
+tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+
+{ time \
+   {
+
+   cd $TMP/$pkgname-$pkgver
+
+    make EFIDIR=LFS EFI_LOADER=grubx64.efi
+
+    install -v -D -m0755 src/efibootmgr /usr/sbin/efibootmgr
+
+    install -v -D -m0644 src/efibootmgr.8 \
+        /usr/share/man/man8/efibootmgr.8
+
+   }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

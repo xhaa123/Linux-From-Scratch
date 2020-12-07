@@ -74,9 +74,7 @@ EOF
 
     export -f as_root
 
-    bash -e
-
-    for package in $(grep -v '^#' ../app-7.md5 | awk '{print $2}')
+    for package in $(grep -v '^#' app-7.md5 | awk '{print $2}')
     do
     packagedir=${package%.tar.?z*}
     tar -xf $package
@@ -93,8 +91,6 @@ EOF
     popd
     rm -rf $packagedir
     done
-
-    exit
 
     as_root rm -f $XORG_PREFIX/bin/xkeystone
 

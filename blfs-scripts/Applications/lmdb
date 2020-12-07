@@ -11,12 +11,12 @@ pkgver=0.9.24
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+tar xf $SRC/lmdb-LMDB_$pkgver.tar.* -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/lmdb-LMDB_$pkgver
 
     cd libraries/liblmdb
     make                

@@ -16,7 +16,7 @@ tar xf $SRC/NetworkManager-$pkgver.tar.* -C $TMP
 { time \
    {
 
-    cd $TMP/NetworkManager-$pkgver
+   cd $TMP/NetworkManager-$pkgver
 
     sed -e 's/-qt4/-qt5/'              \
         -e 's/moc_location/host_bins/' \
@@ -26,7 +26,7 @@ tar xf $SRC/NetworkManager-$pkgver.tar.* -C $TMP
         -i meson.build
 
     sed '/initrd/d' -i src/meson.build
-    
+
     grep -rl '^#!.*python$' | xargs sed -i '1s/python/&3/'
 
     mkdir build
@@ -45,11 +45,11 @@ tar xf $SRC/NetworkManager-$pkgver.tar.* -C $TMP
           -Dudev_dir=/lib/udev       \
           -Dsession_tracking=systemd \
           -Dmodem_manager=false      \
-          -Dsystemdsystemunitdir=/lib/systemd/system -Ddocs=true \
-          ..
+          -Dsystemdsystemunitdir=/lib/systemd/system \
+          .. &&
     ninja
 
-    ninja install
+    ninja install &&
     mv -v /usr/share/doc/NetworkManager{,-1.26.4}
 
     cat >> /etc/NetworkManager/NetworkManager.conf << "EOF"
@@ -57,37 +57,10 @@ tar xf $SRC/NetworkManager-$pkgver.tar.* -C $TMP
 plugins=keyfile
 EOF
 
-    cat > /etc/NetworkManager/conf.d/polkit.conf << "EOF"
-[main]
-auth-polkit=true
-EOF
-
-    cat > /etc/NetworkManager/conf.d/dhcp.conf << "EOF"
-[main]
-dhcp=dhclient
-EOF
-
-    cat > /etc/NetworkManager/conf.d/no-dns-update.conf << "EOF"
-[main]
-dns=none
-EOF
-
-    groupadd -fg 86 netdev
-    /usr/sbin/usermod -a -G netdev <username>
-
-    cat > /usr/share/polkit-1/rules.d/org.freedesktop.NetworkManager.rules << "EOF"
-polkit.addRule(function(action, subject) {
-    if (action.id.indexOf("org.freedesktop.NetworkManager.") == 0 && subject.isInGroup("netdev")) {
-        return polkit.Result.YES;
-    }
-});
-EOF
-
     systemctl enable NetworkManager
     systemctl disable NetworkManager-wait-online
 
-
-    }
+   }
 } 2>&1 | tee $pkgname.log
     
 [ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS

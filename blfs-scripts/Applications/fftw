@@ -28,7 +28,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
    make install
 
-   make clean &&
+   make clean
 
    ./configure --prefix=/usr    \
                --enable-shared  \

@@ -18,7 +18,7 @@ tar xf $SRC/$pkgname-$pkgver-src.tar.gz -C $TMP
 
     cd $TMP/$pkgname-$pkgver-src
 
-    mkdir /opt/$pkgname-$pkgver          
+    mkdir -pv /opt/$pkgname-$pkgver          
     ln -svfin $pkgname-$pkgver /opt/rustc
 
     cat << EOF > config.toml

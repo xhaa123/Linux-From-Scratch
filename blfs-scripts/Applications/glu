@@ -18,6 +18,8 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     cd $TMP/$pkgname-$pkgver
 
+    export XORG_PREFIX=/usr
+
     ./configure --prefix=$XORG_PREFIX --disable-static 
     make
 

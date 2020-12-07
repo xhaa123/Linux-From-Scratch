@@ -11,12 +11,12 @@ pkgver=4.1.0
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+tar xf $SRC/tiff-$pkgver.tar.* -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/tiff-$pkgver
 
     mkdir -p libtiff-build
     cd       libtiff-build

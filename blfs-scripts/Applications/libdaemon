@@ -23,10 +23,6 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     make docdir=/usr/share/doc/$pkgname-$pkgver install
 
-    install -v -m755 -d /usr/share/doc/$pkgname-$pkgver/reference/html
-    install -v -m644 doc/reference/html/* /usr/share/doc/$pkgname-$pkgver/reference/html
-    install -v -m644 doc/reference/man/man3/* /usr/share/man/man3
-
     }
 } 2>&1 | tee $pkgname.log
     

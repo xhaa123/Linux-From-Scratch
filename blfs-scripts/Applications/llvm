@@ -11,12 +11,12 @@ pkgver=11.0.0
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+tar xf $SRC/$pkgname-$pkgver.src.tar.* -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/$pkgname-$pkgver.src
 
     tar -xf $SRC/clang-$pkgver.src.tar.xz -C tools
     mv tools/clang-$pkgver.src tools/clang

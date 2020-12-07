@@ -11,7 +11,7 @@ pkgver=0.3.112
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+tar xf $SRC/${pkgname}_$pkgver.orig.tar.xz -C $TMP
 
 { time \
    {

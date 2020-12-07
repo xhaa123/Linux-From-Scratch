@@ -11,14 +11,14 @@ pkgver=4.5
 rm -fr $TMP
 mkdir -p $TMP/$pkgname-$pkgver $LOG
 
-unzip -d $TMP $SRC/$pkgname-$pkgver.zip
+unzip -d $TMP/$pkgname-$pkgver $SRC/$pkgname-$pkgver.zip
 
 { time \
    {
 
     cd $TMP/$pkgname-$pkgver
 
-    nstall -v -d -m755 /usr/share/xml/docbook/xml-dtd-$pkgver
+    install -v -d -m755 /usr/share/xml/docbook/xml-dtd-$pkgver
     install -v -d -m755 /etc/xml
     chown -R root:root .
     cp -v -af docbook.cat *.dtd ent/ *.mod \

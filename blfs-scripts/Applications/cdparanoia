@@ -18,7 +18,7 @@ tar xf $SRC/cdparanoia-III-$pkgver.src.tgz -C $TMP
 
     cd $TMP/cdparanoia-III-$pkgver
 
-    patch -Np1 -i ../cdparanoia-III-$pkgver-gcc_fixes-1.patch
+    patch -Np1 -i $SRC/cdparanoia-III-$pkgver-gcc_fixes-1.patch
     ./configure --prefix=/usr --mandir=/usr/share/man
     make -j1
 

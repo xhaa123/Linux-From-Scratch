@@ -1,0 +1,30 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgname=python3-imagesize
+pkgver=1.2.0
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/imagesize-$pkgver.tar.* -C $TMP
+
+{ time \
+   {
+
+   cd $TMP/imagesize-$pkgver
+
+    python3 setup.py build
+
+    python3 setup.py install --optimize=1
+
+   }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

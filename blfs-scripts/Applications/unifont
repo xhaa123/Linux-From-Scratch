@@ -1,0 +1,26 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgname=unifont
+pkgver=13.0.04
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+{ time \
+   {
+
+    mkdir -pv /usr/share/fonts/unifont
+    gunzip -c $SRC/$pkgname-$pkgver.pcf.gz > \
+        /usr/share/fonts/unifont/unifont.pcf
+
+   }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

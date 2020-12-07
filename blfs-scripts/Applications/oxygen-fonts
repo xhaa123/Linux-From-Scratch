@@ -11,17 +11,21 @@ pkgver=5.4.3
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/oxygen-fonts-5.4.3-x86_64.tar.xz -C $TMP
+tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
 { time \
    {
 
-    cd $TMP/oxygen-fonts-5.4.3-x86_64
+   cd $TMP/$pkgname-$pkgver
 
-    cp -rv share /usr/
-    cp -r lib64/* /usr/lib/
+    mkdir build
+    cd    build
 
-    }
+    cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+
+    make install
+
+   }
 } 2>&1 | tee $pkgname.log
     
 [ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS

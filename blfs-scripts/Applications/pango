@@ -21,7 +21,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
     mkdir build
     cd    build
 
-    meson --prefix=/usr -Denable-docs ..
+    meson --prefix=/usr -Denable-docs=ture ..
     ninja
 
     ninja install

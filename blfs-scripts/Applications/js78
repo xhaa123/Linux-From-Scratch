@@ -19,6 +19,8 @@ tar xf $SRC/firefox-78.5.0esr.source.tar.xz -C $TMP
     cd $TMP/firefox-78.5.0
 
     mountpoint -q /dev/shm || mount -t tmpfs devshm /dev/shm
+    
+    export SHELL=/bin/bash
 
     mkdir obj
     cd    obj

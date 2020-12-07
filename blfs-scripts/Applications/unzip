@@ -19,7 +19,7 @@ tar xf $SRC/unzip60.tar.gz -C $TMP
     cd $TMP/${pkgname}60
 
 
-    mtch -Np1 -i $SRC/$pkgname-$pkgver-consolidated_fixes-1.patchake install
+    patch -Np1 -i $SRC/$pkgname-$pkgver-consolidated_fixes-1.patch
 
     make -f unix/Makefile generic
 

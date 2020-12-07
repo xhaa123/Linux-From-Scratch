@@ -17,6 +17,8 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
    {
 
     cd $TMP/$pkgname-$pkgver
+    
+    export QT5DIR=/opt/qt5
 
     sed -i 's@cert.pem@certs/ca-bundle.crt@' CMakeLists.txt
 

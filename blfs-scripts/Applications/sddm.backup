@@ -1,0 +1,50 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgname=sddm
+pkgver=0.19.0
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+
+{ time \
+   {
+
+   cd $TMP/$pkgname-$pkgver
+
+  patch -Np1 -i $SRC/$pkgname-$pkgver-pam-faillock.patch
+
+  mkdir build
+  cd    build
+
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_LIBEXECDIR=/usr/lib/sddm \
+        -DDBUS_CONFIG_DIR=/usr/share/dbus-1/system.d \
+        -DDBUS_CONFIG_FILENAME=sddm_org.freedesktop.DisplayManager.conf \
+        -DBUILD_MAN_PAGES=ON
+  cmake --build build
+
+  cmake --install build
+
+  install -Dm644 $SRC/sddm.sysusers /usr/lib/sysusers.d/sddm.conf
+  install -Dm644 $SRC/sddm.tmpfiles /usr/lib/tmpfiles.d/sddm.conf
+
+  install -d /usr/lib/sddm/sddm.conf.d
+  /usr/bin/sddm --example-config > /usr/lib/sddm/sddm.conf.d/default.conf
+
+  sed -r 's|DefaultPath=.*|DefaultPath=/usr/local/sbin:/usr/local/bin:/usr/bin|g' -i /usr/lib/sddm/sddm.conf.d/default.conf
+
+  sed -e "/^InputMethod/s/qtvirtualkeyboard//" -i /usr/lib/sddm/sddm.conf.d/default.conf
+
+   }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

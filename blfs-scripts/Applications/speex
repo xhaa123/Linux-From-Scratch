@@ -26,7 +26,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
     make install
 
     cd ..                         
-    tar -xf speexdsp-$pkgver.tar.gz
+    tar -xf $SRC/speexdsp-$pkgver.tar.gz
     cd speexdsp-$pkgver            
 
     ./configure --prefix=/usr    \
