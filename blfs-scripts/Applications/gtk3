@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=gtk3
-pkgver=3.24.23
+pkgver=3.24.24
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
