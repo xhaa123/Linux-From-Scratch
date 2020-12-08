@@ -25,6 +25,8 @@ esac
 
 mkdir -pv $LFS/tools
 
+mv ../../Linux-From-Scratch $LFS
+
 groupadd lfs
 useradd -s /bin/bash -g lfs -m -k /dev/null lfs
 
@@ -34,5 +36,8 @@ case $(uname -m) in
 esac
 
 chown -v lfs $LFS/sources
+
+chown -R lfs $LFS/Linux-From-Scratch
+
 echo "Now switch to the lfs user"
 

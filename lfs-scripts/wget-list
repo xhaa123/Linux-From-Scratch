@@ -81,4 +81,5 @@ http://www.linuxfromscratch.org/patches/lfs/development/bzip2-1.0.8-install_docs
 http://www.linuxfromscratch.org/patches/lfs/development/coreutils-8.32-i18n-1.patch
 http://www.linuxfromscratch.org/patches/lfs/development/glibc-2.32-fhs-1.patch
 http://www.linuxfromscratch.org/patches/lfs/development/kbd-2.3.0-backspace-1.patch
+http://www.linuxfromscratch.org/patches/lfs/development/meson-0.56.0-upstream_fix-1.patch
 http://www.linuxfromscratch.org/patches/lfs/development/systemd-247-upstream_fixes-1.patch

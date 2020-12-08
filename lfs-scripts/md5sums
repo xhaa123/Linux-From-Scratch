@@ -81,4 +81,5 @@ c1545da2ad7d78574b52c465ec077ed9  bash-5.0-upstream_fixes-1.patch
 cd8ebed2a67fff2e231026df91af6776  coreutils-8.32-i18n-1.patch
 9a5997c3452909b1769918c759eff8a2  glibc-2.32-fhs-1.patch
 f75cca16a38da6caa7d52151f7136895  kbd-2.3.0-backspace-1.patch
+589012d95c80f256e569598caf27c9a6  meson-0.56.0-upstream_fix-1.patch
 573a166f3620875208f78bf4dc431c8b  systemd-247-upstream_fixes-1.patch
