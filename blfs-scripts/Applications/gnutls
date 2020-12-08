@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=gnutls
-pkgver=3.6.15
+pkgver=3.7.0
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
