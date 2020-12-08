@@ -18,6 +18,8 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
 
     cd $TMP/$pkgname-$pkgver
     
+    patch -Np1 -i $SRC/$pkgname-$pkgver-upstream_fix-1.patch
+
     python3 setup.py build
     
     python3 setup.py install --root=dest

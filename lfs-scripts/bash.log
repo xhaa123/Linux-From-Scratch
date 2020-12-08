@@ -1,0 +1,14 @@
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-lfs-linux-gnu
+
+Beginning configuration for bash-5.0-release for x86_64-lfs-linux-gnu
+
+checking for x86_64-lfs-linux-gnu-gcc... x86_64-lfs-linux-gnu-gcc
+checking whether the C compiler works... no
+configure: error: in `/mnt/lfs/Linux-From-Scratch/lfs-scripts/stage1/Build-TMP/bash-5.0':
+configure: error: C compiler cannot create executables
+See `config.log' for more details
+
+real	0m0.198s
+user	0m0.154s
+sys	0m0.064s

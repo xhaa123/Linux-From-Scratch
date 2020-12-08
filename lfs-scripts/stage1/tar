@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-TMP=${TMP:-$(dirname $0)/Build-TMP}
+TMP=${TMP:-$(mktemp -d)}
 LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-$LFS/sources}
 

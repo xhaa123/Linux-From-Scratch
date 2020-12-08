@@ -1,0 +1,20 @@
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for x86_64-lfs-linux-gnu-strip... x86_64-lfs-linux-gnu-strip
+checking for a race-free mkdir -p... /usr/bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether make supports nested variables... (cached) yes
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-lfs-linux-gnu
+checking for gawk... (cached) gawk
+checking for x86_64-lfs-linux-gnu-gcc... x86_64-lfs-linux-gnu-gcc
+checking whether the C compiler works... no
+configure: error: in `/mnt/lfs/Linux-From-Scratch/lfs-scripts/stage1/Build-TMP/grep-3.6':
+configure: error: C compiler cannot create executables
+See `config.log' for more details
+
+real	0m0.235s
+user	0m0.188s
+sys	0m0.076s

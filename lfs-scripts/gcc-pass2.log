@@ -1,0 +1,8 @@
+renamed 'mpfr-4.1.0' -> 'mpfr'
+renamed 'gmp-6.2.1' -> 'gmp'
+renamed 'mpc-1.2.1' -> 'mpc'
+mkdir: cannot create directory 'build': File exists
+
+real	0m0.345s
+user	0m0.311s
+sys	0m0.142s

@@ -1,0 +1,21 @@
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for x86_64-lfs-linux-gnu-strip... x86_64-lfs-linux-gnu-strip
+checking for a thread-safe mkdir -p... /usr/bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether UID '1001' is supported by ustar format... yes
+checking whether GID '1001' is supported by ustar format... yes
+checking how to create a ustar tar archive... gnutar
+checking whether make supports nested variables... (cached) yes
+checking for style of include used by make... GNU
+checking for x86_64-lfs-linux-gnu-gcc... x86_64-lfs-linux-gnu-gcc
+checking whether the C compiler works... no
+configure: error: in `/mnt/lfs/Linux-From-Scratch/lfs-scripts/stage1/Build-TMP/tar-1.32':
+configure: error: C compiler cannot create executables
+See `config.log' for more details
+
+real	0m0.253s
+user	0m0.220s
+sys	0m0.059s

@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 
-TMP=${TMP:-$(dirname $0)/Build-TMP}
+TMP=${TMP:-$(mktemp -d)}
 LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-$LFS/sources}
 
 mkdir -pv $TMP $LOG
 
 pkgname=linux-headers
-pkgver=5.9.8
+pkgver=5.9.12
 
 tar xf $SRC/linux-$pkgver.tar.xz -C $TMP 
 
