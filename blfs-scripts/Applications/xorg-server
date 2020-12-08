@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=xorg-server
-pkgver=1.20.9
+pkgver=1.20.10
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
