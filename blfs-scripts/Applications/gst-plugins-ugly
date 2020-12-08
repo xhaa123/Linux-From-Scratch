@@ -1,0 +1,37 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$(mktemp -d)}
+LOG=${LOG:-$(dirname $0)/log}
+SRC=${SRC:-/home/sources}
+
+pkgname=gst-plugins-ugly
+pkgver=1.18.1
+
+rm -fr $TMP
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
+
+{ time \
+   {
+
+   cd $TMP/$pkgname-$pkgver
+
+    mkdir build
+    cd    build
+
+    meson  --prefix=/usr       \
+           -Dbuildtype=release \
+           -Dpackage-origin=http://www.linuxfromscratch.org/blfs/view/systemd/ \
+           -Dpackage-name="GStreamer 1.18.1 BLFS"
+    ninja
+
+    ninja install
+
+   }
+} 2>&1 | tee $pkgname.log
+    
+[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

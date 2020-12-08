@@ -22,7 +22,7 @@ mkdir -p $TMP $LOG
     export XORG_CONFIG="--prefix=$XORG_PREFIX --sysconfdir=/etc \
         --localstatedir=/var --disable-static"
 
-    cat > lib-7.md5 << "EOF"
+    cat > $pkgname.md5 << "EOF"
 ce2fb8100c6647ee81451ebe388b17ad  xtrans-1.4.0.tar.bz2
 f46572566e2cec801609d25f735285b7  libX11-1.7.0.tar.bz2
 f5b48bb76ba327cd2a8dc7a383532a95  libXext-1.3.4.tar.bz2
@@ -57,9 +57,9 @@ dd7e1e946def674e78c0efbc5c7d5b3b  libxkbfile-1.1.0.tar.bz2
 42dda8016943dc12aff2c03a036e0937  libxshmfence-1.3.tar.bz2
 EOF
 
-    grep -v '^#' lib-7.md5 | awk '{print $2}' | wget -i- -c \
+    grep -v '^#' $pkgname.md5 | awk '{print $2}' | wget -i- -c \
         -B https://www.x.org/pub/individual/lib/
-    md5sum -c lib-7.md5
+    md5sum -c $pkgname.md5
 
     as_root()
     {
@@ -71,7 +71,7 @@ EOF
 
     export -f as_root
 
-    for package in $(grep -v '^#' lib-7.md5 | awk '{print $2}')
+    for package in $(grep -v '^#' $pkgname.md5 | awk '{print $2}')
     do
         packagedir=${package%.tar.bz2}
         tar -xf $package

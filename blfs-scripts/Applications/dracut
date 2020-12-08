@@ -5,8 +5,8 @@ TMP=${TMP:-$(mktemp -d)}
 LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
-pkgname=xf86-input-wacom
-pkgver=0.39.0
+pkgname=dracut
+pkgver=050
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,16 +18,10 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
    cd $TMP/$pkgname-$pkgver
 
-    export XORG_PREFIX=/usr
-    export XORG_CONFIG="--prefix=$XORG_PREFIX --sysconfdir=/etc \
-        --localstatedir=/var --disable-static"
-
-    ./configure $XORG_CONFIG \
-                --with-udev-rules-dir=/lib/udev/rules.d \
-                --with-systemd-unit-dir=/lib/systemd/system
+    ./configure --prefix=/usr
     make
 
-    make install
+    make install sbindir=/sbin sysconfdir=/etc
 
    }
 } 2>&1 | tee $pkgname.log

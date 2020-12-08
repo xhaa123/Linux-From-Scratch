@@ -134,8 +134,6 @@ PKG=(
 	sdl2
 	ffmpeg
 	libvdpau-va-gl
-	xorg-driver
-	xorg-legacy
 	twm
 	libspiro
 	libuninameslist
@@ -164,7 +162,6 @@ PKG=(
 	xinit
 	noto-fonts
 	oxygen-fonts
-	xorg
 	rsync
 	vim
 	sudo
@@ -253,9 +250,9 @@ PKG=(
 	libmbim
 	libqmi
 	modemmanager
-	python3-Jinja2
+	python3-jinja2
 	libyaml
-	python3-yaml
+	python3-pyyaml
 	libatasmart
 	libbytesize
 	parted
@@ -292,7 +289,6 @@ PKG=(
 	libraw
 	libkdcraw
 	gwenview
-	kde-applications
 	gconf
 	pipewire
 	qca

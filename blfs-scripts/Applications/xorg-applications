@@ -21,7 +21,7 @@ mkdir -p $TMP $LOG
     mkdir -pv $SRC/$pkgname
     cd $SRC/$pkgname
 
-    cat > app-7.md5 << "EOF"
+    cat > $pkgname.md5 << "EOF"
 3b9b79fa0f9928161f4bad94273de7ae  iceauth-1.0.8.tar.bz2
 c4a3664e08e5a47c120ff9263ee2f20c  luit-1.1.1.tar.bz2
 215940de158b1a3d8b3f8b442c606e2f  mkfontscale-1.2.1.tar.bz2
@@ -60,9 +60,9 @@ b13afec137b9b331814a9824ab03ec80  xvinfo-1.1.4.tar.bz2
 79972093bb0766fcd0223b2bd6d11932  xwud-1.0.5.tar.bz2
 EOF
 
-    grep -v '^#' app-7.md5 | awk '{print $2}' | wget -i- -c \
+    grep -v '^#' $pkgname.md5 | awk '{print $2}' | wget -i- -c \
         -B https://www.x.org/pub/individual/app/
-    md5sum -c app-7.md5
+    md5sum -c $pkgname.md5
 
     as_root()
     {
@@ -74,7 +74,7 @@ EOF
 
     export -f as_root
 
-    for package in $(grep -v '^#' app-7.md5 | awk '{print $2}')
+    for package in $(grep -v '^#' $pkgname.md5 | awk '{print $2}')
     do
     packagedir=${package%.tar.?z*}
     tar -xf $package

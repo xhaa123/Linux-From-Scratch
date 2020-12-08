@@ -5,8 +5,8 @@ TMP=${TMP:-$(mktemp -d)}
 LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
-pkgname=xf86-video-amdgpu
-pkgver=19.1.0
+pkgname=gst-plugins-good
+pkgver=1.18.1
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,16 +18,16 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
    cd $TMP/$pkgname-$pkgver
 
-    export XORG_PREFIX=/usr
-    export XORG_CONFIG="--prefix=$XORG_PREFIX --sysconfdir=/etc \
-        --localstatedir=/var --disable-static"
+    mkdir build
+    cd    build
 
-    sed -i 's/^miPointerSpriteFuncRec/extern &/' src/drmmode_display.h
+    meson  --prefix=/usr       \
+           -Dbuildtype=release \
+           -Dpackage-origin=http://www.linuxfromscratch.org/blfs/view/systemd/ \
+           -Dpackage-name="GStreamer 1.18.1 BLFS"
+    ninja
 
-    ./configure $XORG_CONFIG \
-    make
-
-    make install
+    ninja install
 
    }
 } 2>&1 | tee $pkgname.log

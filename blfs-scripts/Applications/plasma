@@ -6,7 +6,6 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=plasma
-#pkgver=5.20.4
 pkgver=5.19.4
 
 rm -fr $TMP
@@ -74,59 +73,7 @@ d0aa151e8dfe37bc412bf4a9fdfa027d  kde-cli-tools-5.19.4.tar.xz
 #13d0a1017e9a44fc91b27147866ff36b  plasma-phone-components-5.19.4.tar.xz
 EOF
 
-#    cat > $pkgname-$pkgver.md5 << "EOF"
-#af10a41b15cb81f3cc405e31ef9f17ed  kdecoration-5.20.4.tar.xz
-#aee69339bac97b8b4c8ba073c48ac7ed  libkscreen-5.20.4.tar.xz
-#44015317e6c496a2cbd0dbea00fafec5  libksysguard-5.20.4.tar.xz
-#9000d1bfe0bb16ee499dbe5a5af9bb22  breeze-5.20.4.tar.xz
-#f984413303ea9bfa8b09add47eea217a  breeze-gtk-5.20.4.tar.xz
-#86f2e76c7408b2ccd327b4ffa7c81f41  kscreenlocker-5.20.4.tar.xz
-#792f7f818c18f386118093bb0be035d1  oxygen-5.20.4.tar.xz
-#b41353b8c832a2831f04fc180dbabadd  kinfocenter-5.20.4.tar.xz
-#fd1267064fa9b085934cbe3f1e5aade7  ksysguard-5.20.4.tar.xz
-#cf90264792369ba8bd4d4333a5b59c96  kwayland-server-5.20.4.tar.xz
-#2e25eb98bbbc37eaa81d6061817bd164  kwin-5.20.4.tar.xz
-#cb4867c20b81ffcd8adae56c3dec0d41  plasma-workspace-5.20.4.tar.xz
-#ac4730c9c47016c1db92e1b1c66b585f  bluedevil-5.20.4.tar.xz
-#ea24ffd849444b5ceba4a48023939311  kde-gtk-config-5.20.4.tar.xz
-#856e51dfb18f2b51ca39db5af2b9707b  khotkeys-5.20.4.tar.xz
-#257cba142fc1c13d328d6817b65cdc3a  kmenuedit-5.20.4.tar.xz
-#b8a5116c94ea717b3b71f2fdcc59a881  kscreen-5.20.4.tar.xz
-#aea33684c4ed4241e01e3753fd0ea132  kwallet-pam-5.20.4.tar.xz
-#65d449b6a51fbff45c9cc65d601536ac  kwayland-integration-5.20.4.tar.xz
-#09c0ef8c927c1b0798a41ae7b6ca1397  kwrited-5.20.4.tar.xz
-#92e9003a449866335ef154c748846f46  milou-5.20.4.tar.xz
-#e05dbd9e6617b49290616d323bc54daf  plasma-nm-5.20.4.tar.xz
-#1eebbc148709b42dc4862a2d98fff85b  plasma-pa-5.20.4.tar.xz
-#d96c17d9d589cd2ba833d60ac55208e5  plasma-workspace-wallpapers-5.20.4.tar.xz
-#44e98339dbe238045d1e72d26282a74d  polkit-kde-agent-1-5.20.4.tar.xz
-#5fd24e129d01354d6abaf8aa8766ed85  powerdevil-5.20.4.tar.xz
-#ddd01d3a85e5efb2967b7dfa4f162b6f  plasma-desktop-5.20.4.tar.xz
-#6e4d4f4717c6149d0213bdc6fbe4cc0e  kdeplasma-addons-5.20.4.tar.xz
-#9cf80a513951a8cb8f540d2cc2315664  kgamma5-5.20.4.tar.xz
-#7ac6d7e0d6849ce23e86b2ee5ad5d888  ksshaskpass-5.20.4.tar.xz
-##717b10a56d338bb58383f0f3269fb531  plasma-sdk-5.20.4.tar.xz
-#16f15fee8b435ac1ce0f304668f538b3  sddm-kcm-5.20.4.tar.xz
-##0787296981e74adb829df253e6cd8a82  user-manager-5.20.4.tar.xz
-#f6f126e5f6d84d8f47516badc7fb7e9c  discover-5.20.4.tar.xz
-##b55f6f11e4fa29c39fce9c0d5568ca88  breeze-grub-5.20.4.tar.xz
-##7d6977a3d6dea4e43ce03b81fc09ba2d  breeze-plymouth-5.20.4.tar.xz
-#a74cf024d2e05837b813703daa364713  kactivitymanagerd-5.20.4.tar.xz
-#5478e5bb63b40271143166dfbc3c7552  plasma-integration-5.20.4.tar.xz
-#ae3ae24c4145ef01680f0120ee2693b8  plasma-tests-5.20.4.tar.xz
-##791d267d4869ea743bbe4d47e798a4cb  plymouth-kcm-5.20.4.tar.xz
-#c9a901323a72ccb071c1a2a9b20fe2d0  xdg-desktop-portal-kde-5.20.4.tar.xz
-#4515e64c1758dc49a8ca9adb1113a37a  drkonqi-5.20.4.tar.xz
-#594abf697ef7ba64ee5a2468a72c93dc  plasma-vault-5.20.4.tar.xz
-#1832bd8fabaec98d880fa25ea2adc395  plasma-browser-integration-5.20.4.tar.xz
-#3497d575211112126b26c50416ca1271  kde-cli-tools-5.20.4.tar.xz
-#e1997939048be759b3344d05028c67bb  systemsettings-5.20.4.tar.xz
-#3dd1492bd3ed8edf085a01b536c06a73  plasma-thunderbolt-5.20.4.tar.xz
-##e07b202527e67af36503e96149b974b0  plasma-nano-5.20.4.tar.xz
-##cda92e6b67f50ebf9bd9583593e9942d  plasma-phone-components-5.20.4.tar.xz
-#EOF
-
-#    md5sum  -c $pkgname-$pkgver.md5
+    md5sum  -c $pkgname-$pkgver.md5
 
     export KF5_PREFIX=/usr
 
