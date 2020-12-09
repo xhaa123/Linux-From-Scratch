@@ -255,9 +255,9 @@ PKG=(
 	libmbim
 	libqmi
 	modemmanager
-	python3-Jinja2
+	python3-jinja2
 	libyaml
-	python3-yaml
+	python3-pyyaml
 	libatasmart
 	libbytesize
 	parted
