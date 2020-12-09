@@ -2,19 +2,17 @@
 set -e
 
 PKG=(
+	linux-firmware
+	terminus-font
+	lsb-release
 	cracklib
 	linux-pam
 	libpwquality
 	shadow
-	linux-firmware
-	util-macros
-	xorgproto
-	libxau
-	libxdmcp
+	sudo
+	openssh
 	icu
 	libxml2
-	xcb-proto
-	libxcb
 	sgml-common
 	unzip
 	docbook-xml
@@ -30,6 +28,16 @@ PKG=(
 	p11-kit
 	make-ca
 	wget
+	curl
+	xmlto
+	asciidoc
+	git
+	util-macros
+	xorgproto
+	libxau
+	libxdmcp
+	xcb-proto
+	libxcb
 	libpng
 	which
 	freetype2
@@ -47,7 +55,6 @@ PKG=(
 	libva
 	libvdpau
 	libuv
-	curl
 	libarchive
 	nghttp2
 	cmake
@@ -82,8 +89,6 @@ PKG=(
 	js78
 	polkit
 	lzo
-	asciidoc
-	xmlto
 	libaio
 	boost
 	thin-provisioning-tools
@@ -92,7 +97,6 @@ PKG=(
 	json-c
 	popt
 	cryptsetup
-	git
 	nettle
 	libunistring
 	gnutls
@@ -134,6 +138,8 @@ PKG=(
 	sdl2
 	ffmpeg
 	libvdpau-va-gl
+	xorg-driver
+	xorg-legacy
 	twm
 	libspiro
 	libuninameslist
@@ -162,10 +168,9 @@ PKG=(
 	xinit
 	noto-fonts
 	oxygen-fonts
+	xorg
 	rsync
 	vim
-	sudo
-	openssh
 	dosfstools
 	efivar
 	efibootmgr
@@ -250,9 +255,9 @@ PKG=(
 	libmbim
 	libqmi
 	modemmanager
-	python3-jinja2
+	python3-Jinja2
 	libyaml
-	python3-pyyaml
+	python3-yaml
 	libatasmart
 	libbytesize
 	parted
@@ -289,6 +294,7 @@ PKG=(
 	libraw
 	libkdcraw
 	gwenview
+	kde-applications
 	gconf
 	pipewire
 	qca
@@ -300,7 +306,6 @@ PKG=(
 	plasma
 	sddm
 	dracut
-	terminus-font
 )
 
 SCRIPTDIR=$(dirname $0)/Applications
