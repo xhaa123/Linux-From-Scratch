@@ -18,6 +18,12 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
    cd $TMP/$pkgname-$pkgver
 
+    install  -v -m755 -d /var/lib/sddm
+    chown    -v sddm sddm /var/lib/sddm
+
+    groupadd -g 64 sddm
+    useradd -c "SDDM Daemon" -d /var/lib/sddm -u 64 -g sddm -s /bin/false sddm
+
     sed -e '/UPOWER_SERVICE)/ s:^://:' \
         -i src/daemon/PowerManager.cpp
 
