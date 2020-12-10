@@ -6,7 +6,8 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=glib
-pkgver=2.66.3
+pkgver=2.67.1
+_pkgver=2.66.3
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,7 +19,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     cd $TMP/$pkgname-$pkgver
 
-      patch -Np1 -i $SRC/$pkgname-$pkgver-skip_warnings-1.patch
+      patch -Np1 -i $SRC/$pkgname-$_pkgver-skip_warnings-1.patch
 
       mkdir build 
       cd    build 

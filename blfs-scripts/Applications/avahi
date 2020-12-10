@@ -18,34 +18,35 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     cd $TMP/$pkgname-$pkgver
 
-   groupadd -fg 84 avahi
-   useradd -c "Avahi Daemon Owner" -d /var/run/avahi-daemon -u 84 \
-           -g avahi -s /bin/false avahi
+    groupadd -fg 84 avahi
+    useradd -c "Avahi Daemon Owner" -d /var/run/avahi-daemon -u 84 \
+            -g avahi -s /bin/false avahi
+            
+    groupadd -fg 86 netdev
 
-   groupadd -fg 86 netdev
+    patch -Np1 -i $SRC/$pkgname-$pkgver-ipv6_race_condition_fix-1.patch
 
-   patch -Np1 -i $SRC/$pkgname-$pkgver-ipv6_race_condition_fix-1.patch
+    ./configure --prefix=/usr        \
+                --sysconfdir=/etc    \
+                --localstatedir=/var \
+                --disable-static     \
+                --disable-mono       \
+                --disable-monodoc    \
+                --disable-python     \
+                --disable-qt3        \
+                --disable-qt4        \
+                --enable-core-docs   \
+                --with-distro=none   \
+                --enable-compat-libdns_sd   \
+                --with-systemdsystemunitdir=/lib/systemd/system 
+    make -j1
 
-   ./configure --prefix=/usr        \
-               --sysconfdir=/etc    \
-               --localstatedir=/var \
-               --disable-static     \
-               --disable-libevent   \
-               --disable-mono       \
-               --disable-monodoc    \
-               --disable-python     \
-               --disable-qt3        \
-               --disable-qt4        \
-               --enable-core-docs   \
-               --with-distro=none   \
-               --with-systemdsystemunitdir=/lib/systemd/system
-   make
+    make install
 
-   make install
 
-   systemctl enable avahi-daemon
+    systemctl enable avahi-daemon
 
-   systemctl enable avahi-dnsconfd
+    systemctl enable avahi-dnsconfd
 
     }
 } 2>&1 | tee $pkgname.log

@@ -1,0 +1,42 @@
+[1/29] CXX build/debug_flags.o
+[2/29] INLINE build/browse_py.h
+[3/29] CXX build/browse.o
+[4/29] CXX build/depfile_parser.o
+[5/29] CXX build/disk_interface.o
+[6/29] CXX build/clparser.o
+[7/29] CXX build/edit_distance.o
+[8/29] CXX build/deps_log.o
+[9/29] CXX build/build_log.o
+[10/29] CXX build/dyndep.o
+[11/29] CXX build/clean.o
+[12/29] CXX build/line_printer.o
+[13/29] CXX build/dyndep_parser.o
+[14/29] CXX build/graphviz.o
+[15/29] CXX build/eval_env.o
+[16/29] CXX build/lexer.o
+[17/29] CXX build/metrics.o
+[18/29] CXX build/parser.o
+[19/29] CXX build/string_piece_util.o
+[20/29] CXX build/version.o
+[21/29] CXX build/util.o
+[22/29] CXX build/graph.o
+[23/29] CXX build/build.o
+[24/29] CXX build/subprocess-posix.o
+[25/29] CXX build/manifest_parser.o
+[26/29] CXX build/state.o
+[27/29] AR build/libninja.a
+[28/29] CXX build/ninja.o
+[29/29] LINK ninja
+bootstrapping ninja...
+warning: A compatible version of re2c (>= 0.11.3) was not found; changes to src/*.in.cc will not affect your build.
+wrote build.ninja.
+bootstrap complete.  rebuilding...
+'ninja' -> '/usr/bin/ninja'
+'misc/bash-completion' -> '/usr/share/bash-completion/completions/ninja'
+install: creating directory '/usr/share/zsh'
+install: creating directory '/usr/share/zsh/site-functions'
+'misc/zsh-completion' -> '/usr/share/zsh/site-functions/_ninja'
+
+real	0m25.224s
+user	0m51.507s
+sys	0m3.571s

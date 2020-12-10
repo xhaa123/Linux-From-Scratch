@@ -11,11 +11,11 @@ pkgver=37
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-pushd  $SRC
-    git clone https://github.com/rhboot/efivar.git $pkgname-$pkgver
-    tar cf $pkgname-$pkgver.tar.gz $pkgname-$pkgver
-    rm -rf $pkgname-$pkgver
-popd
+#pushd  $SRC
+#    git clone https://github.com/rhboot/efivar.git $pkgname-$pkgver
+#    tar cf $pkgname-$pkgver.tar.gz $pkgname-$pkgver
+#    rm -rf $pkgname-$pkgver
+#popd
 
 tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
@@ -24,7 +24,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
    cd $TMP/$pkgname-$pkgver
 
-    make libdir=/usr/lib
+    make -j1 libdir=/usr/lib
 
     make libdir=/usr/lib install    
 

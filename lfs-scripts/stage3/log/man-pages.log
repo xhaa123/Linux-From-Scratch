@@ -1,0 +1,8 @@
+for i in man?; do \
+	install -d -m 755 /usr/share/man/"$i" || exit $?; \
+	install -m 644 "$i"/* /usr/share/man/"$i" || exit $?; \
+done
+
+real	0m0.102s
+user	0m0.011s
+sys	0m0.091s

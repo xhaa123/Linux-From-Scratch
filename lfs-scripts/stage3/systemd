@@ -26,7 +26,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
     
     sed '181,$ d' -i src/resolve/meson.build
     
-    sed -i 's/GROUP="render", //' rules.d/50-udev-default.rules.in
+   sed -i 's/GROUP="render", //' rules.d/50-udev-default.rules.in 
 
    mkdir -p build
    cd       build

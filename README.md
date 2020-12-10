@@ -2,11 +2,6 @@
 
 **lvm + btrfs + efi**
 
-### Version 
-**lfs: 2020-12-03-systemd**
-
-**blfs 2020-12-06-systemd**
-
 ****
 ![](https://raw.githubusercontent.com/xhaa123/Linux-From-Scratch/master/image.png)
 

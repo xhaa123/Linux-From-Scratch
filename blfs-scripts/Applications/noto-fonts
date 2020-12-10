@@ -15,7 +15,7 @@ mkdir -p $TMP $LOG
    {
 
     mkdir -pv /usr/share/fonts/truetype/noto-fonts
-    mkdir -pv noto-fonts && cd noto-fonts
+    mkdir -pv $TMP/noto-fonts && cd $TPM/noto-fonts
 
     find $SRC/* -name "Noto*-hinted.zip" -exec sudo unzip -o {} -d /usr/share/fonts/truetype/noto-fonts \;
     find $SRC/* -name "Noto*-unhinted.zip" -exec sudo unzip -o {} -d /usr/share/fonts/truetype/noto-fonts \;

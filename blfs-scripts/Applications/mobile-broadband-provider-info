@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=mobile-broadband-provider-info
-pkgver= 20190618
+pkgver=20190618
 
 rm -fr $TMP
 mkdir -p $TMP $LOG

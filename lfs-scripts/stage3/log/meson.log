@@ -1,0 +1,870 @@
+patching file mesonbuild/modules/pkgconfig.py
+running build
+running build_py
+creating build
+creating build/lib
+creating build/lib/mesonbuild
+copying mesonbuild/__init__.py -> build/lib/mesonbuild
+copying mesonbuild/_pathlib.py -> build/lib/mesonbuild
+copying mesonbuild/arglist.py -> build/lib/mesonbuild
+copying mesonbuild/build.py -> build/lib/mesonbuild
+copying mesonbuild/coredata.py -> build/lib/mesonbuild
+copying mesonbuild/depfile.py -> build/lib/mesonbuild
+copying mesonbuild/envconfig.py -> build/lib/mesonbuild
+copying mesonbuild/environment.py -> build/lib/mesonbuild
+copying mesonbuild/interpreter.py -> build/lib/mesonbuild
+copying mesonbuild/interpreterbase.py -> build/lib/mesonbuild
+copying mesonbuild/linkers.py -> build/lib/mesonbuild
+copying mesonbuild/mcompile.py -> build/lib/mesonbuild
+copying mesonbuild/mconf.py -> build/lib/mesonbuild
+copying mesonbuild/mdist.py -> build/lib/mesonbuild
+copying mesonbuild/mesondata.py -> build/lib/mesonbuild
+copying mesonbuild/mesonlib.py -> build/lib/mesonbuild
+copying mesonbuild/mesonmain.py -> build/lib/mesonbuild
+copying mesonbuild/minit.py -> build/lib/mesonbuild
+copying mesonbuild/minstall.py -> build/lib/mesonbuild
+copying mesonbuild/mintro.py -> build/lib/mesonbuild
+copying mesonbuild/mlog.py -> build/lib/mesonbuild
+copying mesonbuild/mparser.py -> build/lib/mesonbuild
+copying mesonbuild/msetup.py -> build/lib/mesonbuild
+copying mesonbuild/msubprojects.py -> build/lib/mesonbuild
+copying mesonbuild/mtest.py -> build/lib/mesonbuild
+copying mesonbuild/munstable_coredata.py -> build/lib/mesonbuild
+copying mesonbuild/optinterpreter.py -> build/lib/mesonbuild
+copying mesonbuild/rewriter.py -> build/lib/mesonbuild
+creating build/lib/mesonbuild/ast
+copying mesonbuild/ast/__init__.py -> build/lib/mesonbuild/ast
+copying mesonbuild/ast/interpreter.py -> build/lib/mesonbuild/ast
+copying mesonbuild/ast/introspection.py -> build/lib/mesonbuild/ast
+copying mesonbuild/ast/postprocess.py -> build/lib/mesonbuild/ast
+copying mesonbuild/ast/printer.py -> build/lib/mesonbuild/ast
+copying mesonbuild/ast/visitor.py -> build/lib/mesonbuild/ast
+creating build/lib/mesonbuild/backend
+copying mesonbuild/backend/__init__.py -> build/lib/mesonbuild/backend
+copying mesonbuild/backend/backends.py -> build/lib/mesonbuild/backend
+copying mesonbuild/backend/ninjabackend.py -> build/lib/mesonbuild/backend
+copying mesonbuild/backend/vs2010backend.py -> build/lib/mesonbuild/backend
+copying mesonbuild/backend/vs2015backend.py -> build/lib/mesonbuild/backend
+copying mesonbuild/backend/vs2017backend.py -> build/lib/mesonbuild/backend
+copying mesonbuild/backend/vs2019backend.py -> build/lib/mesonbuild/backend
+copying mesonbuild/backend/xcodebackend.py -> build/lib/mesonbuild/backend
+creating build/lib/mesonbuild/cmake
+copying mesonbuild/cmake/__init__.py -> build/lib/mesonbuild/cmake
+copying mesonbuild/cmake/client.py -> build/lib/mesonbuild/cmake
+copying mesonbuild/cmake/common.py -> build/lib/mesonbuild/cmake
+copying mesonbuild/cmake/executor.py -> build/lib/mesonbuild/cmake
+copying mesonbuild/cmake/fileapi.py -> build/lib/mesonbuild/cmake
+copying mesonbuild/cmake/generator.py -> build/lib/mesonbuild/cmake
+copying mesonbuild/cmake/interpreter.py -> build/lib/mesonbuild/cmake
+copying mesonbuild/cmake/toolchain.py -> build/lib/mesonbuild/cmake
+copying mesonbuild/cmake/traceparser.py -> build/lib/mesonbuild/cmake
+creating build/lib/mesonbuild/compilers
+copying mesonbuild/compilers/__init__.py -> build/lib/mesonbuild/compilers
+copying mesonbuild/compilers/c.py -> build/lib/mesonbuild/compilers
+copying mesonbuild/compilers/c_function_attributes.py -> build/lib/mesonbuild/compilers
+copying mesonbuild/compilers/compilers.py -> build/lib/mesonbuild/compilers
+copying mesonbuild/compilers/cpp.py -> build/lib/mesonbuild/compilers
+copying mesonbuild/compilers/cs.py -> build/lib/mesonbuild/compilers
+copying mesonbuild/compilers/cuda.py -> build/lib/mesonbuild/compilers
+copying mesonbuild/compilers/d.py -> build/lib/mesonbuild/compilers
+copying mesonbuild/compilers/fortran.py -> build/lib/mesonbuild/compilers
+copying mesonbuild/compilers/java.py -> build/lib/mesonbuild/compilers
+copying mesonbuild/compilers/objc.py -> build/lib/mesonbuild/compilers
+copying mesonbuild/compilers/objcpp.py -> build/lib/mesonbuild/compilers
+copying mesonbuild/compilers/rust.py -> build/lib/mesonbuild/compilers
+copying mesonbuild/compilers/swift.py -> build/lib/mesonbuild/compilers
+copying mesonbuild/compilers/vala.py -> build/lib/mesonbuild/compilers
+creating build/lib/mesonbuild/compilers/mixins
+copying mesonbuild/compilers/mixins/__init__.py -> build/lib/mesonbuild/compilers/mixins
+copying mesonbuild/compilers/mixins/arm.py -> build/lib/mesonbuild/compilers/mixins
+copying mesonbuild/compilers/mixins/c2000.py -> build/lib/mesonbuild/compilers/mixins
+copying mesonbuild/compilers/mixins/ccrx.py -> build/lib/mesonbuild/compilers/mixins
+copying mesonbuild/compilers/mixins/clang.py -> build/lib/mesonbuild/compilers/mixins
+copying mesonbuild/compilers/mixins/clike.py -> build/lib/mesonbuild/compilers/mixins
+copying mesonbuild/compilers/mixins/compcert.py -> build/lib/mesonbuild/compilers/mixins
+copying mesonbuild/compilers/mixins/elbrus.py -> build/lib/mesonbuild/compilers/mixins
+copying mesonbuild/compilers/mixins/emscripten.py -> build/lib/mesonbuild/compilers/mixins
+copying mesonbuild/compilers/mixins/gnu.py -> build/lib/mesonbuild/compilers/mixins
+copying mesonbuild/compilers/mixins/intel.py -> build/lib/mesonbuild/compilers/mixins
+copying mesonbuild/compilers/mixins/islinker.py -> build/lib/mesonbuild/compilers/mixins
+copying mesonbuild/compilers/mixins/pgi.py -> build/lib/mesonbuild/compilers/mixins
+copying mesonbuild/compilers/mixins/visualstudio.py -> build/lib/mesonbuild/compilers/mixins
+copying mesonbuild/compilers/mixins/xc16.py -> build/lib/mesonbuild/compilers/mixins
+creating build/lib/mesonbuild/dependencies
+copying mesonbuild/dependencies/__init__.py -> build/lib/mesonbuild/dependencies
+copying mesonbuild/dependencies/base.py -> build/lib/mesonbuild/dependencies
+copying mesonbuild/dependencies/boost.py -> build/lib/mesonbuild/dependencies
+copying mesonbuild/dependencies/coarrays.py -> build/lib/mesonbuild/dependencies
+copying mesonbuild/dependencies/cuda.py -> build/lib/mesonbuild/dependencies
+copying mesonbuild/dependencies/dev.py -> build/lib/mesonbuild/dependencies
+copying mesonbuild/dependencies/hdf5.py -> build/lib/mesonbuild/dependencies
+copying mesonbuild/dependencies/misc.py -> build/lib/mesonbuild/dependencies
+copying mesonbuild/dependencies/mpi.py -> build/lib/mesonbuild/dependencies
+copying mesonbuild/dependencies/platform.py -> build/lib/mesonbuild/dependencies
+copying mesonbuild/dependencies/scalapack.py -> build/lib/mesonbuild/dependencies
+copying mesonbuild/dependencies/ui.py -> build/lib/mesonbuild/dependencies
+creating build/lib/mesonbuild/modules
+copying mesonbuild/modules/__init__.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/cmake.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/dlang.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/fs.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/gnome.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/hotdoc.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/i18n.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/keyval.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/modtest.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/python.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/python3.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/qt.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/qt4.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/qt5.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/rpm.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/sourceset.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/unstable_cuda.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/unstable_external_project.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/unstable_icestorm.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/unstable_simd.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/windows.py -> build/lib/mesonbuild/modules
+copying mesonbuild/modules/pkgconfig.py -> build/lib/mesonbuild/modules
+creating build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/__init__.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/clangformat.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/clangtidy.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/cleantrees.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/cmake_run_ctgt.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/commandrunner.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/coverage.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/delwithsuffix.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/depfixer.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/dirchanger.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/externalproject.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/gettext.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/gtkdochelper.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/hotdochelper.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/meson_exe.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/msgfmthelper.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/regen_checker.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/scanbuild.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/symbolextractor.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/tags.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/uninstall.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/vcstagger.py -> build/lib/mesonbuild/scripts
+copying mesonbuild/scripts/yelphelper.py -> build/lib/mesonbuild/scripts
+creating build/lib/mesonbuild/templates
+copying mesonbuild/templates/__init__.py -> build/lib/mesonbuild/templates
+copying mesonbuild/templates/cpptemplates.py -> build/lib/mesonbuild/templates
+copying mesonbuild/templates/cstemplates.py -> build/lib/mesonbuild/templates
+copying mesonbuild/templates/ctemplates.py -> build/lib/mesonbuild/templates
+copying mesonbuild/templates/cudatemplates.py -> build/lib/mesonbuild/templates
+copying mesonbuild/templates/dlangtemplates.py -> build/lib/mesonbuild/templates
+copying mesonbuild/templates/fortrantemplates.py -> build/lib/mesonbuild/templates
+copying mesonbuild/templates/javatemplates.py -> build/lib/mesonbuild/templates
+copying mesonbuild/templates/mesontemplates.py -> build/lib/mesonbuild/templates
+copying mesonbuild/templates/objcpptemplates.py -> build/lib/mesonbuild/templates
+copying mesonbuild/templates/objctemplates.py -> build/lib/mesonbuild/templates
+copying mesonbuild/templates/rusttemplates.py -> build/lib/mesonbuild/templates
+copying mesonbuild/templates/samplefactory.py -> build/lib/mesonbuild/templates
+copying mesonbuild/templates/sampleimpl.py -> build/lib/mesonbuild/templates
+creating build/lib/mesonbuild/wrap
+copying mesonbuild/wrap/__init__.py -> build/lib/mesonbuild/wrap
+copying mesonbuild/wrap/wrap.py -> build/lib/mesonbuild/wrap
+copying mesonbuild/wrap/wraptool.py -> build/lib/mesonbuild/wrap
+running install
+running build
+running build_py
+running install_lib
+creating dest
+creating dest/usr
+creating dest/usr/lib
+creating dest/usr/lib/python3.9
+creating dest/usr/lib/python3.9/site-packages
+creating dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/__init__.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/_pathlib.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/arglist.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/build.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/coredata.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/depfile.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/envconfig.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/environment.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/interpreter.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/interpreterbase.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/linkers.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/mcompile.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/mconf.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/mdist.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/mesondata.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/mesonlib.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/mesonmain.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/minit.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/minstall.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/mintro.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/mlog.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/mparser.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/msetup.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/msubprojects.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/mtest.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/munstable_coredata.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/optinterpreter.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+copying build/lib/mesonbuild/rewriter.py -> dest/usr/lib/python3.9/site-packages/mesonbuild
+creating dest/usr/lib/python3.9/site-packages/mesonbuild/ast
+copying build/lib/mesonbuild/ast/__init__.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/ast
+copying build/lib/mesonbuild/ast/interpreter.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/ast
+copying build/lib/mesonbuild/ast/introspection.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/ast
+copying build/lib/mesonbuild/ast/postprocess.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/ast
+copying build/lib/mesonbuild/ast/printer.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/ast
+copying build/lib/mesonbuild/ast/visitor.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/ast
+creating dest/usr/lib/python3.9/site-packages/mesonbuild/backend
+copying build/lib/mesonbuild/backend/__init__.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/backend
+copying build/lib/mesonbuild/backend/backends.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/backend
+copying build/lib/mesonbuild/backend/ninjabackend.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/backend
+copying build/lib/mesonbuild/backend/vs2010backend.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/backend
+copying build/lib/mesonbuild/backend/vs2015backend.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/backend
+copying build/lib/mesonbuild/backend/vs2017backend.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/backend
+copying build/lib/mesonbuild/backend/vs2019backend.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/backend
+copying build/lib/mesonbuild/backend/xcodebackend.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/backend
+creating dest/usr/lib/python3.9/site-packages/mesonbuild/cmake
+copying build/lib/mesonbuild/cmake/__init__.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/cmake
+copying build/lib/mesonbuild/cmake/client.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/cmake
+copying build/lib/mesonbuild/cmake/common.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/cmake
+copying build/lib/mesonbuild/cmake/executor.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/cmake
+copying build/lib/mesonbuild/cmake/fileapi.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/cmake
+copying build/lib/mesonbuild/cmake/generator.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/cmake
+copying build/lib/mesonbuild/cmake/interpreter.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/cmake
+copying build/lib/mesonbuild/cmake/toolchain.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/cmake
+copying build/lib/mesonbuild/cmake/traceparser.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/cmake
+creating dest/usr/lib/python3.9/site-packages/mesonbuild/compilers
+copying build/lib/mesonbuild/compilers/__init__.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers
+copying build/lib/mesonbuild/compilers/c.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers
+copying build/lib/mesonbuild/compilers/c_function_attributes.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers
+copying build/lib/mesonbuild/compilers/compilers.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers
+copying build/lib/mesonbuild/compilers/cpp.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers
+copying build/lib/mesonbuild/compilers/cs.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers
+copying build/lib/mesonbuild/compilers/cuda.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers
+copying build/lib/mesonbuild/compilers/d.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers
+copying build/lib/mesonbuild/compilers/fortran.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers
+copying build/lib/mesonbuild/compilers/java.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers
+copying build/lib/mesonbuild/compilers/objc.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers
+copying build/lib/mesonbuild/compilers/objcpp.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers
+copying build/lib/mesonbuild/compilers/rust.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers
+copying build/lib/mesonbuild/compilers/swift.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers
+copying build/lib/mesonbuild/compilers/vala.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers
+creating dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins
+copying build/lib/mesonbuild/compilers/mixins/__init__.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins
+copying build/lib/mesonbuild/compilers/mixins/arm.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins
+copying build/lib/mesonbuild/compilers/mixins/c2000.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins
+copying build/lib/mesonbuild/compilers/mixins/ccrx.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins
+copying build/lib/mesonbuild/compilers/mixins/clang.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins
+copying build/lib/mesonbuild/compilers/mixins/clike.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins
+copying build/lib/mesonbuild/compilers/mixins/compcert.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins
+copying build/lib/mesonbuild/compilers/mixins/elbrus.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins
+copying build/lib/mesonbuild/compilers/mixins/emscripten.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins
+copying build/lib/mesonbuild/compilers/mixins/gnu.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins
+copying build/lib/mesonbuild/compilers/mixins/intel.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins
+copying build/lib/mesonbuild/compilers/mixins/islinker.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins
+copying build/lib/mesonbuild/compilers/mixins/pgi.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins
+copying build/lib/mesonbuild/compilers/mixins/visualstudio.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins
+copying build/lib/mesonbuild/compilers/mixins/xc16.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins
+creating dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies
+copying build/lib/mesonbuild/dependencies/__init__.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies
+copying build/lib/mesonbuild/dependencies/base.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies
+copying build/lib/mesonbuild/dependencies/boost.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies
+copying build/lib/mesonbuild/dependencies/coarrays.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies
+copying build/lib/mesonbuild/dependencies/cuda.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies
+copying build/lib/mesonbuild/dependencies/dev.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies
+copying build/lib/mesonbuild/dependencies/hdf5.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies
+copying build/lib/mesonbuild/dependencies/misc.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies
+copying build/lib/mesonbuild/dependencies/mpi.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies
+copying build/lib/mesonbuild/dependencies/platform.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies
+copying build/lib/mesonbuild/dependencies/scalapack.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies
+copying build/lib/mesonbuild/dependencies/ui.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies
+creating dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/__init__.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/cmake.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/dlang.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/fs.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/gnome.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/hotdoc.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/i18n.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/keyval.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/modtest.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/python.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/python3.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/qt.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/qt4.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/qt5.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/rpm.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/sourceset.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/unstable_cuda.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/unstable_external_project.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/unstable_icestorm.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/unstable_simd.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/windows.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+copying build/lib/mesonbuild/modules/pkgconfig.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/modules
+creating dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/__init__.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/clangformat.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/clangtidy.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/cleantrees.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/cmake_run_ctgt.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/commandrunner.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/coverage.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/delwithsuffix.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/depfixer.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/dirchanger.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/externalproject.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/gettext.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/gtkdochelper.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/hotdochelper.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/meson_exe.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/msgfmthelper.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/regen_checker.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/scanbuild.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/symbolextractor.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/tags.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/uninstall.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/vcstagger.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+copying build/lib/mesonbuild/scripts/yelphelper.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/scripts
+creating dest/usr/lib/python3.9/site-packages/mesonbuild/templates
+copying build/lib/mesonbuild/templates/__init__.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/templates
+copying build/lib/mesonbuild/templates/cpptemplates.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/templates
+copying build/lib/mesonbuild/templates/cstemplates.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/templates
+copying build/lib/mesonbuild/templates/ctemplates.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/templates
+copying build/lib/mesonbuild/templates/cudatemplates.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/templates
+copying build/lib/mesonbuild/templates/dlangtemplates.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/templates
+copying build/lib/mesonbuild/templates/fortrantemplates.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/templates
+copying build/lib/mesonbuild/templates/javatemplates.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/templates
+copying build/lib/mesonbuild/templates/mesontemplates.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/templates
+copying build/lib/mesonbuild/templates/objcpptemplates.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/templates
+copying build/lib/mesonbuild/templates/objctemplates.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/templates
+copying build/lib/mesonbuild/templates/rusttemplates.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/templates
+copying build/lib/mesonbuild/templates/samplefactory.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/templates
+copying build/lib/mesonbuild/templates/sampleimpl.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/templates
+creating dest/usr/lib/python3.9/site-packages/mesonbuild/wrap
+copying build/lib/mesonbuild/wrap/__init__.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/wrap
+copying build/lib/mesonbuild/wrap/wrap.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/wrap
+copying build/lib/mesonbuild/wrap/wraptool.py -> dest/usr/lib/python3.9/site-packages/mesonbuild/wrap
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/__init__.py to __init__.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/_pathlib.py to _pathlib.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/arglist.py to arglist.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/build.py to build.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/coredata.py to coredata.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/depfile.py to depfile.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/envconfig.py to envconfig.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/environment.py to environment.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/interpreter.py to interpreter.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/interpreterbase.py to interpreterbase.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/linkers.py to linkers.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/mcompile.py to mcompile.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/mconf.py to mconf.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/mdist.py to mdist.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/mesondata.py to mesondata.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/mesonlib.py to mesonlib.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/mesonmain.py to mesonmain.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/minit.py to minit.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/minstall.py to minstall.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/mintro.py to mintro.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/mlog.py to mlog.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/mparser.py to mparser.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/msetup.py to msetup.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/msubprojects.py to msubprojects.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/mtest.py to mtest.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/munstable_coredata.py to munstable_coredata.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/optinterpreter.py to optinterpreter.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/rewriter.py to rewriter.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/ast/__init__.py to __init__.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/ast/interpreter.py to interpreter.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/ast/introspection.py to introspection.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/ast/postprocess.py to postprocess.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/ast/printer.py to printer.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/ast/visitor.py to visitor.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/backend/__init__.py to __init__.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/backend/backends.py to backends.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/backend/ninjabackend.py to ninjabackend.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/backend/vs2010backend.py to vs2010backend.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/backend/vs2015backend.py to vs2015backend.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/backend/vs2017backend.py to vs2017backend.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/backend/vs2019backend.py to vs2019backend.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/backend/xcodebackend.py to xcodebackend.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/__init__.py to __init__.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/client.py to client.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/common.py to common.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/executor.py to executor.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/fileapi.py to fileapi.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/generator.py to generator.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/interpreter.py to interpreter.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/toolchain.py to toolchain.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/traceparser.py to traceparser.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__init__.py to __init__.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/c.py to c.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/c_function_attributes.py to c_function_attributes.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/compilers.py to compilers.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/cpp.py to cpp.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/cs.py to cs.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/cuda.py to cuda.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/d.py to d.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/fortran.py to fortran.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/java.py to java.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/objc.py to objc.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/objcpp.py to objcpp.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/rust.py to rust.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/swift.py to swift.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/vala.py to vala.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__init__.py to __init__.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/arm.py to arm.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/c2000.py to c2000.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/ccrx.py to ccrx.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/clang.py to clang.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/clike.py to clike.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/compcert.py to compcert.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/elbrus.py to elbrus.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/emscripten.py to emscripten.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/gnu.py to gnu.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/intel.py to intel.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/islinker.py to islinker.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/pgi.py to pgi.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/visualstudio.py to visualstudio.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/xc16.py to xc16.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__init__.py to __init__.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/base.py to base.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/boost.py to boost.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/coarrays.py to coarrays.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/cuda.py to cuda.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/dev.py to dev.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/hdf5.py to hdf5.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/misc.py to misc.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/mpi.py to mpi.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/platform.py to platform.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/scalapack.py to scalapack.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/ui.py to ui.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__init__.py to __init__.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/cmake.py to cmake.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/dlang.py to dlang.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/fs.py to fs.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/gnome.py to gnome.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/hotdoc.py to hotdoc.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/i18n.py to i18n.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/keyval.py to keyval.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/modtest.py to modtest.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/python.py to python.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/python3.py to python3.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/qt.py to qt.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/qt4.py to qt4.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/qt5.py to qt5.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/rpm.py to rpm.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/sourceset.py to sourceset.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/unstable_cuda.py to unstable_cuda.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/unstable_external_project.py to unstable_external_project.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/unstable_icestorm.py to unstable_icestorm.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/unstable_simd.py to unstable_simd.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/windows.py to windows.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/modules/pkgconfig.py to pkgconfig.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__init__.py to __init__.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/clangformat.py to clangformat.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/clangtidy.py to clangtidy.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/cleantrees.py to cleantrees.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/cmake_run_ctgt.py to cmake_run_ctgt.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/commandrunner.py to commandrunner.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/coverage.py to coverage.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/delwithsuffix.py to delwithsuffix.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/depfixer.py to depfixer.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/dirchanger.py to dirchanger.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/externalproject.py to externalproject.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/gettext.py to gettext.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/gtkdochelper.py to gtkdochelper.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/hotdochelper.py to hotdochelper.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/meson_exe.py to meson_exe.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/msgfmthelper.py to msgfmthelper.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/regen_checker.py to regen_checker.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/scanbuild.py to scanbuild.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/symbolextractor.py to symbolextractor.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/tags.py to tags.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/uninstall.py to uninstall.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/vcstagger.py to vcstagger.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/yelphelper.py to yelphelper.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__init__.py to __init__.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/templates/cpptemplates.py to cpptemplates.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/templates/cstemplates.py to cstemplates.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/templates/ctemplates.py to ctemplates.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/templates/cudatemplates.py to cudatemplates.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/templates/dlangtemplates.py to dlangtemplates.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/templates/fortrantemplates.py to fortrantemplates.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/templates/javatemplates.py to javatemplates.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/templates/mesontemplates.py to mesontemplates.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/templates/objcpptemplates.py to objcpptemplates.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/templates/objctemplates.py to objctemplates.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/templates/rusttemplates.py to rusttemplates.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/templates/samplefactory.py to samplefactory.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/templates/sampleimpl.py to sampleimpl.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/wrap/__init__.py to __init__.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/wrap/wrap.py to wrap.cpython-39.pyc
+byte-compiling dest/usr/lib/python3.9/site-packages/mesonbuild/wrap/wraptool.py to wraptool.cpython-39.pyc
+running install_data
+creating dest/usr/share
+creating dest/usr/share/man
+creating dest/usr/share/man/man1
+copying man/meson.1 -> dest/usr/share/man/man1
+creating dest/usr/share/polkit-1
+creating dest/usr/share/polkit-1/actions
+copying data/com.mesonbuild.install.policy -> dest/usr/share/polkit-1/actions
+running install_egg_info
+running egg_info
+writing meson.egg-info/PKG-INFO
+writing dependency_links to meson.egg-info/dependency_links.txt
+writing entry points to meson.egg-info/entry_points.txt
+writing requirements to meson.egg-info/requires.txt
+writing top-level names to meson.egg-info/top_level.txt
+reading manifest file 'meson.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+writing manifest file 'meson.egg-info/SOURCES.txt'
+Copying meson.egg-info to dest/usr/lib/python3.9/site-packages/meson-0.56.0-py3.9.egg-info
+running install_scripts
+Installing meson script to dest/usr/bin
+'dest/usr/lib/python3.9/site-packages/mesonbuild' -> '/usr/lib/python3.9/site-packages/mesonbuild'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__init__.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/__init__.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/_pathlib.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/_pathlib.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/arglist.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/arglist.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/build.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/build.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/coredata.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/coredata.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/depfile.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/depfile.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/envconfig.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/envconfig.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/environment.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/environment.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/interpreter.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/interpreter.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/interpreterbase.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/interpreterbase.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/linkers.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/linkers.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/mcompile.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/mcompile.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/mconf.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/mconf.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/mdist.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/mdist.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/mesondata.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/mesondata.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/mesonlib.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/mesonlib.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/mesonmain.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/mesonmain.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/minit.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/minit.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/minstall.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/minstall.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/mintro.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/mintro.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/mlog.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/mlog.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/mparser.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/mparser.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/msetup.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/msetup.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/msubprojects.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/msubprojects.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/mtest.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/mtest.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/munstable_coredata.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/munstable_coredata.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/optinterpreter.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/optinterpreter.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/rewriter.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/rewriter.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/ast' -> '/usr/lib/python3.9/site-packages/mesonbuild/ast'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/ast/__init__.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/ast/__init__.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/ast/interpreter.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/ast/interpreter.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/ast/introspection.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/ast/introspection.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/ast/postprocess.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/ast/postprocess.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/ast/printer.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/ast/printer.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/ast/visitor.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/ast/visitor.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/ast/__pycache__' -> '/usr/lib/python3.9/site-packages/mesonbuild/ast/__pycache__'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/ast/__pycache__/__init__.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/ast/__pycache__/__init__.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/ast/__pycache__/interpreter.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/ast/__pycache__/interpreter.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/ast/__pycache__/introspection.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/ast/__pycache__/introspection.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/ast/__pycache__/postprocess.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/ast/__pycache__/postprocess.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/ast/__pycache__/printer.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/ast/__pycache__/printer.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/ast/__pycache__/visitor.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/ast/__pycache__/visitor.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/__init__.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/__init__.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/backends.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/backends.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/ninjabackend.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/ninjabackend.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/vs2010backend.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/vs2010backend.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/vs2015backend.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/vs2015backend.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/vs2017backend.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/vs2017backend.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/vs2019backend.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/vs2019backend.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/xcodebackend.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/xcodebackend.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__/__init__.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__/__init__.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__/backends.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__/backends.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__/ninjabackend.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__/ninjabackend.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__/vs2010backend.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__/vs2010backend.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__/vs2015backend.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__/vs2015backend.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__/vs2017backend.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__/vs2017backend.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__/vs2019backend.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__/vs2019backend.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__/xcodebackend.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/backend/__pycache__/xcodebackend.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/__init__.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/__init__.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/client.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/client.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/common.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/common.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/executor.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/executor.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/fileapi.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/fileapi.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/generator.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/generator.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/interpreter.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/interpreter.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/toolchain.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/toolchain.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/traceparser.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/traceparser.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/__init__.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/__init__.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/client.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/client.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/common.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/common.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/executor.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/executor.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/fileapi.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/fileapi.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/generator.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/generator.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/interpreter.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/interpreter.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/toolchain.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/toolchain.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/traceparser.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/cmake/__pycache__/traceparser.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__init__.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__init__.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/c.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/c.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/c_function_attributes.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/c_function_attributes.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/compilers.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/compilers.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/cpp.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/cpp.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/cs.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/cs.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/cuda.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/cuda.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/d.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/d.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/fortran.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/fortran.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/java.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/java.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/objc.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/objc.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/objcpp.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/objcpp.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/rust.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/rust.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/swift.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/swift.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/vala.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/vala.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__init__.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__init__.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/arm.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/arm.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/c2000.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/c2000.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/ccrx.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/ccrx.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/clang.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/clang.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/clike.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/clike.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/compcert.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/compcert.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/elbrus.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/elbrus.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/emscripten.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/emscripten.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/gnu.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/gnu.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/intel.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/intel.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/islinker.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/islinker.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/pgi.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/pgi.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/visualstudio.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/visualstudio.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/xc16.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/xc16.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/__init__.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/__init__.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/arm.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/arm.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/c2000.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/c2000.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/ccrx.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/ccrx.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/clang.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/clang.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/clike.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/clike.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/compcert.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/compcert.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/elbrus.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/elbrus.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/emscripten.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/emscripten.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/gnu.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/gnu.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/intel.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/intel.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/islinker.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/islinker.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/pgi.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/pgi.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/visualstudio.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/visualstudio.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/xc16.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/mixins/__pycache__/xc16.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/__init__.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/__init__.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/c.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/c.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/c_function_attributes.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/c_function_attributes.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/compilers.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/compilers.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/cpp.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/cpp.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/cs.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/cs.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/cuda.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/cuda.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/d.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/d.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/fortran.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/fortran.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/java.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/java.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/objc.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/objc.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/objcpp.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/objcpp.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/rust.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/rust.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/swift.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/swift.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/vala.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/compilers/__pycache__/vala.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__init__.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__init__.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/base.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/base.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/boost.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/boost.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/coarrays.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/coarrays.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/cuda.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/cuda.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/dev.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/dev.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/hdf5.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/hdf5.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/misc.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/misc.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/mpi.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/mpi.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/platform.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/platform.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/scalapack.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/scalapack.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/ui.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/ui.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/__init__.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/__init__.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/base.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/base.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/boost.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/boost.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/coarrays.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/coarrays.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/cuda.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/cuda.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/dev.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/dev.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/hdf5.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/hdf5.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/misc.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/misc.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/mpi.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/mpi.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/platform.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/platform.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/scalapack.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/scalapack.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/ui.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/dependencies/__pycache__/ui.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__init__.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__init__.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/cmake.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/cmake.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/dlang.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/dlang.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/fs.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/fs.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/gnome.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/gnome.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/hotdoc.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/hotdoc.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/i18n.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/i18n.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/keyval.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/keyval.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/modtest.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/modtest.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/python.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/python.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/python3.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/python3.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/qt.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/qt.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/qt4.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/qt4.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/qt5.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/qt5.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/rpm.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/rpm.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/sourceset.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/sourceset.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/unstable_cuda.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/unstable_cuda.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/unstable_external_project.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/unstable_external_project.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/unstable_icestorm.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/unstable_icestorm.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/unstable_simd.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/unstable_simd.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/windows.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/windows.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/pkgconfig.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/pkgconfig.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/__init__.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/__init__.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/cmake.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/cmake.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/dlang.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/dlang.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/fs.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/fs.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/gnome.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/gnome.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/hotdoc.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/hotdoc.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/i18n.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/i18n.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/keyval.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/keyval.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/modtest.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/modtest.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/python.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/python.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/python3.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/python3.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/qt.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/qt.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/qt4.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/qt4.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/qt5.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/qt5.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/rpm.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/rpm.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/sourceset.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/sourceset.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/unstable_cuda.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/unstable_cuda.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/unstable_external_project.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/unstable_external_project.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/unstable_icestorm.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/unstable_icestorm.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/unstable_simd.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/unstable_simd.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/windows.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/windows.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/pkgconfig.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/modules/__pycache__/pkgconfig.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__init__.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__init__.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/clangformat.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/clangformat.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/clangtidy.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/clangtidy.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/cleantrees.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/cleantrees.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/cmake_run_ctgt.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/cmake_run_ctgt.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/commandrunner.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/commandrunner.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/coverage.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/coverage.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/delwithsuffix.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/delwithsuffix.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/depfixer.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/depfixer.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/dirchanger.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/dirchanger.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/externalproject.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/externalproject.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/gettext.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/gettext.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/gtkdochelper.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/gtkdochelper.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/hotdochelper.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/hotdochelper.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/meson_exe.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/meson_exe.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/msgfmthelper.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/msgfmthelper.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/regen_checker.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/regen_checker.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/scanbuild.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/scanbuild.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/symbolextractor.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/symbolextractor.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/tags.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/tags.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/uninstall.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/uninstall.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/vcstagger.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/vcstagger.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/yelphelper.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/yelphelper.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/__init__.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/__init__.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/clangformat.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/clangformat.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/clangtidy.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/clangtidy.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/cleantrees.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/cleantrees.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/cmake_run_ctgt.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/cmake_run_ctgt.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/commandrunner.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/commandrunner.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/coverage.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/coverage.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/delwithsuffix.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/delwithsuffix.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/depfixer.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/depfixer.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/dirchanger.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/dirchanger.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/externalproject.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/externalproject.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/gettext.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/gettext.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/gtkdochelper.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/gtkdochelper.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/hotdochelper.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/hotdochelper.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/meson_exe.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/meson_exe.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/msgfmthelper.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/msgfmthelper.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/regen_checker.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/regen_checker.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/scanbuild.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/scanbuild.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/symbolextractor.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/symbolextractor.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/tags.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/tags.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/uninstall.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/uninstall.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/vcstagger.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/vcstagger.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/yelphelper.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/scripts/__pycache__/yelphelper.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__init__.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/__init__.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/cpptemplates.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/cpptemplates.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/cstemplates.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/cstemplates.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/ctemplates.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/ctemplates.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/cudatemplates.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/cudatemplates.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/dlangtemplates.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/dlangtemplates.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/fortrantemplates.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/fortrantemplates.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/javatemplates.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/javatemplates.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/mesontemplates.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/mesontemplates.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/objcpptemplates.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/objcpptemplates.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/objctemplates.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/objctemplates.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/rusttemplates.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/rusttemplates.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/samplefactory.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/samplefactory.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/sampleimpl.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/sampleimpl.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/__init__.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/__init__.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/cpptemplates.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/cpptemplates.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/cstemplates.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/cstemplates.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/ctemplates.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/ctemplates.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/cudatemplates.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/cudatemplates.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/dlangtemplates.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/dlangtemplates.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/fortrantemplates.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/fortrantemplates.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/javatemplates.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/javatemplates.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/mesontemplates.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/mesontemplates.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/objcpptemplates.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/objcpptemplates.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/objctemplates.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/objctemplates.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/rusttemplates.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/rusttemplates.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/samplefactory.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/samplefactory.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/sampleimpl.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/templates/__pycache__/sampleimpl.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/wrap' -> '/usr/lib/python3.9/site-packages/mesonbuild/wrap'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/wrap/__init__.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/wrap/__init__.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/wrap/wrap.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/wrap/wrap.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/wrap/wraptool.py' -> '/usr/lib/python3.9/site-packages/mesonbuild/wrap/wraptool.py'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/wrap/__pycache__' -> '/usr/lib/python3.9/site-packages/mesonbuild/wrap/__pycache__'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/wrap/__pycache__/__init__.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/wrap/__pycache__/__init__.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/wrap/__pycache__/wrap.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/wrap/__pycache__/wrap.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/wrap/__pycache__/wraptool.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/wrap/__pycache__/wraptool.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/__init__.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/__init__.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/_pathlib.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/_pathlib.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/arglist.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/arglist.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/build.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/build.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/coredata.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/coredata.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/depfile.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/depfile.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/envconfig.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/envconfig.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/environment.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/environment.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/interpreter.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/interpreter.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/interpreterbase.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/interpreterbase.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/linkers.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/linkers.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mcompile.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mcompile.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mconf.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mconf.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mdist.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mdist.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mesondata.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mesondata.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mesonlib.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mesonlib.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mesonmain.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mesonmain.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/minit.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/minit.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/minstall.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/minstall.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mintro.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mintro.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mlog.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mlog.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mparser.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mparser.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/msetup.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/msetup.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/msubprojects.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/msubprojects.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mtest.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/mtest.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/munstable_coredata.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/munstable_coredata.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/optinterpreter.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/optinterpreter.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/rewriter.cpython-39.pyc' -> '/usr/lib/python3.9/site-packages/mesonbuild/__pycache__/rewriter.cpython-39.pyc'
+'dest/usr/lib/python3.9/site-packages/meson-0.56.0-py3.9.egg-info' -> '/usr/lib/python3.9/site-packages/meson-0.56.0-py3.9.egg-info'
+'dest/usr/lib/python3.9/site-packages/meson-0.56.0-py3.9.egg-info/PKG-INFO' -> '/usr/lib/python3.9/site-packages/meson-0.56.0-py3.9.egg-info/PKG-INFO'
+'dest/usr/lib/python3.9/site-packages/meson-0.56.0-py3.9.egg-info/SOURCES.txt' -> '/usr/lib/python3.9/site-packages/meson-0.56.0-py3.9.egg-info/SOURCES.txt'
+'dest/usr/lib/python3.9/site-packages/meson-0.56.0-py3.9.egg-info/dependency_links.txt' -> '/usr/lib/python3.9/site-packages/meson-0.56.0-py3.9.egg-info/dependency_links.txt'
+'dest/usr/lib/python3.9/site-packages/meson-0.56.0-py3.9.egg-info/entry_points.txt' -> '/usr/lib/python3.9/site-packages/meson-0.56.0-py3.9.egg-info/entry_points.txt'
+'dest/usr/lib/python3.9/site-packages/meson-0.56.0-py3.9.egg-info/requires.txt' -> '/usr/lib/python3.9/site-packages/meson-0.56.0-py3.9.egg-info/requires.txt'
+'dest/usr/lib/python3.9/site-packages/meson-0.56.0-py3.9.egg-info/top_level.txt' -> '/usr/lib/python3.9/site-packages/meson-0.56.0-py3.9.egg-info/top_level.txt'
+'dest/usr/share/man/man1/meson.1' -> '/usr/share/man/man1/meson.1'
+'dest/usr/share/polkit-1' -> '/usr/share/polkit-1'
+'dest/usr/share/polkit-1/actions' -> '/usr/share/polkit-1/actions'
+'dest/usr/share/polkit-1/actions/com.mesonbuild.install.policy' -> '/usr/share/polkit-1/actions/com.mesonbuild.install.policy'
+'dest/usr/bin/meson' -> '/usr/bin/meson'
+
+real	0m1.061s
+user	0m0.938s
+sys	0m0.116s

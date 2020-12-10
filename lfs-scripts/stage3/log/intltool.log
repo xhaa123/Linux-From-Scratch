@@ -1,0 +1,94 @@
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking for perl... /usr/bin/perl
+checking for perl >= 5.8.1... 5.32.0
+checking for XML::Parser... ok
+checking for bzr... no
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating doc/Makefile
+config.status: creating intltoolize
+config.status: creating tests/Makefile
+config.status: creating tests/cases/Makefile
+config.status: creating tests/results/Makefile
+config.status: creating tests/selftest.pl
+Making all in tests
+make[1]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests'
+Making all in cases
+make[2]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests/cases'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests/cases'
+Making all in results
+make[2]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests/results'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests/results'
+make[2]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests'
+make[2]: Nothing to be done for 'all-am'.
+make[2]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests'
+make[1]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests'
+Making all in doc
+make[1]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/doc'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/doc'
+make[1]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0'
+sed -e 's|[@]PACKAGE@|intltool|g' -e 's|[@]VERSION@|0.51.0|g' -e "s|[@]INTLTOOL_PERL@|/usr/bin/perl|g" -e "s|[@]INTLTOOL_LIBDIR@|/usr/lib|g" < intltool-extract.in > intltool-extract
+sed -e 's|[@]PACKAGE@|intltool|g' -e 's|[@]VERSION@|0.51.0|g' -e "s|[@]INTLTOOL_PERL@|/usr/bin/perl|g" -e "s|[@]INTLTOOL_LIBDIR@|/usr/lib|g" < intltool-merge.in > intltool-merge
+sed -e 's|[@]PACKAGE@|intltool|g' -e 's|[@]VERSION@|0.51.0|g' -e "s|[@]INTLTOOL_PERL@|/usr/bin/perl|g" -e "s|[@]INTLTOOL_LIBDIR@|/usr/lib|g" < intltool-update.in > intltool-update
+sed -e 's|[@]PACKAGE@|intltool|g' -e 's|[@]VERSION@|0.51.0|g' -e "s|[@]INTLTOOL_PERL@|/usr/bin/perl|g" -e "s|[@]INTLTOOL_LIBDIR@|/usr/lib|g" < intltool-prepare.in > intltool-prepare
+chmod +x intltool-extract
+chmod +x intltool-merge
+chmod +x intltool-update
+chmod +x intltool-prepare
+make[1]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0'
+Making install in tests
+make[1]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests'
+Making install in cases
+make[2]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests/cases'
+make[3]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests/cases'
+make[3]: Nothing to be done for 'install-exec-am'.
+make[3]: Nothing to be done for 'install-data-am'.
+make[3]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests/cases'
+make[2]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests/cases'
+Making install in results
+make[2]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests/results'
+make[3]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests/results'
+make[3]: Nothing to be done for 'install-exec-am'.
+make[3]: Nothing to be done for 'install-data-am'.
+make[3]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests/results'
+make[2]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests/results'
+make[2]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests'
+make[3]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests'
+make[3]: Nothing to be done for 'install-exec-am'.
+make[3]: Nothing to be done for 'install-data-am'.
+make[3]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests'
+make[2]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests'
+make[1]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/tests'
+Making install in doc
+make[1]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/doc'
+make[2]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/doc'
+make[2]: Nothing to be done for 'install-exec-am'.
+ /bin/mkdir -p '/usr/share/man/man8'
+ /usr/bin/install -c -m 644 intltoolize.8 intltool-extract.8 intltool-merge.8 intltool-prepare.8 intltool-update.8 '/usr/share/man/man8'
+make[2]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/doc'
+make[1]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0/doc'
+make[1]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0'
+make[2]: Entering directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0'
+ /bin/mkdir -p '/usr/bin'
+ /bin/mkdir -p '/usr/share/aclocal'
+ /bin/mkdir -p '/usr/share/intltool'
+ /usr/bin/install -c -m 644 intltool.m4 '/usr/share/aclocal'
+ /usr/bin/install -c intltool-extract intltool-merge intltool-update intltoolize intltool-prepare '/usr/bin'
+ /usr/bin/install -c -m 644 Makefile.in.in '/usr/share/intltool'
+make[2]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0'
+make[1]: Leaving directory '/tmp/tmp.BvIDZoVRna/intltool-0.51.0'
+install: creating directory '/usr/share/doc/intltool-0.51.0'
+'doc/I18N-HOWTO' -> '/usr/share/doc/intltool-0.51.0/I18N-HOWTO'
+
+real	0m1.339s
+user	0m0.371s
+sys	0m0.116s

@@ -138,6 +138,8 @@ export QT5DIR
 # End /etc/profile.d/qt5.sh
 EOF
 
+    . /etc/profile.d/qt5.sh
+
     }
 } 2>&1 | tee $pkgname.log
     

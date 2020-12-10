@@ -6,7 +6,7 @@ LOG=${LOG:-$(dirname $0)/log}
 SRC=${SRC:-/home/sources}
 
 pkgname=gst-plugins-bad
-pkgver=1.18.1
+pkgver=1.18.2
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -24,7 +24,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
     meson  --prefix=/usr       \
            -Dbuildtype=release \
            -Dpackage-origin=http://www.linuxfromscratch.org/blfs/view/systemd/ \
-           -Dpackage-name="GStreamer 1.18.1 BLFS"
+           -Dpackage-name="GStreamer $pkgver BLFS"
     ninja
 
     ninja install

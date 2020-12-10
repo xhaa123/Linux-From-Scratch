@@ -34,7 +34,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
     bunzip2 -v               /usr/share/dict/cracklib-words.bz2    
     ln -v -sf cracklib-words /usr/share/dict/words                 
-    echo "beginning" >>      /usr/share/dict/cracklib-extra-words
+    echo "Beginning" >>      /usr/share/dict/cracklib-extra-words
     install -v -m755 -d      /lib/cracklib                         
 
     create-cracklib-dict     /usr/share/dict/cracklib-words \

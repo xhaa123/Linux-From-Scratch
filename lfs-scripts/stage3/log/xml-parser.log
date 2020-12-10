@@ -1,0 +1,105 @@
+Warning: prerequisite LWP::UserAgent 0 not found.
+Checking if your kit is complete...
+Looks good
+Writing MYMETA.yml and MYMETA.json
+Generating a Unix-style Makefile
+Writing Makefile for XML::Parser
+Writing MYMETA.yml and MYMETA.json
+make[1]: Entering directory '/tmp/tmp.P1sJyDOYdu/XML-Parser-2.46/Expat'
+Running Mkbootstrap for Expat ()
+"/usr/bin/perl" "/usr/lib/perl5/5.32/core_perl/ExtUtils/xsubpp" -noprototypes -typemap '/usr/lib/perl5/5.32/core_perl/ExtUtils/typemap' -typemap '/tmp/tmp.P1sJyDOYdu/XML-Parser-2.46/Expat/typemap'  Expat.xs > Expat.xsc
+chmod 644 "Expat.bs"
+"/usr/bin/perl" -MExtUtils::Command::MM -e 'cp_nonempty' -- Expat.bs ../blib/arch/auto/XML/Parser/Expat/Expat.bs 644
+cp Expat.pm ../blib/lib/XML/Parser/Expat.pm
+cp Parser/Encodings/big5.enc blib/lib/XML/Parser/Encodings/big5.enc
+cp Parser/Encodings/iso-8859-15.enc blib/lib/XML/Parser/Encodings/iso-8859-15.enc
+cp Parser/Encodings/windows-1255.enc blib/lib/XML/Parser/Encodings/windows-1255.enc
+cp Parser/Encodings/iso-8859-7.enc blib/lib/XML/Parser/Encodings/iso-8859-7.enc
+cp Parser/Encodings/windows-1251.enc blib/lib/XML/Parser/Encodings/windows-1251.enc
+cp Parser/Encodings/README blib/lib/XML/Parser/Encodings/README
+cp Parser/Encodings/ibm866.enc blib/lib/XML/Parser/Encodings/ibm866.enc
+cp Parser/Encodings/x-sjis-cp932.enc blib/lib/XML/Parser/Encodings/x-sjis-cp932.enc
+cp Parser/Encodings/iso-8859-3.enc blib/lib/XML/Parser/Encodings/iso-8859-3.enc
+cp Parser/Encodings/euc-kr.enc blib/lib/XML/Parser/Encodings/euc-kr.enc
+cp Parser/Style/Debug.pm blib/lib/XML/Parser/Style/Debug.pm
+cp Parser/Encodings/windows-1252.enc blib/lib/XML/Parser/Encodings/windows-1252.enc
+cp Parser/LWPExternEnt.pl blib/lib/XML/Parser/LWPExternEnt.pl
+cp Parser/Encodings/koi8-r.enc blib/lib/XML/Parser/Encodings/koi8-r.enc
+cp Parser/Encodings/iso-8859-9.enc blib/lib/XML/Parser/Encodings/iso-8859-9.enc
+cp Parser/Encodings/iso-8859-2.enc blib/lib/XML/Parser/Encodings/iso-8859-2.enc
+cp Parser/Encodings/x-sjis-jisx0221.enc blib/lib/XML/Parser/Encodings/x-sjis-jisx0221.enc
+cp Parser/Style/Stream.pm blib/lib/XML/Parser/Style/Stream.pm
+cp Parser/Encodings/x-sjis-unicode.enc blib/lib/XML/Parser/Encodings/x-sjis-unicode.enc
+cp Parser/Encodings/Japanese_Encodings.msg blib/lib/XML/Parser/Encodings/Japanese_Encodings.msg
+cp Parser/Encodings/x-euc-jp-unicode.enc blib/lib/XML/Parser/Encodings/x-euc-jp-unicode.enc
+cp Parser/Style/Tree.pm blib/lib/XML/Parser/Style/Tree.pm
+cp Parser/Encodings/x-sjis-jdk117.enc blib/lib/XML/Parser/Encodings/x-sjis-jdk117.enc
+cp Parser/Style/Subs.pm blib/lib/XML/Parser/Style/Subs.pm
+cp Parser.pm blib/lib/XML/Parser.pm
+cp Parser/Encodings/iso-8859-4.enc blib/lib/XML/Parser/Encodings/iso-8859-4.enc
+cp Parser/Encodings/x-euc-jp-jisx0221.enc blib/lib/XML/Parser/Encodings/x-euc-jp-jisx0221.enc
+cp Parser/Style/Objects.pm blib/lib/XML/Parser/Style/Objects.pm
+cp Parser/Encodings/iso-8859-5.enc blib/lib/XML/Parser/Encodings/iso-8859-5.enc
+cp Parser/Encodings/iso-8859-8.enc blib/lib/XML/Parser/Encodings/iso-8859-8.enc
+cp Parser/Encodings/windows-1250.enc blib/lib/XML/Parser/Encodings/windows-1250.enc
+mv Expat.xsc Expat.c
+cc -c   -D_REENTRANT -D_GNU_SOURCE -fwrapv -fno-strict-aliasing -pipe -fstack-protector-strong -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_FORTIFY_SOURCE=2 -O2   -DVERSION=\"2.46\" -DXS_VERSION=\"2.46\" -fPIC "-I/usr/lib/perl5/5.32/core_perl/CORE"   Expat.c
+rm -f ../blib/arch/auto/XML/Parser/Expat/Expat.so
+LD_RUN_PATH="/usr/lib" cc  -shared -O2 -L/usr/local/lib -fstack-protector-strong  Expat.o  -o ../blib/arch/auto/XML/Parser/Expat/Expat.so  \
+   -lexpat   \
+  
+chmod 755 ../blib/arch/auto/XML/Parser/Expat/Expat.so
+Manifying 1 pod document
+make[1]: Leaving directory '/tmp/tmp.P1sJyDOYdu/XML-Parser-2.46/Expat'
+Manifying 6 pod documents
+make[1]: Entering directory '/tmp/tmp.P1sJyDOYdu/XML-Parser-2.46/Expat'
+"/usr/bin/perl" -MExtUtils::Command::MM -e 'cp_nonempty' -- Expat.bs ../blib/arch/auto/XML/Parser/Expat/Expat.bs 644
+Manifying 1 pod document
+make[1]: Leaving directory '/tmp/tmp.P1sJyDOYdu/XML-Parser-2.46/Expat'
+Manifying 6 pod documents
+Appending installation info to /usr/lib/perl5/5.32/core_perl/perllocal.pod
+Files found in blib/arch: installing files in blib/lib into architecture dependent library tree
+Installing /usr/lib/perl5/5.32/site_perl/auto/XML/Parser/Expat/Expat.so
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser.pm
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Expat.pm
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/LWPExternEnt.pl
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/big5.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/iso-8859-15.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/windows-1255.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/iso-8859-7.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/windows-1251.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/README
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/ibm866.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/x-sjis-cp932.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/iso-8859-3.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/euc-kr.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/windows-1252.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/koi8-r.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/iso-8859-9.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/iso-8859-2.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/x-sjis-jisx0221.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/x-sjis-unicode.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/Japanese_Encodings.msg
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/x-euc-jp-unicode.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/x-sjis-jdk117.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/iso-8859-4.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/x-euc-jp-jisx0221.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/iso-8859-5.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/iso-8859-8.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Encodings/windows-1250.enc
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Style/Debug.pm
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Style/Stream.pm
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Style/Tree.pm
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Style/Subs.pm
+Installing /usr/lib/perl5/5.32/site_perl/XML/Parser/Style/Objects.pm
+Installing /usr/share/man/man3/XML::Parser::Expat.3
+Installing /usr/share/man/man3/XML::Parser.3
+Installing /usr/share/man/man3/XML::Parser::Style::Debug.3
+Installing /usr/share/man/man3/XML::Parser::Style::Objects.3
+Installing /usr/share/man/man3/XML::Parser::Style::Stream.3
+Installing /usr/share/man/man3/XML::Parser::Style::Subs.3
+Installing /usr/share/man/man3/XML::Parser::Style::Tree.3
+
+real	0m2.198s
+user	0m2.326s
+sys	0m0.317s

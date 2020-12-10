@@ -22,7 +22,7 @@ tar xf $SRC/a52dec-$pkgver.tar.* -C $TMP
                 --mandir=/usr/share/man \
                 --enable-shared \
                 --disable-static \
-                CFLAGS="-g -O2 $([ $(uname -m) = x86_64 ] echo -fPIC)"
+                CFLAGS="-g -O2 $([ $(uname -m) = x86_64 ] && echo -fPIC)"
     make
 
     make install

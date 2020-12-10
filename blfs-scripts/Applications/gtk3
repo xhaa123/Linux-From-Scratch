@@ -11,18 +11,19 @@ pkgver=3.24.24
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/gtk+-3.24.23.tar.xz -C $TMP
+tar xf $SRC/gtk+-$pkgver.tar.xz -C $TMP
 
 { time \
    {
 
-    cd $TMP/gtk+-3.24.23
+    cd $TMP/gtk+-$pkgver
 
     ./configure --prefix=/usr              \
                 --sysconfdir=/etc          \
                 --enable-broadway-backend  \
                 --enable-x11-backend       \
-                --enable-wayland-backend 
+                --enable-wayland-backend   \
+		--enable-gtk-doc
     make
 
     make install
