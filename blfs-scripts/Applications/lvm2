@@ -18,16 +18,23 @@ tar xf $SRC/LVM2.$pkgver.tgz -C $TMP
 
     cd $TMP/LVM2.$pkgver
 
-    SAVEPATH=$PATH                 
-    PATH=$PATH:/sbin:/usr/sbin     
-    ./configure --prefix=/usr       \
-                --exec-prefix=      \
-                --enable-cmdlib     \
-                --enable-pkgconfig  \
-                --enable-udev_sync  --with-cache=internal --with-thin=internal
-    make                           
-    PATH=$SAVEPATH                 
-    unset SAVEPATH
+    SAVEPATH=$PATH 
+    PATH=$PATH:/sbin:/usr/sbin 
+    ./configure --prefix=/usr       \            
+        --exec-prefix=              \   
+        --enable-cmdlib             \    
+        --enable-pkgconfig          \    
+        --enable-udev_sync          \
+        --with-cache=internal       \
+        --with-thin=internal        \
+        --enable-dmeventd           \
+        --enable-udev_rules         \
+        --enable-dmeventd           \
+        --enable-readline           \
+        --enable-lvmpolld 
+   make 
+   PATH=$SAVEPATH
+   unset SAVEPATH
 
     make install
     make install_systemd_units
