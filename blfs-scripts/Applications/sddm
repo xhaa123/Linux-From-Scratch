@@ -18,11 +18,11 @@ tar xf $SRC/$pkgname-$pkgver.tar.* -C $TMP
 
    cd $TMP/$pkgname-$pkgver
 
-#    groupadd -g 64 sddm
-#    useradd -c "Simple Desktop Display Manager" -d /var/lib/sddm -u 64 -g sddm -s /bin/false sddm   
+    groupadd -g 64 sddm
+    useradd -c "Simple Desktop Display Manager" -d /var/lib/sddm -u 64 -g sddm -s /bin/false sddm   
 
-#    install  -v -m755 -d /var/lib/sddm
-#    chown    -v sddm.sddm /var/lib/sddm
+    install  -v -m755 -d /var/lib/sddm
+    chown    -v sddm.sddm /var/lib/sddm
 
     sed -e '/UPOWER_SERVICE)/ s:^://:' \
         -i src/daemon/PowerManager.cpp
@@ -104,7 +104,7 @@ session         required pam_unix.so
 session         optional pam_systemd.so
 EOF
 
-   systemctl disable sddm
+   systemctl enable sddm
    
    }
 } 2>&1 | tee $pkgname.log
