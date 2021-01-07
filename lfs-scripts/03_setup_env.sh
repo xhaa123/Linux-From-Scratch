@@ -17,7 +17,7 @@ export LFS LC_ALL LFS_TGT PATH CONFIG_SITE
 export MAKEFLAGS="-j$(nproc)"
 
 alias ls='ls --color=auto'
-alias ll='ls -F -b -T 0 --group-directories-first --color=auto --format=long --time-style="+%y-%m-%d %H:%M:%S" --human-readable'
+alias ll='ls -F -b -T 0 --group-directories-first --color=auto --format=long --time-style="+%F %T" --human-readable'
 
 EOF
 
