@@ -3,6 +3,11 @@ LFS=/mnt/lfs
 
 export LFS=/mnt/lfs
 
+mount -v /dev/mapper/VolumeGroup-lvolroot $LFS
+mount -v /dev/mapper/VolumeGroup-lvolhome $LFS/home
+mount -v /dev/sdb2 $LFS/boot
+mount -v /dev/sdb1 $LFS/boot/efi
+swapon /dev/mapper/VolumeGroup-lvolswap
 
 mount -v --bind /dev $LFS/dev
 mount -v --bind /dev/pts $LFS/dev/pts
@@ -13,6 +18,8 @@ mount -vt tmpfs tmpfs $LFS/run
 if [ -h $LFS/dev/shm ]; then
   mkdir -pv $LFS/$(readlink $LFS/dev/shm)
 fi
+
+mount -t efivarfs efivarfs $LFS/sys/firmware/efi/efivars
 
 chroot "$LFS" /usr/bin/env -i   \
     HOME=/root                  \
