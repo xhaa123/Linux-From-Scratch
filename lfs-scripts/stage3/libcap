@@ -1,14 +1,13 @@
 #!/bin/bash 
 set -e
 
-TMP=${TMP:-$(mktemp -d)}
-LOG=${LOG:-$(dirname $0)/log}
+TMP=${TMP:-$/tmp}
+LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 pkgname=libcap
-pkgver=2.45
+pkgver=2.47
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
@@ -18,15 +17,16 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
 
     cd $TMP/$pkgname-$pkgver
     
-    sed -i '/install -m.*STACAPLIBNAME/d' libcap/Makefile
+    sed -i '/install -m.*STA/d' libcap/Makefile
     
-    make lib=lib
+    make prefix=/usr lib=lib
     
-    make lib=lib PKGCONFIGDIR=/usr/lib/pkgconfig install
-    chmod -v 755 /lib/libcap.so.$pkgver
-    mv -v /lib/libpsx.a /usr/lib
-    rm -v /lib/libcap.so
-    ln -sfv ../../lib/libcap.so.2 /usr/lib/libcap.so
+    make prefix=/usr lib=lib install
+    for libname in cap psx; do
+        mv -v /usr/lib/lib${libname}.so.* /lib
+        ln -sfv ../../lib/lib${libname}.so.2 /usr/lib/lib${libname}.so
+        chmod -v 755 /lib/lib${libname}.so.${pkgver}
+    done
 
     }
 } 2>&1 | tee $pkgname.log

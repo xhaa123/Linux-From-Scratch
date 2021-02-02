@@ -1,14 +1,13 @@
 #!/bin/bash 
 set -e
 
-TMP=${TMP:-$(mktemp -d)}
-LOG=${LOG:-$(dirname $0)/log}
+TMP=${TMP:-$/tmp}
+LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 pkgname=glibc
 pkgver=2.32
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
@@ -69,7 +68,6 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     localedef -i ru_RU -f KOI8-R ru_RU.KOI8-R
     localedef -i ru_RU -f UTF-8 ru_RU.UTF-8
     localedef -i tr_TR -f UTF-8 tr_TR.UTF-8
-    localedef -i zh_CN -f UTF-8 zh_CN.UTF-8
     localedef -i zh_CN -f GB18030 zh_CN.GB18030
     localedef -i zh_HK -f BIG5-HKSCS zh_HK.BIG5-HKSCS
 
@@ -91,13 +89,13 @@ rpc: files
 # End /etc/nsswitch.conf
 EOF
 
-    tar -xf $SRC/tzdata2020d.tar.gz
+    tar -xf $SRC/tzdata2021a.tar.gz
 
     ZONEINFO=/usr/share/zoneinfo
     mkdir -pv $ZONEINFO/{posix,right}
 
     for tz in etcetera southamerica northamerica europe africa antarctica  \
-             asia australasia backward; do
+              asia australasia backward; do
         zic -L /dev/null   -d $ZONEINFO       ${tz}
         zic -L /dev/null   -d $ZONEINFO/posix ${tz}
         zic -L leapseconds -d $ZONEINFO/right ${tz}

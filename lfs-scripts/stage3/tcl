@@ -1,15 +1,13 @@
 #!/bin/bash 
 set -e
 
-
-TMP=${TMP:-$(dirname $0)/Build-TMP}
-LOG=${LOG:-$(dirname $0)/log}
+TMP=${TMP:-$/tmp}
+LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 pkgname=tcl
-pkgver=8.6.10
+pkgver=8.6.11
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname$pkgver-src.tar.gz -C $TMP
@@ -33,16 +31,16 @@ tar xf $SRC/$pkgname$pkgver-src.tar.gz -C $TMP
         -e "s|$SRCDIR|/usr/include|"  \
         -i tclConfig.sh
 
-    sed -e "s|$SRCDIR/unix/pkgs/tdbc1.1.1|/usr/lib/tdbc1.1.1|" \
-        -e "s|$SRCDIR/pkgs/tdbc1.1.1/generic|/usr/include|"    \
-        -e "s|$SRCDIR/pkgs/tdbc1.1.1/library|/usr/lib/tcl8.6|" \
-        -e "s|$SRCDIR/pkgs/tdbc1.1.1|/usr/include|"            \
-        -i pkgs/tdbc1.1.1/tdbcConfig.sh
+    sed -e "s|$SRCDIR/unix/pkgs/tdbc1.1.2|/usr/lib/tdbc1.1.2|" \
+        -e "s|$SRCDIR/pkgs/tdbc1.1.2/generic|/usr/include|"    \
+        -e "s|$SRCDIR/pkgs/tdbc1.1.2/library|/usr/lib/tcl8.6|" \
+        -e "s|$SRCDIR/pkgs/tdbc1.1.2|/usr/include|"            \
+        -i pkgs/tdbc1.1.2/tdbcConfig.sh
 
-    sed -e "s|$SRCDIR/unix/pkgs/itcl4.2.0|/usr/lib/itcl4.2.0|" \
-        -e "s|$SRCDIR/pkgs/itcl4.2.0/generic|/usr/include|"    \
-        -e "s|$SRCDIR/pkgs/itcl4.2.0|/usr/include|"            \
-        -i pkgs/itcl4.2.0/itclConfig.sh
+    sed -e "s|$SRCDIR/unix/pkgs/itcl4.2.1|/usr/lib/itcl4.2.1|" \
+        -e "s|$SRCDIR/pkgs/itcl4.2.1/generic|/usr/include|"    \
+        -e "s|$SRCDIR/pkgs/itcl4.2.1|/usr/include|"            \
+        -i pkgs/itcl4.2.1/itclConfig.sh
 
     unset SRCDIR
 

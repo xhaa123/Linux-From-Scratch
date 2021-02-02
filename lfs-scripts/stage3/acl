@@ -1,14 +1,13 @@
 #!/bin/bash 
 set -e
 
-TMP=${TMP:-$(mktemp -d)}
-LOG=${LOG:-$(dirname $0)/log}
+TMP=${TMP:-$/tmp}
+LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 pkgname=acl
 pkgver=2.2.53
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
@@ -18,9 +17,9 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
 
     cd $TMP/$pkgname-$pkgver
 
-    ./configure --prefix=/usr          \
-                --disable-static       \
-                 --libexecdir=/usr/lib \
+    ./configure --prefix=/usr         \
+                --disable-static      \
+                --libexecdir=/usr/lib \
                 --docdir=/usr/share/doc/$pkgname-$pkgver
 
     make

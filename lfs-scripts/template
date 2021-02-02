@@ -2,8 +2,8 @@
 set -e
 
 
-TMP=${TMP:-$(dirname $0)/Build-TMP}
-LOG=${LOG:-$HOME/log}
+TMP=${TMP:-$/tmp}
+LOG=${LOG:-$HOME/logs/stage}
 SRC=${SRC:-$LFS/sources}
 
 pkgname=

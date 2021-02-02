@@ -1,14 +1,13 @@
-et -e
+#!/bin/bash 
+set -e
 
-
-TMP=${TMP:-$(dirname $0)/Build-TMP}
-LOG=${LOG:-$(dirname $0)/log}
+TMP=${TMP:-$/tmp}
+LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 pkgname=expect
 pkgver=5.45.4
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname$pkgver.tar.gz -C $TMP
@@ -26,8 +25,6 @@ tar xf $SRC/$pkgname$pkgver.tar.gz -C $TMP
  
     make
 
-    make test
-    
     make install
     ln -svf expect$pkgver/libexpect$pkgver.so /usr/lib
 

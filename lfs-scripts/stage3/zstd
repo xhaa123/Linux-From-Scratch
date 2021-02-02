@@ -1,14 +1,13 @@
 #!/bin/bash 
 set -e
 
-TMP=${TMP:-$(mktemp -d)}
-LOG=${LOG:-$(dirname $0)/log}
+TMP=${TMP:-$/tmp}
+LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 pkgname=zstd
-pkgver=1.4.5
+pkgver=1.4.8
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
@@ -22,9 +21,9 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
     
     make prefix=/usr install
     
-    rm -v /usr/lib/libzstd.a
-    mv -v /usr/lib/libzstd.so.* /lib
-    ln -sfv ../../lib/$(readlink /usr/lib/libzstd.so) /usr/lib/libzstd.so
+	rm -v /usr/lib/libzstd.a
+	mv -v /usr/lib/libzstd.so.* /lib
+	ln -sfv ../../lib/$(readlink /usr/lib/libzstd.so) /usr/lib/libzstd.so
 
     }
 } 2>&1 | tee $pkgname.log

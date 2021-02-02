@@ -1,14 +1,13 @@
 #!/bin/bash 
 set -e
 
-TMP=${TMP:-$(mktemp -d)}
-LOG=${LOG:-$(dirname $0)/log}
+TMP=${TMP:-$/tmp}
+LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 pkgname=xz
 pkgver=5.2.5
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
@@ -19,13 +18,12 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     cd $TMP/$pkgname-$pkgver
     
     ./configure --prefix=/usr    \
-            --disable-static \
-            --docdir=/usr/share/doc/$pkgname-$pkgver
+                --disable-static \
+                --docdir=/usr/share/doc/$pkgname-$pkgver
 
     make
     
     make install
-    
     mv -v   /usr/bin/{lzma,unlzma,lzcat,xz,unxz,xzcat} /bin
     mv -v /usr/lib/liblzma.so.* /lib
     ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so
