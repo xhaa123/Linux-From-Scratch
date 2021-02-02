@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 
-TMP=${TMP:-$(mktemp -d)}
-LOG=${LOG:-$(dirname $0)/log}
+TMP=${TMP:-/tmp}
+LOG=${LOG:-$HOME/logs/stage1}
 SRC=${SRC:-$LFS/sources}
 
 mkdir -pv $TMP $LOG
 
 pkgname=findutils
-pkgver=4.7.0
+pkgver=4.8.0
 
 tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
 
@@ -16,11 +16,15 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
    {
     
     cd $TMP/$pkgname-$pkgver
-    ./configure --prefix=/usr               \
-                --host=$LFS_TGT             \
+
+    ./configure --prefix=/usr   \
+                --host=$LFS_TGT \
                 --build=$(build-aux/config.guess)
+
     make
+    
     make DESTDIR=$LFS install
+
     mv -v $LFS/usr/bin/find $LFS/bin
     sed -i 's|find:=${BINDIR}|find:=/bin|' $LFS/usr/bin/updatedb
 

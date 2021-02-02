@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 
-TMP=${TMP:-$(mktemp -d)}
-LOG=${LOG:-$(dirname $0)/log}
+TMP=${TMP:-/tmp}
+LOG=${LOG:-$HOME/logs/stage1}
 SRC=${SRC:-$LFS/sources}
 
 mkdir -pv $TMP $LOG
 
 pkgname=linux-headers
-pkgver=5.9.12
+pkgver=5.10.12
 
 tar xf $SRC/linux-$pkgver.tar.xz -C $TMP 
 
@@ -17,10 +17,10 @@ tar xf $SRC/linux-$pkgver.tar.xz -C $TMP
 
     cd $TMP/linux-$pkgver
     make mrproper
-    make headers
-    find usr/include -name '.*' -delete
-    rm usr/include/Makefile
-    cp -rv usr/include $LFS/usr
+	make headers
+	find usr/include -name '.*' -delete
+	rm usr/include/Makefile
+	cp -rv usr/include $LFS/usr
 
     }
 } 2>&1 | tee $pkgname.log

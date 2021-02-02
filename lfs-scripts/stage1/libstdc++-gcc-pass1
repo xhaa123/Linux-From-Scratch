@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-TMP=${TMP:-$(mktemp -d)}
-LOG=${LOG:-$(dirname $0)/log}
+TMP=${TMP:-/tmp}
+LOG=${LOG:-$HOME/logs/stage1}
 SRC=${SRC:-$LFS/sources}
 
 mkdir -pv $TMP $LOG
@@ -18,14 +18,16 @@ tar xf $SRC/gcc-$pkgver.tar.xz -C $TMP
     cd $TMP/gcc-$pkgver
     mkdir -v build
     cd       build 
-    ../libstdc++-v3/configure               \
-        --host=$LFS_TGT                     \
-        --build=$(../config.guess)          \
-        --prefix=/usr                       \
-        --disable-multilib                  \
-        --disable-nls                       \
-        --disable-libstdcxx-pch             \
+
+    ../libstdc++-v3/configure           \
+        --host=$LFS_TGT                 \
+        --build=$(../config.guess)      \
+        --prefix=/usr                   \
+        --disable-multilib              \
+        --disable-nls                   \
+        --disable-libstdcxx-pch         \
         --with-gxx-include-dir=/tools/$LFS_TGT/include/c++/$pkgver
+        
     make
     make DESTDIR=$LFS install
 

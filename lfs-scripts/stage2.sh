@@ -15,13 +15,13 @@ PKG=(
     'gettext'
     'bison'
     'perl'
-    'python3'
+    'python'
     'texinfo'
     'util-linux'
 )
 
 for script in "${PKG[@]}"; do
-    if [ -f "$SCRIPTDIR/log/$script.log" ]; then
+    if [ -f "$HOME/logs/stage2/$script.log" ]; then
         echo "--- $script skipped ---"
     else
         echo "*** $script ***"

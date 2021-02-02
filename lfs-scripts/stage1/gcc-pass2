@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-TMP=${TMP:-$(mktemp -d)}
-LOG=${LOG:-$(dirname $0)/log}
+TMP=${TMP:-/tmp}
+LOG=${LOG:-$HOME/logs/stage1}
 SRC=${SRC:-$LFS/sources}
 
 mkdir -pv $TMP $LOG
@@ -20,40 +20,48 @@ tar xf $SRC/gcc-$pkgver.tar.xz -C $TMP
    {
     
     cd $TMP/gcc-$pkgver
+
     tar -xf $SRC/mpfr-$mpfr_ver.tar.xz
     mv -v mpfr-$mpfr_ver mpfr
     tar -xf $SRC/gmp-$gmp_ver.tar.xz
     mv -v gmp-$gmp_ver gmp
     tar -xf $SRC/mpc-$mpc_ver.tar.gz
     mv -v mpc-$mpc_ver mpc
-    case $(uname -m) in   
-        x86_64)     
-            sed -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64;   
-        ;; 
+
+    case $(uname -m) in
+      x86_64)
+        sed -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64
+      ;;
     esac
+
     mkdir -v build
     cd       build
+
     mkdir -pv $LFS_TGT/libgcc
     ln -s ../../../libgcc/gthr-posix.h $LFS_TGT/libgcc/gthr-default.h
-    ../configure                                           \
-        --build=$(../config.guess)                         \
-        --host=$LFS_TGT                                    \
-        --prefix=/usr                                      \
-        CC_FOR_TARGET=$LFS_TGT-gcc                         \
-        --with-build-sysroot=$LFS                          \
-        --enable-initfini-array                            \
-        --disable-nls                                      \
-        --disable-multilib                                 \
-        --disable-decimal-float                            \
-        --disable-libatomic                                \
-        --disable-libgomp                                  \
-        --disable-libquadmath                              \
-        --disable-libssp                                   \
-        --disable-libvtv                                   \
-        --disable-libstdcxx                                \
+
+    ../configure                                       \
+        --build=$(../config.guess)                     \
+        --host=$LFS_TGT                                \
+        --prefix=/usr                                  \
+        CC_FOR_TARGET=$LFS_TGT-gcc                     \
+        --with-build-sysroot=$LFS                      \
+        --enable-initfini-array                        \
+        --disable-nls                                  \
+        --disable-multilib                             \
+        --disable-decimal-float                        \
+        --disable-libatomic                            \
+        --disable-libgomp                              \
+        --disable-libquadmath                          \
+        --disable-libssp                               \
+        --disable-libvtv                               \
+        --disable-libstdcxx                            \
         --enable-languages=c,c++
+
     make
+
     make DESTDIR=$LFS install
+
     ln -sv gcc $LFS/usr/bin/cc
 
     }

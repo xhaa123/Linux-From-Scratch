@@ -6,21 +6,22 @@ TMP=${TMP:-/tmp}
 LOG=${LOG:-$HOME/logs/stage2}
 SRC=${SRC:-$/sources}
 
-pkgname=bison
-pkgver=3.7.5
+pkgname=python
+pkgver=3.9.1
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
+tar xf $SRC/Python-$pkgver.tar.xz -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/Python-$pkgver
 
-    ./configure --prefix=/usr             \
-        --docdir=/usr/share/doc/$pkgname-$pkgver
+   ./configure --prefix=/usr   \
+               --enable-shared \
+               --without-ensurepip
 
     make
     

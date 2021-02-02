@@ -18,6 +18,7 @@ PKG=(
     'gawk'
     'grep'
     'gzip'
+    'zlib'
     'make'
     'patch'
     'sed'
@@ -28,7 +29,7 @@ PKG=(
 )
 
 for script in "${PKG[@]}"; do
-    if [ -f "$SCRIPTDIR/log/$script.log" ]; then
+    if [ -f "$HOME/logs/stage1/$script.log" ]; then
         echo "--- $script skipped ---"
     else
         echo "*** $script ***"

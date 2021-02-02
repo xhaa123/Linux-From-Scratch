@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 
-TMP=${TMP:-$(mktemp -d)}
-LOG=${LOG:-$(dirname $0)/log}
+TMP=${TMP:-/tmp}
+LOG=${LOG:-$HOME/logs/stage1}
 SRC=${SRC:-$LFS/sources}
 
 mkdir -pv $TMP $LOG
 
 pkgname=binutils-pass1
-pkgver=2.35.1
+pkgver=2.36
 
 tar xf $SRC/binutils-$pkgver.tar.xz -C $TMP
 
@@ -18,11 +18,11 @@ tar xf $SRC/binutils-$pkgver.tar.xz -C $TMP
     cd $TMP/binutils-$pkgver
     mkdir -v build
     cd       build
-   ../configure --prefix=$LFS/tools       \
-                --with-sysroot=$LFS        \
-                --target=$LFS_TGT          \
-                --disable-nls              \
-                --disable-werror
+    ../configure --prefix=$LFS/tools        \
+                 --with-sysroot=$LFS        \
+                 --target=$LFS_TGT          \
+                 --disable-nls              \
+                 --disable-werror
     make
     make install
 

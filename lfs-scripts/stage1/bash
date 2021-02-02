@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 
-TMP=${TMP:-$(mktemp -d)}
-LOG=${LOG:-$(dirname $0)/log}
+TMP=${TMP:-/tmp}
+LOG=${LOG:-$HOME/logs/stage1}
 SRC=${SRC:-$LFS/sources}
 
 mkdir -pv $TMP $LOG
 
 pkgname=bash
-pkgver=5.0
+pkgver=5.1
 
 tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
 
@@ -16,13 +16,18 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
    {
     
     cd $TMP/$pkgname-$pkgver
-    ./configure --prefix=/usr                               \
-                --build=$(support/config.guess)             \
-                --host=$LFS_TGT                             \
+
+    ./configure --prefix=/usr                   \
+                --build=$(support/config.guess) \
+                --host=$LFS_TGT                 \
                 --without-bash-malloc
+
     make
+
     make DESTDIR=$LFS install
+
     mv $LFS/usr/bin/bash $LFS/bin/bash
+
     ln -sv bash $LFS/bin/sh
 
     }

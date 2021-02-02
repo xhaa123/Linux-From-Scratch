@@ -2,12 +2,12 @@
 set -e
 
 
-TMP=${TMP:-$(mktemp -d)}
-LOG=${LOG:-$(dirname $0)/log}
+TMP=${TMP:-/tmp}
+LOG=${LOG:-$HOME/logs/stage2}
 SRC=${SRC:-$/sources}
 
 pkgname=perl
-pkgver=5.32.0
+pkgver=5.32.1
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,16 +18,19 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
    {
 
     cd $TMP/$pkgname-$pkgver
-    sh Configure -des                                                \
-                 -Dprefix=/usr                                       \
-                 -Dvendorprefix=/usr                                 \
+
+    sh Configure -des                                        \
+                 -Dprefix=/usr                               \
+                 -Dvendorprefix=/usr                         \
                  -Dprivlib=/usr/lib/perl5/${pkgver::4}/core_perl     \
                  -Darchlib=/usr/lib/perl5/${pkgver::4}/core_perl     \
                  -Dsitelib=/usr/lib/perl5/${pkgver::4}/site_perl     \
                  -Dsitearch=/usr/lib/perl5/${pkgver::4}/site_perl    \
                  -Dvendorlib=/usr/lib/perl5/${pkgver::4}/vendor_perl \
                  -Dvendorarch=/usr/lib/perl5/${pkgver::4}/vendor_perl
+
     make
+    
     make install
 
     }

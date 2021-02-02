@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-TMP=${TMP:-$(mktemp -d)}
-LOG=${LOG:-$(dirname $0)/log}
+TMP=${TMP:-/tmp}
+LOG=${LOG:-$HOME/logs/stage1}
 SRC=${SRC:-$LFS/sources}
 
 mkdir -pv $TMP $LOG
@@ -16,11 +16,14 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
    {
     
     cd $TMP/$pkgname-$pkgver
-    ./configure --prefix=/usr               \
-                --without-guile             \
-                --host=$LFS_TGT             \
-                --build=$(build-aux/config.guess)
+
+	./configure --prefix=/usr   \
+	            --without-guile \
+	            --host=$LFS_TGT \
+	            --build=$(build-aux/config.guess)
+
     make
+    
     make DESTDIR=$LFS install
 
     }

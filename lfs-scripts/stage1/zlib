@@ -7,8 +7,8 @@ SRC=${SRC:-$LFS/sources}
 
 mkdir -pv $TMP $LOG
 
-pkgname=diffutils
-pkgver=3.7
+pkgname=zlib
+pkgver=1.2.11
 
 tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
 
@@ -17,11 +17,13 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     
     cd $TMP/$pkgname-$pkgver
 
-    ./configure --prefix=/usr --host=$LFS_TGT
+    ./configure --prefix=/usr
 
     make
     
     make DESTDIR=$LFS install
+    mv -v $LFS/usr/lib/libz.so.* $LFS/lib
+    ln -sfv ../../lib/$(readlink $LFS/usr/lib/libz.so) $LFS/usr/lib/libz.so
 
     }
 } 2>&1 | tee $pkgname.log
