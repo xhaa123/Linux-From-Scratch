@@ -6,9 +6,8 @@ LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 pkgname=python3
-pkgver=3.9.0
+pkgver=3.9.1
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/Python-$pkgver.tar.xz -C $TMP
@@ -18,11 +17,11 @@ tar xf $SRC/Python-$pkgver.tar.xz -C $TMP
 
     cd $TMP/Python-$pkgver
     
-    ./configure --prefix=/usr       \
-                --enable-shared     \
-                --with-system-expat \
-                --with-system-ffi   \
-                --with-ensurepip=yes
+	./configure --prefix=/usr       \
+				--enable-shared     \
+				--with-system-expat \
+				--with-system-ffi   \
+				--with-ensurepip=yes
     
     make
     

@@ -8,7 +8,6 @@ SRC=${SRC:-/sources}
 pkgname=texinfo
 pkgver=6.7
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
@@ -23,14 +22,15 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     make
     
     make install
-    make TEXMF=/usr/share/texmf install-tex
+
+	make TEXMF=/usr/share/texmf install-tex
     
-    pushd /usr/share/info
-        rm -v dir
-        for f in *
-            do install-info $f dir 2>/dev/null
-        done
-    popd
+	pushd /usr/share/info
+	  rm -v dir
+	  for f in *
+		do install-info $f dir 2>/dev/null
+	  done
+	popd
 
     }
 } 2>&1 | tee $pkgname.log

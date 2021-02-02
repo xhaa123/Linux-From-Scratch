@@ -8,7 +8,6 @@ SRC=${SRC:-/sources}
 pkgname=intltool
 pkgver=0.51.0
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP

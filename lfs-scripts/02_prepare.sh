@@ -10,6 +10,7 @@ mkdir -pv $LFS
 #################################
 
 mkdir -v $LFS/sources
+
 chmod -v a+wt $LFS/sources
 
 wget --input-file=wget-list --continue --directory-prefix=$LFS/sources
@@ -25,7 +26,7 @@ esac
 
 mkdir -pv $LFS/tools
 
-mv ../../Linux-From-Scratch $LFS
+mv ../Linux-From-Scratch $LFS
 
 groupadd lfs
 useradd -s /bin/bash -g lfs -m -k /dev/null lfs

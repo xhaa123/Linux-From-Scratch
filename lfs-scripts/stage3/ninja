@@ -8,7 +8,6 @@ SRC=${SRC:-/sources}
 pkgname=ninja
 pkgver=1.10.2
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
@@ -29,9 +28,9 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
             
     python3 configure.py --bootstrap
 
-    install -vm755 ninja /usr/bin/
-    install -vDm644 misc/bash-completion /usr/share/bash-completion/completions/ninja
-    install -vDm644 misc/zsh-completion  /usr/share/zsh/site-functions/_ninja
+	install -vm755 ninja /usr/bin/
+	install -vDm644 misc/bash-completion /usr/share/bash-completion/completions/ninja
+	install -vDm644 misc/zsh-completion  /usr/share/zsh/site-functions/_ninja
 
     }
 } 2>&1 | tee $pkgname.log

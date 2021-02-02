@@ -8,7 +8,6 @@ SRC=${SRC:-/sources}
 pkgname=pkg-config
 pkgver=0.29.2
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
@@ -18,10 +17,10 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
 
     cd $TMP/$pkgname-$pkgver
     
-    ./configure --prefix=/usr              \
-                --with-internal-glib       \
-                --disable-host-tool        \
-                --docdir=/usr/share/doc/$pkgname-$pkgver
+	./configure --prefix=/usr              \
+				--with-internal-glib       \
+				--disable-host-tool        \
+				--docdir=/usr/share/doc/$pkgname-$pkgver
     
     make
     

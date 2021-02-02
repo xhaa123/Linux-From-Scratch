@@ -6,9 +6,8 @@ LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 pkgname=bash
-pkgver=5.0
+pkgver=5.1
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
@@ -18,12 +17,12 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
 
     cd $TMP/$pkgname-$pkgver
     
-    patch -Np1 -i $SRC/$pkgname-$pkgver-upstream_fixes-1.patch
+    sed -i  '/^bashline.o:.*shmbchar.h/a bashline.o: ${DEFDIR}/builtext.h' Makefile.in
 
-    ./configure --prefix=/usr                    \
-                --docdir=/usr/share/doc/$pkgname-$pkgver \
-                --without-bash-malloc            \
-                --with-installed-readline
+	./configure --prefix=/usr                    \
+				--docdir=/usr/share/doc/$pkgname-$pkgver \
+				--without-bash-malloc            \
+				--with-installed-readline
 
     make
 

@@ -6,9 +6,8 @@ LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 pkgname=vim
-pkgver=8.2.2107
+pkgver=8.2.2451
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
@@ -18,7 +17,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
 
     cd $TMP/$pkgname-$pkgver
     
-    echo '#define SYS_VIMRC_FILE "/etc/vimrc"' >> src/feature.h
+    cho '#define SYS_VIMRC_FILE "/etc/vimrc"' >> src/feature.h
     
     ./configure --prefix=/usr
     
@@ -26,10 +25,10 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
     
     make install
     
-    ln -sv vim /usr/bin/vi
-    for L in  /usr/share/man/{,*/}man1/vim.1; do
-        ln -sv vim.1 $(dirname $L)/vi.1
-    done
+	ln -sv vim /usr/bin/vi
+	for L in  /usr/share/man/{,*/}man1/vim.1; do
+		ln -sv vim.1 $(dirname $L)/vi.1
+	done
     
     ln -sv ../vim/vim82/doc /usr/share/doc/$pkgname-$pkgver
     

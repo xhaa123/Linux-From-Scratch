@@ -9,7 +9,10 @@ mount -v /dev/sdb2 $LFS/boot
 mount -v /dev/sdb1 $LFS/boot/efi
 swapon /dev/mapper/VolumeGroup-lvolswap
 
+mkdir -pv $LFS/{dev,proc,sys,run}
+
 mount -v --bind /dev $LFS/dev
+
 mount -v --bind /dev/pts $LFS/dev/pts
 mount -vt proc proc $LFS/proc
 mount -vt sysfs sysfs $LFS/sys

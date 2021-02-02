@@ -8,7 +8,6 @@ SRC=${SRC:-/sources}
 pkgname=less
 pkgver=563
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP

@@ -8,7 +8,6 @@ SRC=${SRC:-/sources}
 pkgname=dbus
 pkgver=1.12.20
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
@@ -18,25 +17,25 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
 
     cd $TMP/$pkgname-$pkgver
     
-    ./configure --prefix=/usr                       \
-                --sysconfdir=/etc                   \
-                --localstatedir=/var                \
-                --disable-static                    \
-                --disable-doxygen-docs              \
-                --disable-xml-docs                  \
-                --docdir=/usr/share/doc/$pkgname-$pkgver \
-                --with-console-auth-dir=/run/console
+	./configure --prefix=/usr                       \
+				--sysconfdir=/etc                   \
+				--localstatedir=/var                \
+				--disable-static                    \
+				--disable-doxygen-docs              \
+				--disable-xml-docs                  \
+				--docdir=/usr/share/doc/$pkgname-$pkgver \
+				--with-console-auth-dir=/run/console
     
     make
     
     make install
     
-    mv -v /usr/lib/libdbus-1.so.* /lib
-    ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so
+	mv -v /usr/lib/libdbus-1.so.* /lib
+	ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so
 
-    ln -sfv /etc/machine-id /var/lib/dbus
+	ln -sfv /etc/machine-id /var/lib/dbus
 
-    sed -i 's:/var/run:/run:' /lib/systemd/system/dbus.socket
+	sed -i 's:/var/run:/run:' /lib/systemd/system/dbus.socket
 
     }
 } 2>&1 | tee $pkgname.log

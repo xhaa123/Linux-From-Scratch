@@ -6,9 +6,8 @@ LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 pkgname=kbd
-pkgver=2.3.0
+pkgver=2.4.0
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
@@ -20,10 +19,10 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     
     patch -Np1 -i $SRC/$pkgname-$pkgver-backspace-1.patch
         
-    sed -i '/RESIZECONS_PROGS=/s/yes/no/' configure
-    sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in
+	sed -i '/RESIZECONS_PROGS=/s/yes/no/' configure
+	sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in
 
-    ./configure --prefix=/usr --disable-vlock
+	./configure --prefix=/usr --disable-vlock
     
     make
     

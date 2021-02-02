@@ -6,7 +6,7 @@ LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 pkgname=openssl
-pkgver=1.1.1h
+pkgver=1.1.1i
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -18,19 +18,20 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
 
     cd $TMP/$pkgname-$pkgver
     
-    ./config --prefix=/usr         \
-             --openssldir=/etc/ssl \
-             --libdir=lib          \
-             shared                \
-             zlib-dynamic
+	./config --prefix=/usr         \
+			 --openssldir=/etc/ssl \
+			 --libdir=lib          \
+			 shared                \
+			 zlib-dynamic
     
     make
 
-    sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile
-    make MANSUFFIX=ssl install
+	sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile
+	make MANSUFFIX=ssl install
 
-    mv -v /usr/share/doc/openssl /usr/share/doc/$pkgname-$pkgver
-    cp -vfr doc/* /usr/share/doc/$pkgname-$pkgver
+	mv -v /usr/share/doc/openssl /usr/share/doc/$pkgname-$pkgver
+
+	cp -vfr doc/* /usr/share/doc/$pkgname-$pkgver
 
     }
 } 2>&1 | tee $pkgname.log

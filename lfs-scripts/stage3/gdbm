@@ -6,9 +6,8 @@ LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 pkgname=gdbm
-pkgver=1.18.1
+pkgver=1.19
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
@@ -18,11 +17,9 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
 
     cd $TMP/$pkgname-$pkgver
     
-    sed -r -i '/^char.*parseopt_program_(doc|args)/d' src/parseopt.c
-    
-    ./configure --prefix=/usr    \
-                --disable-static \
-                --enable-libgdbm-compat
+	./configure --prefix=/usr    \
+				--disable-static \
+				--enable-libgdbm-compat
     
     make
     

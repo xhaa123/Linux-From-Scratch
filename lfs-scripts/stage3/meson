@@ -6,9 +6,8 @@ LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 pkgname=meson
-pkgver=0.56.0
+pkgver=0.56.2
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
@@ -18,12 +17,10 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
 
     cd $TMP/$pkgname-$pkgver
     
-    patch -Np1 -i $SRC/$pkgname-$pkgver-upstream_fix-1.patch
-
     python3 setup.py build
     
-    python3 setup.py install --root=dest
-    cp -rv dest/* /
+	python3 setup.py install --root=dest
+	cp -rv dest/* /
 
     }
 } 2>&1 | tee $pkgname.log

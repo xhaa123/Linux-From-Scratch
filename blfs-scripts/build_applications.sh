@@ -93,7 +93,7 @@ PKG=(
 SCRIPTDIR=$(dirname $0)/Applications
 
 for script in ${PKG[@]}; do
-        if [ -f "$SCRIPTDIR/log/$script.log" ]; then
+        if [ -f "$HOME/logs/Applications/$script.log" ]; then
 		echo "--- $script skipped ---"
 	else
 		echo "*** $script ***"

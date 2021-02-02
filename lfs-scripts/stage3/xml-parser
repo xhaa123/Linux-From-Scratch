@@ -8,7 +8,6 @@ SRC=${SRC:-/sources}
 pkgname=xml-parser
 pkgver=2.46
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/XML-Parser-$pkgver.tar.gz -C $TMP

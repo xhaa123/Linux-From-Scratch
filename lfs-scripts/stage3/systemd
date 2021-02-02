@@ -8,7 +8,6 @@ SRC=${SRC:-/sources}
 pkgname=systemd
 pkgver=247
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
@@ -26,51 +25,51 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
     
     sed '181,$ d' -i src/resolve/meson.build
     
-   sed -i 's/GROUP="render", //' rules.d/50-udev-default.rules.in 
+	sed -i 's/GROUP="render"/GROUP="video"/' rules.d/50-udev-default.rules.in
 
-   mkdir -p build
-   cd       build
+	mkdir -p build
+	cd       build
 
-   LANG=en_US.UTF-8                    \
-   meson --prefix=/usr                 \
-         --sysconfdir=/etc             \
-         --localstatedir=/var          \
-         -Dblkid=true                  \
-         -Dbuildtype=release           \
-         -Ddefault-dnssec=no           \
-         -Dfirstboot=false             \
-         -Dinstall-tests=false         \
-         -Dkmod-path=/bin/kmod         \
-         -Dldconfig=false              \
-         -Dmount-path=/bin/mount       \
-         -Drootprefix=                 \
-         -Drootlibdir=/lib             \
-         -Dsplit-usr=true              \
-         -Dsulogin-path=/sbin/sulogin  \
-         -Dsysusers=false              \
-         -Dumount-path=/bin/umount     \
-         -Db_lto=false                 \
-         -Drpmmacrosdir=no             \
-         -Dhomed=false                 \
-         -Duserdb=false                \
-         -Dman=true                    \
-         -Dmode=release                \
-         -Ddocdir=/usr/share/doc/$pkgname-$pkgver \
-         ..
+	LANG=en_US.UTF-8                    \
+	meson --prefix=/usr                 \
+		  --sysconfdir=/etc             \
+		  --localstatedir=/var          \
+		  -Dblkid=true                  \
+		  -Dbuildtype=release           \
+		  -Ddefault-dnssec=no           \
+		  -Dfirstboot=false             \
+		  -Dinstall-tests=false         \
+		  -Dkmod-path=/bin/kmod         \
+		  -Dldconfig=false              \
+		  -Dmount-path=/bin/mount       \
+		  -Drootprefix=                 \
+		  -Drootlibdir=/lib             \
+		  -Dsplit-usr=true              \
+		  -Dsulogin-path=/sbin/sulogin  \
+		  -Dsysusers=false              \
+		  -Dumount-path=/bin/umount     \
+		  -Db_lto=false                 \
+		  -Drpmmacrosdir=no             \
+		  -Dhomed=false                 \
+		  -Duserdb=false                \
+		  -Dman=true                    \
+		  -Dmode=release                \
+		  -Ddocdir=/usr/share/doc/$pkgname-$pkgver \
+		  ..
     
-    LANG=en_US.UTF-8 ninja
-    
-    LANG=en_US.UTF-8 ninja install
-    
-    rm -f /usr/bin/xsltproc
-    
-    systemd-machine-id-setup
-    
-    systemctl preset-all
-    
-    systemctl disable systemd-time-wait-sync.service
-    
-    rm -f /usr/lib/sysctl.d/50-pid-max.conf
+	LANG=en_US.UTF-8 ninja
+		
+	LANG=en_US.UTF-8 ninja install
+		
+	rm -f /usr/bin/xsltproc
+		
+	systemd-machine-id-setup
+		
+	systemctl preset-all
+		
+	systemctl disable systemd-time-wait-sync.service
+		
+	rm -f /usr/lib/sysctl.d/50-pid-max.conf
     
 
     }

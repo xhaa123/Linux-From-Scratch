@@ -8,7 +8,6 @@ SRC=${SRC:-/sources}
 pkgname=elfutils
 pkgver=0.182
 
-rm -fr $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$pkgname-$pkgver.tar.bz2 -C $TMP
@@ -18,16 +17,16 @@ tar xf $SRC/$pkgname-$pkgver.tar.bz2 -C $TMP
 
     cd $TMP/$pkgname-$pkgver
     
-    ./configure --prefix=/usr                \
-                --disable-debuginfod         \
-                --enable-libdebuginfod=dummy \
-                --libdir=/lib
+	./configure --prefix=/usr                \
+				--disable-debuginfod         \
+				--enable-libdebuginfod=dummy \
+				--libdir=/lib
     
     make
     
-    make -C libelf install
-    install -vm644 config/libelf.pc /usr/lib/pkgconfig
-    rm /lib/libelf.a
+	make -C libelf install
+	install -vm644 config/libelf.pc /usr/lib/pkgconfig
+	rm /lib/libelf.a
 
     }
 } 2>&1 | tee $pkgname.log
