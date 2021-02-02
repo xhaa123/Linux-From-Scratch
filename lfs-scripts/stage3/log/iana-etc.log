@@ -1,6 +1,0 @@
-'services' -> '/etc/services'
-'protocols' -> '/etc/protocols'
-
-real	0m0.001s
-user	0m0.001s
-sys	0m0.000s
