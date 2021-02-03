@@ -24,7 +24,9 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     make install
     
 	mv -v /usr/lib/libz.so.* /lib
-	ln -sfv ../../lib/$(readlink /usr/lib/libz.so) /usr/lib/libz.so
+	ln -sfv ../../lib/$(readlink /usr/lib/libz.so) /usr/lib/libz.so.so
+
+	rm -fv /usr/lib/libz.a
 
     }
 } 2>&1 | tee $pkgname.log

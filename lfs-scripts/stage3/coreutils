@@ -25,8 +25,8 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     
 	autoreconf -fiv
 	FORCE_UNSAFE_CONFIGURE=1 ./configure \
-				--prefix=/usr            \
-				--enable-no-install-program=kill,uptime
+	            --prefix=/usr            \
+	            --enable-no-install-program=kill,uptime
     
     make
     

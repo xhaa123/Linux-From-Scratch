@@ -8,7 +8,7 @@ SRC=${SRC:-$LFS/sources}
 mkdir -pv $TMP $LOG
 
 pkgname=glibc
-pkgver=2.32
+pkgver=2.33
 gcc_ver=10.2.0
 
 tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
@@ -48,7 +48,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
 
     rm -v dummy.c a.out
     
-    $LFS/tools/libexec/gcc/$LFS_TGT/10.2.0/install-tools/mkheaders
+    $LFS/tools/libexec/gcc/$LFS_TGT/$gcc_ver/install-tools/mkheaders
 
     }
 } 2>&1 | tee $pkgname.log

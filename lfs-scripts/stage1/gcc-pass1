@@ -9,7 +9,6 @@ mkdir -pv $TMP $LOG
 
 pkgname=gcc-pass1
 pkgver=10.2.0
-
 mpfr_ver=4.1.0
 gmp_ver=6.2.1
 mpc_ver=1.2.1
@@ -20,6 +19,7 @@ tar xf $SRC/gcc-$pkgver.tar.xz -C $TMP
    {
     
     cd $TMP/gcc-$pkgver
+    
     tar -xf $SRC/mpfr-$mpfr_ver.tar.xz
     mv -v mpfr-$mpfr_ver mpfr
     tar -xf $SRC/gmp-$gmp_ver.tar.xz

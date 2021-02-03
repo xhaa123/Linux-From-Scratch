@@ -4,9 +4,6 @@ SCRIPTDIR=$(dirname $0)/stage3
 
 PKG=(
     'man-pages'
-    'tcl'
-    'expect'
-    'dejagnu'
     'iana-etc'
     'glibc'
     'zlib'
@@ -18,6 +15,9 @@ PKG=(
     'm4'
     'bc'
     'flex'
+    'tcl'
+    'expect'
+    'dejagnu'
     'binutils'
     'gmp'
     'mpfr'
@@ -41,7 +41,7 @@ PKG=(
     'expat'
     'inetutils'
     'perl'
-    'xml-parser'
+    'perl-xml-parser'
     'intltool'
     'autoconf'
     'automake'
@@ -75,6 +75,7 @@ PKG=(
     'procps-ng'
     'util-linux'
     'e2fsprogs'
+    'strippingagain'
 )
 
 for script in "${PKG[@]}"; do

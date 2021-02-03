@@ -18,7 +18,6 @@ PKG=(
     'gawk'
     'grep'
     'gzip'
-    'zlib'
     'make'
     'patch'
     'sed'

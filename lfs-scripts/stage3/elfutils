@@ -18,9 +18,9 @@ tar xf $SRC/$pkgname-$pkgver.tar.bz2 -C $TMP
     cd $TMP/$pkgname-$pkgver
     
 	./configure --prefix=/usr                \
-				--disable-debuginfod         \
-				--enable-libdebuginfod=dummy \
-				--libdir=/lib
+	            --disable-debuginfod         \
+	            --enable-libdebuginfod=dummy \
+	            --libdir=/lib
     
     make
     

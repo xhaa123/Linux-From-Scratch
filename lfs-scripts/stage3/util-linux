@@ -17,20 +17,18 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
 
     cd $TMP/$pkgname-$pkgver
     
-    mkdir -pv /var/lib/hwclock
-    
-	./configure ADJTIME_PATH=/var/lib/hwclock/adjtime   \
-				--docdir=/usr/share/doc/$pkgname-$pkgver \
-				--disable-chfn-chsh  \
-				--disable-login      \
-				--disable-nologin    \
-				--disable-su         \
-				--disable-setpriv    \
-				--disable-runuser    \
-				--disable-pylibmount \
-				--disable-static     \
-				--without-python     \
-				runstatedir=/run
+	./configure ADJTIME_PATH=/var/lib/hwclock/adjtime    \
+	            --docdir=/usr/share/doc/$pkgname-$pkgver \
+	            --disable-chfn-chsh  \
+	            --disable-login      \
+	            --disable-nologin    \
+	            --disable-su         \
+	            --disable-setpriv    \
+	            --disable-runuser    \
+	            --disable-pylibmount \
+	            --disable-static     \
+	            --without-python     \
+	            runstatedir=/run
     
     make
     

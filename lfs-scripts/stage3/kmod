@@ -18,16 +18,16 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     cd $TMP/$pkgname-$pkgver
     
 	./configure --prefix=/usr          \
-				--bindir=/bin          \
-				--sysconfdir=/etc      \
-				--with-rootlibdir=/lib \
-				--with-xz              \
-				--with-zstd            \
-				--with-zlib
+	            --bindir=/bin          \
+	            --sysconfdir=/etc      \
+	            --with-rootlibdir=/lib \
+	            --with-xz              \
+	            --with-zstd            \
+	            --with-zlib
     
     make
     
-    make install
+	make install
 
 	for target in depmod insmod lsmod modinfo modprobe rmmod; do
 	  ln -sfv ../bin/kmod /sbin/$target

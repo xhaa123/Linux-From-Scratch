@@ -17,6 +17,7 @@ tar xf $SRC/linux-$pkgver.tar.xz -C $TMP
 
     cd $TMP/linux-$pkgver
     make mrproper
+
 	make headers
 	find usr/include -name '.*' -delete
 	rm usr/include/Makefile

@@ -17,14 +17,14 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
 
     cd $TMP/$pkgname-$pkgver
     
-	./configure --prefix=/usr                       \
-				--sysconfdir=/etc                   \
-				--localstatedir=/var                \
-				--disable-static                    \
-				--disable-doxygen-docs              \
-				--disable-xml-docs                  \
-				--docdir=/usr/share/doc/$pkgname-$pkgver \
-				--with-console-auth-dir=/run/console
+	./configure --prefix=/usr                            \
+	            --sysconfdir=/etc                        \
+	            --localstatedir=/var                     \
+	            --disable-static                         \
+	            --disable-doxygen-docs                   \
+	            --disable-xml-docs                       \
+	            --docdir=/usr/share/doc/$pkgname-$pkgver \
+	            --with-console-auth-dir=/run/console
     
     make
     

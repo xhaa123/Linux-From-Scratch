@@ -19,16 +19,14 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     
     patch -Np1 -i $SRC/$pkgname-$pkgver-backspace-1.patch
         
-	sed -i '/RESIZECONS_PROGS=/s/yes/no/' configure
-	sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in
+    sed -i '/RESIZECONS_PROGS=/s/yes/no/' configure
+    sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in
 
 	./configure --prefix=/usr --disable-vlock
     
     make
     
     make install
-
-    rm -v /usr/lib/libtswrap.{a,la,so*}
 
     mkdir -v            /usr/share/doc/$pkgname-$pkgver
     cp -R -v docs/doc/* /usr/share/doc/$pkgname-$pkgver

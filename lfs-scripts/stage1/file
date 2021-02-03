@@ -17,9 +17,15 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
     
     cd $TMP/$pkgname-$pkgver
 
-    ./configure --prefix=/usr --host=$LFS_TGT
+	mkdir build
+	pushd build
+	  ../configure
+	  make
+	popd
 
-    make
+    ./configure --prefix=/usr --host=$LFS_TGT --build=$(./config.guess)
+
+    make FILE_COMPILE=$(pwd)/build/src/file
     
     make DESTDIR=$LFS install
 

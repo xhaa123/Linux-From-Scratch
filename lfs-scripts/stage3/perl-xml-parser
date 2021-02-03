@@ -5,7 +5,7 @@ TMP=${TMP:-$/tmp}
 LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
-pkgname=xml-parser
+pkgname=perl-xml-parser
 pkgver=2.46
 
 mkdir -p $TMP $LOG

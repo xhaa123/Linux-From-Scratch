@@ -19,10 +19,10 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
     cd $TMP/$pkgname-$pkgver
     
 	./config --prefix=/usr         \
-			 --openssldir=/etc/ssl \
-			 --libdir=lib          \
-			 shared                \
-			 zlib-dynamic
+	         --openssldir=/etc/ssl \
+	         --libdir=lib          \
+	         shared                \
+	         zlib-dynamic
     
     make
 

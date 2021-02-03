@@ -17,7 +17,9 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
 
     cd $TMP/$pkgname-$pkgver
     
-    ./configure --prefix=/usr --docdir=/usr/share/doc/$pkgname-$pkgver
+	./configure --prefix=/usr \
+	            --docdir=/usr/share/doc/$pkgname-$pkgver \
+	            --disable-static
     
     make
     

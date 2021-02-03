@@ -6,6 +6,7 @@ LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 pkgname=libpipeline
+pkgver=1.5.3
 
 mkdir -p $TMP $LOG
 

@@ -17,20 +17,20 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
 
     cd $TMP/$pkgname-$pkgver
     
-./configure --prefix=/usr                            \
-            --exec-prefix=                           \
-            --libdir=/usr/lib                        \
-            --docdir=/usr/share/doc/$pkgname-$pkgver \
-            --disable-static                         \
-            --disable-kill                           \
-            --with-systemd
+    ./configure --prefix=/usr                            \
+                --exec-prefix=                           \
+                --libdir=/usr/lib                        \
+                --docdir=/usr/share/doc/$pkgname-$pkgver \
+                --disable-static                         \
+                --disable-kill                           \
+                --with-systemd
     
     make
     
     make install
     
-	mv -v /usr/lib/libprocps.so.* /lib
-	ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so
+    mv -v /usr/lib/libprocps.so.* /lib
+    ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so
 
     }
 } 2>&1 | tee $pkgname.log
