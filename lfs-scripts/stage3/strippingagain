@@ -6,7 +6,7 @@ TMP=${TMP:-$/tmp}
 LOG=${LOG:-$HOME/logs/stage}
 SRC=${SRC:-$LFS/sources}
 
-pkgname=strippingagain
+name=strippingagain
 
 mkdir -p $TMP $LOG
 
@@ -46,9 +46,11 @@ mkdir -p $TMP $LOG
 	find /{bin,sbin} /usr/{bin,sbin,libexec} -type f \
 	    -exec strip --strip-all {} ';'
 
+	rm -rf /tmp/*
+
     }
-} 2>&1 | tee $pkgname.log
+} 2>&1 | tee $name.log
     
-[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
 
 rm -fr $TMP

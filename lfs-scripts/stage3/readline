@@ -5,17 +5,17 @@ TMP=${TMP:-$/tmp}
 LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
-pkgname=readline
-pkgver=8.1
+name=readline
+version=8.1
 
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
+tar xf $SRC/$name-$version.tar.gz -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/$name-$version
     
     sed -i '/MV.*old/d' Makefile.in
     sed -i '/{OLDSUFF}/c:' support/shlib-install
@@ -23,7 +23,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
     ./configure --prefix=/usr    \
                 --disable-static \
                 --with-curses    \
-                --docdir=/usr/share/doc/$pkgname-$pkgver
+                --docdir=/usr/share/doc/$name-$version
             
     make SHLIB_LIBS="-lncursesw"
             
@@ -33,11 +33,11 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
     ln -sfv ../../lib/$(readlink /usr/lib/libreadline.so) /usr/lib/libreadline.so
     ln -sfv ../../lib/$(readlink /usr/lib/libhistory.so ) /usr/lib/libhistory.so
 
-    install -v -m644 doc/*.{ps,pdf,html,dvi} /usr/share/doc/$pkgname-$pkgver
+    install -v -m644 doc/*.{ps,pdf,html,dvi} /usr/share/doc/$name-$version
 
     }
-} 2>&1 | tee $pkgname.log
+} 2>&1 | tee $name.log
     
-[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
 
 rm -fr $TMP

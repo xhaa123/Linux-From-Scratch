@@ -5,17 +5,17 @@ TMP=${TMP:-$/tmp}
 LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
-pkgname=libcap
-pkgver=2.47
+name=libcap
+version=2.47
 
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
+tar xf $SRC/$name-$version.tar.xz -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/$name-$version
     
     sed -i '/install -m.*STA/d' libcap/Makefile
     
@@ -25,12 +25,12 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     for libname in cap psx; do
         mv -v /usr/lib/lib${libname}.so.* /lib
         ln -sfv ../../lib/lib${libname}.so.2 /usr/lib/lib${libname}.so
-        chmod -v 755 /lib/lib${libname}.so.$pkgver
+        chmod -v 755 /lib/lib${libname}.so.$version
     done
 
     }
-} 2>&1 | tee $pkgname.log
+} 2>&1 | tee $name.log
     
-[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
 
 rm -fr $TMP

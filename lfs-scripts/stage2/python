@@ -6,18 +6,18 @@ TMP=${TMP:-/tmp}
 LOG=${LOG:-$HOME/logs/stage2}
 SRC=${SRC:-$/sources}
 
-pkgname=python
-pkgver=3.9.1
+name=python
+version=3.9.1
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/Python-$pkgver.tar.xz -C $TMP
+tar xf $SRC/Python-$version.tar.xz -C $TMP
 
 { time \
    {
 
-    cd $TMP/Python-$pkgver
+    cd $TMP/Python-$version
 
 	./configure --prefix=/usr   \
 	            --enable-shared \
@@ -28,8 +28,8 @@ tar xf $SRC/Python-$pkgver.tar.xz -C $TMP
     make install
     
     }
-} 2>&1 | tee $pkgname.log
+} 2>&1 | tee $name.log
 
-[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
 
 rm -fr $TMP

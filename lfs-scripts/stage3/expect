@@ -5,17 +5,17 @@ TMP=${TMP:-$/tmp}
 LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
-pkgname=expect
-pkgver=5.45.4
+name=expect
+version=5.45.4
 
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname$pkgver.tar.gz -C $TMP
+tar xf $SRC/$name$version.tar.gz -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname$pkgver
+    cd $TMP/$name$version
     
     ./configure --prefix=/usr           \
                 --with-tcl=/usr/lib     \
@@ -26,11 +26,11 @@ tar xf $SRC/$pkgname$pkgver.tar.gz -C $TMP
     make
 
     make install
-    ln -svf expect$pkgver/libexpect$pkgver.so /usr/lib
+    ln -svf expect$version/libexpect$version.so /usr/lib
 
     }
-} 2>&1 | tee $pkgname.log
+} 2>&1 | tee $name.log
     
-[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
 
 rm -fr $TMP

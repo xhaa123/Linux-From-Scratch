@@ -5,19 +5,19 @@ TMP=${TMP:-$/tmp}
 LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
-pkgname=tcl
-pkgver=8.6.11
+name=tcl
+version=8.6.11
 
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname$pkgver-src.tar.gz -C $TMP
+tar xf $SRC/$name$version-src.tar.gz -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname$pkgver
+    cd $TMP/$name$version
 
-    tar -xf $SRC/tcl$pkgver-html.tar.gz --strip-components=1
+    tar -xf $SRC/tcl$version-html.tar.gz --strip-components=1
 
     SRCDIR=$(pwd)
     cd unix
@@ -46,17 +46,17 @@ tar xf $SRC/$pkgname$pkgver-src.tar.gz -C $TMP
 
     make install
 
-    chmod -v u+w /usr/lib/libtcl${pkgver:0:3}.so
+    chmod -v u+w /usr/lib/libtcl${version:0:3}.so
 
     make install-private-headers
 
-    ln -sfv tclsh${pkgver:0:3} /usr/bin/tclsh
+    ln -sfv tclsh${version:0:3} /usr/bin/tclsh
 
     mv /usr/share/man/man3/{Thread,Tcl_Thread}.3
 
     }
-} 2>&1 | tee $pkgname.log
+} 2>&1 | tee $name.log
     
-[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
 
 rm -fr $TMP

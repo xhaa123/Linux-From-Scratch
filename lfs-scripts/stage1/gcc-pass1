@@ -7,18 +7,18 @@ SRC=${SRC:-$LFS/sources}
 
 mkdir -pv $TMP $LOG
 
-pkgname=gcc-pass1
-pkgver=10.2.0
+name=gcc-pass1
+version=10.2.0
 mpfr_ver=4.1.0
 gmp_ver=6.2.1
 mpc_ver=1.2.1
 
-tar xf $SRC/gcc-$pkgver.tar.xz -C $TMP 
+tar xf $SRC/gcc-$version.tar.xz -C $TMP 
 
 { time \
    {
     
-    cd $TMP/gcc-$pkgver
+    cd $TMP/gcc-$version
     
     tar -xf $SRC/mpfr-$mpfr_ver.tar.xz
     mv -v mpfr-$mpfr_ver mpfr
@@ -65,8 +65,8 @@ tar xf $SRC/gcc-$pkgver.tar.xz -C $TMP
       `dirname $($LFS_TGT-gcc -print-libgcc-file-name)`/install-tools/include/limits.h
 
     }
-} 2>&1 | tee $pkgname.log
+} 2>&1 | tee $name.log
 
-[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
 
 rm -fr $TMP

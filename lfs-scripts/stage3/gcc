@@ -5,17 +5,17 @@ TMP=${TMP:-$/tmp}
 LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
-pkgname=gcc
-pkgver=10.2.0
+name=gcc
+version=10.2.0
 
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
+tar xf $SRC/$name-$version.tar.xz -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/$name-$version
 
     case $(uname -m) in
       x86_64)
@@ -36,15 +36,15 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     make
 
     make install
-    rm -rf /usr/lib/gcc/$(gcc -dumpmachine)/$pkgver/include-fixed/bits/
+    rm -rf /usr/lib/gcc/$(gcc -dumpmachine)/$version/include-fixed/bits/
 
     chown -v -R root:root \
-        /usr/lib/gcc/*linux-gnu/$pkgver/include{,-fixed}
+        /usr/lib/gcc/*linux-gnu/$version/include{,-fixed}
 
     ln -sv ../usr/bin/cpp /lib
 
     install -v -dm755 /usr/lib/bfd-plugins
-    ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/$pkgver/liblto_plugin.so \
+    ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/$version/liblto_plugin.so \
             /usr/lib/bfd-plugins/
 
     echo 'int main(){}' > dummy.c
@@ -67,8 +67,8 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib
 
     }
-} 2>&1 | tee $pkgname.log
+} 2>&1 | tee $name.log
     
-[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
 
 rm -fr $TMP

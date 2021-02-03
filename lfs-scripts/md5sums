@@ -3,7 +3,7 @@ bc1e5cb5c96d99b24886f1f527d3bb3d  attr-2.4.48.tar.gz
 12cfa1687ffa2606337efe1a64416106  autoconf-2.71.tar.xz
 c27f608a4e1f302ec7ce42f1251c184e  automake-1.16.3.tar.xz
 bb91a17fd6c9032c26d0b2b78b50aff5  bash-5.1.tar.gz
-44cd2eb1ad793b6d95ea5fc7b9293cd4  bc-3.2.5.tar.xz
+f2c3da63d24c8c541413866b13ec1e3b  bc-3.2.6.tar.xz
 f6114b8c40096f9aa9f64fe1ab8ba087  binutils-2.36.tar.xz
 9b762dc24a6723f86d14d957d3deeb90  bison-3.7.5.tar.xz
 67e051268d0c475ea773822f7500d0e5  bzip2-1.0.8.tar.gz
@@ -23,7 +23,7 @@ eeefe2e6380931a77dfa6d9350b43186  findutils-4.8.0.tar.xz
 e9fd9b1789155ad09bcf3ae747596b50  gcc-10.2.0.tar.xz
 aeb29c6a90350a4c959cd1df38cd0a7e  gdbm-1.19.tar.gz
 40996bbaf7d1356d3c22e33a8b255b31  gettext-0.21.tar.xz
-720c7992861c57cf97d66a2f36d8d1fa  glibc-2.32.tar.xz
+390bbd889c7e8e8a7041564cb6b27cca  glibc-2.33.tar.xz
 0b82665c4a92fd2ade7440c13fcaa42b  gmp-6.2.1.tar.xz
 9e251c0a618ad0824b51117d5d9db87e  gperf-3.1.tar.gz
 f47fe27049510b2249dba7f862ac1b51  grep-3.6.tar.xz
@@ -70,13 +70,13 @@ e358a9140c3a171e42f18c8a7f6a36ea  tcl8.6.11-html.tar.gz
 d4c5d8cc84438c5993ec5163a59522a6  texinfo-6.7.tar.xz
 20eae7d1da671c6eac56339c8df85bbd  tzdata2021a.tar.gz
 b0b702979d47043d9c4d8ba93be21e20  util-linux-2.36.1.tar.xz
-9d37c3ec9cf20f3fb94f48658eb3e9bd  vim-8.2.2451.tar.gz
+9d37c3ec9cf20f3fb94f48658eb3e9bd  vim-8.2.2460.tar.gz
 80bb18a8e6240fcf7ec2f7b57601c170  XML-Parser-2.46.tar.gz
 aa1621ec7013a19abab52a8aff04fe5b  xz-5.2.5.tar.xz
 85adef240c5f370b308da8c938951a68  zlib-1.2.11.tar.xz
 e873db7cfa5ef05832e6d55a5a572840  zstd-1.4.8.tar.gz
 6a5ac7e89b791aae556de0f745916f7f  bzip2-1.0.8-install_docs-1.patch
 cd8ebed2a67fff2e231026df91af6776  coreutils-8.32-i18n-1.patch
-9a5997c3452909b1769918c759eff8a2  glibc-2.32-fhs-1.patch
+9a5997c3452909b1769918c759eff8a2  glibc-2.33-fhs-1.patch
 f75cca16a38da6caa7d52151f7136895  kbd-2.4.0-backspace-1.patch
 573a166f3620875208f78bf4dc431c8b  systemd-247-upstream_fixes-1.patch

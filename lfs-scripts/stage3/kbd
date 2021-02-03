@@ -5,19 +5,19 @@ TMP=${TMP:-$/tmp}
 LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
-pkgname=kbd
-pkgver=2.4.0
+name=kbd
+version=2.4.0
 
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
+tar xf $SRC/$name-$version.tar.xz -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/$name-$version
     
-    patch -Np1 -i $SRC/$pkgname-$pkgver-backspace-1.patch
+    patch -Np1 -i $SRC/$name-$version-backspace-1.patch
         
     sed -i '/RESIZECONS_PROGS=/s/yes/no/' configure
     sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in
@@ -28,12 +28,12 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     
     make install
 
-    mkdir -v            /usr/share/doc/$pkgname-$pkgver
-    cp -R -v docs/doc/* /usr/share/doc/$pkgname-$pkgver
+    mkdir -v            /usr/share/doc/$name-$version
+    cp -R -v docs/doc/* /usr/share/doc/$name-$version
 
     }
-} 2>&1 | tee $pkgname.log
+} 2>&1 | tee $name.log
     
-[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
 
 rm -fr $TMP

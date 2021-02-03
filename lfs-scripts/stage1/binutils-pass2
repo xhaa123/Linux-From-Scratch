@@ -7,15 +7,15 @@ SRC=${SRC:-$LFS/sources}
 
 mkdir -pv $TMP $LOG
 
-pkgname=binutils-pass2
-pkgver=2.36
+name=binutils-pass2
+version=2.36
 
-tar xf $SRC/binutils-$pkgver.tar.xz -C $TMP
+tar xf $SRC/binutils-$version.tar.xz -C $TMP
 
 { time \
    {
     
-    cd $TMP/binutils-$pkgver
+    cd $TMP/binutils-$version
 
     mkdir -v build
     cd       build
@@ -35,8 +35,8 @@ tar xf $SRC/binutils-$pkgver.tar.xz -C $TMP
     install -vm755 libctf/.libs/libctf.so.0.0.0 $LFS/usr/lib
 
     }
-} 2>&1 | tee $pkgname.log
+} 2>&1 | tee $name.log
 
-[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
 
 rm -fr $TMP

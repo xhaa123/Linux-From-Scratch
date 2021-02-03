@@ -5,22 +5,22 @@ TMP=${TMP:-$/tmp}
 LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
-pkgname=acl
-pkgver=2.2.53
+name=acl
+version=2.2.53
 
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
+tar xf $SRC/$name-$version.tar.gz -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/$name-$version
 
     ./configure --prefix=/usr         \
                 --disable-static      \
                 --libexecdir=/usr/lib \
-                --docdir=/usr/share/doc/$pkgname-$pkgver
+                --docdir=/usr/share/doc/$name-$version
 
     make
 
@@ -30,8 +30,8 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
     ln -sfv ../../lib/$(readlink /usr/lib/libacl.so) /usr/lib/libacl.so
 
     }
-} 2>&1 | tee $pkgname.log
+} 2>&1 | tee $name.log
     
-[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
 
 rm -fr $TMP

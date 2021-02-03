@@ -5,23 +5,23 @@ TMP=${TMP:-$/tmp}
 LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
-pkgname=systemd
-pkgver=247
+name=systemd
+version=247
 
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
+tar xf $SRC/$name-$version.tar.gz -C $TMP
 
 { time \
    {
 
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/$name-$version
     
-    patch -Np1 -i $SRC/$pkgname-$pkgver-upstream_fixes-1.patch
+    patch -Np1 -i $SRC/$name-$version-upstream_fixes-1.patch
     
     ln -sf /bin/true /usr/bin/xsltproc
     
-    tar -xf $SRC/systemd-man-pages-$pkgver.tar.xz
+    tar -xf $SRC/systemd-man-pages-$version.tar.xz
     
     sed '181,$ d' -i src/resolve/meson.build
     
@@ -54,7 +54,7 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
 	      -Duserdb=false                \
 	      -Dman=true                    \
 	      -Dmode=release                \
-		  -Ddocdir=/usr/share/doc/$pkgname-$pkgver \
+		  -Ddocdir=/usr/share/doc/$name-$version \
 		  ..
     
 	LANG=en_US.UTF-8 ninja
@@ -73,8 +73,8 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
     
 
     }
-} 2>&1 | tee $pkgname.log
+} 2>&1 | tee $name.log
     
-[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
 
 rm -fr $TMP

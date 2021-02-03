@@ -7,15 +7,15 @@ SRC=${SRC:-$LFS/sources}
 
 mkdir -pv $TMP $LOG
 
-pkgname=bash
-pkgver=5.1
+name=bash
+version=5.1
 
-tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
+tar xf $SRC/$name-$version.tar.gz -C $TMP
 
 { time \
    {
     
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/$name-$version
 
     ./configure --prefix=/usr                   \
                 --build=$(support/config.guess) \
@@ -31,8 +31,8 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
     ln -sv bash $LFS/bin/sh
 
     }
-} 2>&1 | tee $pkgname.log
+} 2>&1 | tee $name.log
 
-[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
 
 rm -fr $TMP

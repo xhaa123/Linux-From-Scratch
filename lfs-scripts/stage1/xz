@@ -7,21 +7,21 @@ SRC=${SRC:-$LFS/sources}
 
 mkdir -pv $TMP $LOG
 
-pkgname=xz
-pkgver=5.2.5
+name=xz
+version=5.2.5
 
-tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
+tar xf $SRC/$name-$version.tar.xz -C $TMP
 
 { time \
    {
     
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/$name-$version
 
     ./configure --prefix=/usr                     \
                 --host=$LFS_TGT                   \
                 --build=$(build-aux/config.guess) \
                 --disable-static                  \
-                --docdir=/usr/share/doc/$pkgname-$pkgver
+                --docdir=/usr/share/doc/$name-$version
 
     make
 
@@ -32,8 +32,8 @@ tar xf $SRC/$pkgname-$pkgver.tar.xz -C $TMP
     ln -svf ../../lib/$(readlink $LFS/usr/lib/liblzma.so) $LFS/usr/lib/liblzma.so
 
     }
-} 2>&1 | tee $pkgname.log
+} 2>&1 | tee $name.log
 
-[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
 
 rm -fr $TMP

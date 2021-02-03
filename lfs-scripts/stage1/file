@@ -7,15 +7,15 @@ SRC=${SRC:-$LFS/sources}
 
 mkdir -pv $TMP $LOG
 
-pkgname=file
-pkgver=5.39
+name=file
+version=5.39
 
-tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
+tar xf $SRC/$name-$version.tar.gz -C $TMP
 
 { time \
    {
     
-    cd $TMP/$pkgname-$pkgver
+    cd $TMP/$name-$version
 
 	mkdir build
 	pushd build
@@ -30,8 +30,8 @@ tar xf $SRC/$pkgname-$pkgver.tar.gz -C $TMP
     make DESTDIR=$LFS install
 
     }
-} 2>&1 | tee $pkgname.log
+} 2>&1 | tee $name.log
 
-[ $PIPESTATUS = 0 ] && mv $pkgname.log $LOG || exit $PIPESTATUS
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
 
 rm -fr $TMP
