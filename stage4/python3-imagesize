@@ -4,7 +4,7 @@ set -e
 
 TMP=${TMP:-/tmp/work}
 LOG=${LOG:-$HOME/logs/stage4}
-SRC=${SRC:-$LFS/sources}
+SRC=${SRC:-/sources}
 
 name=python3-imagesize
 version=1.2.0

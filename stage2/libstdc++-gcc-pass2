@@ -4,7 +4,7 @@ set -e
 
 TMP=${TMP:-/tmp/work}
 LOG=${LOG:-$HOME/logs/stage2}
-SRC=${SRC:-$/sources}
+SRC=${SRC:-/sources}
 
 name=libstdc++-gcc-pass2
 version=10.2.0

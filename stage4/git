@@ -4,7 +4,7 @@ set -e
 
 TMP=${TMP:-/tmp/work}
 LOG=${LOG:-$HOME/logs/stage4}
-SRC=${SRC:-$LFS/sources}
+SRC=${SRC:-/sources}
 
 name=git
 version=2.30.0
