@@ -1,0 +1,48 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=gnupg
+version=2.2.27
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.bz2 -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+    
+	sed -e '/noinst_SCRIPTS = gpg-zip/c sbin_SCRIPTS += gpg-zip' \
+	    -i tools/Makefile.in
+
+	./configure --prefix=/usr            \
+	            --localstatedir=/var     \
+	            --docdir=/usr/share/doc/$name-$version
+	make
+
+	makeinfo --html --no-split -o doc/gnupg_nochunks.html doc/gnupg.texi
+	makeinfo --plaintext       -o doc/gnupg.txt           doc/gnupg.texi
+	make -C doc html
+
+	make install
+
+	install -v -m755 -d /usr/share/doc/$name-$version/html
+	install -v -m644    doc/gnupg_nochunks.html \
+	                    /usr/share/doc/$name-$version/html/gnupg.html
+	install -v -m644    doc/*.texi doc/gnupg.txt \
+	                    /usr/share/doc/$name-$version
+	install -v -m644    doc/gnupg.html/* \
+	                    /usr/share/doc/$name-$version/html
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

@@ -1,0 +1,100 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=docbook-xml
+version=4.5
+
+mkdir -p $TMP/$name-$version $LOG
+
+unzip -d $TMP/$name-$version $SRC/$name-$version.zip
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+    
+	install -v -d -m755 /usr/share/xml/docbook/xml-dtd-$version
+	install -v -d -m755 /etc/xml
+	chown -R root:root .
+	cp -v -af docbook.cat *.dtd ent/ *.mod \
+	    /usr/share/xml/docbook/xml-dtd-$version
+
+	if [ ! -e /etc/xml/docbook ]; then
+	    xmlcatalog --noout --create /etc/xml/docbook
+	fi
+	xmlcatalog --noout --add "public" \
+	    "-//OASIS//DTD DocBook XML V$version//EN" \
+	    "http://www.oasis-open.org/docbook/xml/$version/docbookx.dtd" \
+	    /etc/xml/docbook
+	xmlcatalog --noout --add "public" \
+	    "-//OASIS//DTD DocBook XML CALS Table Model V$version//EN" \
+	    "file:///usr/share/xml/docbook/xml-dtd-$version/calstblx.dtd" \
+	    /etc/xml/docbook
+	xmlcatalog --noout --add "public" \
+	    "-//OASIS//DTD XML Exchange Table Model 19990315//EN" \
+	    "file:///usr/share/xml/docbook/xml-dtd-$version/soextblx.dtd" \
+	    /etc/xml/docbook
+	xmlcatalog --noout --add "public" \
+	    "-//OASIS//ELEMENTS DocBook XML Information Pool V$version//EN" \
+	    "file:///usr/share/xml/docbook/xml-dtd-$version/dbpoolx.mod" \
+	    /etc/xml/docbook
+	xmlcatalog --noout --add "public" \
+	    "-//OASIS//ELEMENTS DocBook XML Document Hierarchy V$version//EN" \
+	    "file:///usr/share/xml/docbook/xml-dtd-$version/dbhierx.mod" \
+	    /etc/xml/docbook
+	xmlcatalog --noout --add "public" \
+	    "-//OASIS//ELEMENTS DocBook XML HTML Tables V$version//EN" \
+	    "file:///usr/share/xml/docbook/xml-dtd-$version/htmltblx.mod" \
+	    /etc/xml/docbook
+	xmlcatalog --noout --add "public" \
+	    "-//OASIS//ENTITIES DocBook XML Notations V$version//EN" \
+	    "file:///usr/share/xml/docbook/xml-dtd-$version/dbnotnx.mod" \
+	    /etc/xml/docbook
+	xmlcatalog --noout --add "public" \
+	    "-//OASIS//ENTITIES DocBook XML Character Entities V$version//EN" \
+	    "file:///usr/share/xml/docbook/xml-dtd-$version/dbcentx.mod" \
+	    /etc/xml/docbook
+	xmlcatalog --noout --add "public" \
+	    "-//OASIS//ENTITIES DocBook XML Additional General Entities V$version//EN" \
+	    "file:///usr/share/xml/docbook/xml-dtd-$version/dbgenent.mod" \
+	    /etc/xml/docbook
+	xmlcatalog --noout --add "rewriteSystem" \
+	    "http://www.oasis-open.org/docbook/xml/$version" \
+	    "file:///usr/share/xml/docbook/xml-dtd-$version" \
+	    /etc/xml/docbook
+	xmlcatalog --noout --add "rewriteURI" \
+	    "http://www.oasis-open.org/docbook/xml/$version" \
+	    "file:///usr/share/xml/docbook/xml-dtd-$version" \
+	    /etc/xml/docbook
+
+	if [ ! -e /etc/xml/catalog ]; then
+	    xmlcatalog --noout --create /etc/xml/catalog
+	fi
+	xmlcatalog --noout --add "delegatePublic" \
+	    "-//OASIS//ENTITIES DocBook XML" \
+	    "file:///etc/xml/docbook" \
+	    /etc/xml/catalog
+	xmlcatalog --noout --add "delegatePublic" \
+	    "-//OASIS//DTD DocBook XML" \
+	    "file:///etc/xml/docbook" \
+	    /etc/xml/catalog
+	xmlcatalog --noout --add "delegateSystem" \
+	    "http://www.oasis-open.org/docbook/" \
+	    "file:///etc/xml/docbook" \
+	    /etc/xml/catalog
+	xmlcatalog --noout --add "delegateURI" \
+	    "http://www.oasis-open.org/docbook/" \
+	    "file:///etc/xml/docbook" \
+	    /etc/xml/catalog
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

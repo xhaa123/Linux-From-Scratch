@@ -1,0 +1,54 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=polkit
+version=0.118
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+    
+	groupadd -fg 27 polkitd
+	useradd -c "PolicyKit Daemon Owner" -d /etc/polkit-1 -u 27 \
+	        -g polkitd -s /bin/false polkitd
+
+	sed -i "s:/sys/fs/cgroup/systemd/:/sys:g" configure
+
+	./configure --prefix=/usr           \
+	            --sysconfdir=/etc       \
+	            --localstatedir=/var    \
+	            --disable-static        \
+	            --with-os-type=Future   \
+	            --enable-gtk-doc
+	make
+
+	make install
+
+	cat > /etc/pam.d/polkit-1 << "EOF"
+# Begin /etc/pam.d/polkit-1
+
+auth     include        system-auth
+account  include        system-account
+password include        system-password
+session  include        system-session
+
+# End /etc/pam.d/polkit-1
+EOF
+
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

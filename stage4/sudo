@@ -1,0 +1,62 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=sudo
+version=1.9.5p2
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+    
+	./configure --prefix=/usr              \
+	            --libexecdir=/usr/lib      \
+	            --with-secure-path         \
+	            --with-all-insults         \
+	            --with-env-editor          \
+	            --docdir=/usr/share/doc/$name-$version \
+	            --with-passprompt="[sudo] password for %p: "
+	make
+
+	make install &&
+	ln -sfv libsudo_util.so.0.0.0 /usr/lib/sudo/libsudo_util.so.0
+
+	cat > /etc/sudoers.d/sudo << "EOF"
+Defaults secure_path="/usr/bin:/bin:/usr/sbin:/sbin"
+%wheel ALL=(ALL) ALL
+EOF
+
+	cat > /etc/pam.d/sudo << "EOF"
+# Begin /etc/pam.d/sudo
+
+# include the default auth settings
+auth      include     system-auth
+
+# include the default account settings
+account   include     system-account
+
+# Set default environment variables for the service user
+session   required    pam_env.so
+
+# include system session defaults
+session   include     system-session
+
+# End /etc/pam.d/sudo
+EOF
+chmod 644 /etc/pam.d/sudo
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

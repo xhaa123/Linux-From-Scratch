@@ -1,0 +1,36 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=libxslt
+version=1.1.34
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+    
+	sed -i s/3000/5000/ libxslt/transform.c doc/xsltproc.{1,xml}
+	./configure --prefix=/usr --disable-static --without-python
+	make
+
+	sed -e 's@http://cdn.docbook.org/release/xsl@https://cdn.docbook.org/release/xsl-nons@' \
+	    -e 's@\$Date\$@31 October 2019@' -i doc/xsltproc.xml
+	xsltproc/xsltproc --nonet doc/xsltproc.xml -o doc/xsltproc.1
+
+	make install
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

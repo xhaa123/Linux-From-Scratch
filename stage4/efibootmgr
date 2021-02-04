@@ -1,0 +1,32 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=efibootmgr
+version=17
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+    
+	sed -e '/extern int efi_set_verbose/d' -i src/efibootmgr.c
+
+	make libdir=/usr/lib sbindir=/usr/bin EFIDIR=future
+
+	make libdir=/usr/lib sbindir=/usr/bin EFIDIR=future install
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

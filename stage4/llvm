@@ -1,0 +1,69 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=llvm
+version=11.0.1
+
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.src.tar.xz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version.src
+    
+	tar -xf $SRC/clang-$version.src.tar.xz -C tools
+	mv tools/clang-$version.src tools/clang
+
+	tar -xf $SRC/compiler-rt-$version.src.tar.xz -C projects
+	mv projects/compiler-rt-$version.src projects/compiler-rt
+
+	grep -rl '#!.*python' | xargs sed -i '1s/python$/python3/'
+
+	mkdir -v build
+	cd       build
+
+	CC=gcc CXX=g++                                  \
+	cmake -DCMAKE_INSTALL_PREFIX=/usr               \
+	      -DLLVM_ENABLE_FFI=ON                      \
+	      -DCMAKE_BUILD_TYPE=Release                \
+	      -DLLVM_BUILD_LLVM_DYLIB=ON                \
+	      -DLLVM_LINK_LLVM_DYLIB=ON                 \
+	      -DLLVM_ENABLE_RTTI=ON                     \
+	      -DLLVM_TARGETS_TO_BUILD="host;AMDGPU;BPF" \
+	      -DLLVM_BUILD_TESTS=ON                     \
+	      -DLLVM_BINUTILS_INCDIR=/usr/include       \
+	      -Wno-dev -G Ninja ..
+	ninja
+
+	cmake -DLLVM_BUILD_DOCS=ON            \
+	      -DLLVM_ENABLE_SPHINX=ON         \
+	      -DSPHINX_WARNINGS_AS_ERRORS=OFF \
+	      -Wno-dev -G Ninja ..
+	ninja docs-llvm-html  docs-llvm-man
+
+	ninja docs-clang-html docs-clang-man
+
+	ninja install
+
+	install -v -m644 docs/man/* /usr/share/man/man1
+	install -v -d -m755 /usr/share/doc/llvm-11.0.1/llvm-html
+	cp -Rv docs/html/* /usr/share/doc/llvm-11.0.1/llvm-html
+
+	install -v -m644 tools/clang/docs/man/* /usr/share/man/man1
+	install -v -d -m755 /usr/share/doc/llvm-11.0.1/clang-html
+	cp -Rv tools/clang/docs/html/* /usr/share/doc/llvm-11.0.1/clang-html
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

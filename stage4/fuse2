@@ -1,0 +1,35 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=fuse2
+version=2.9.9
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+    
+    ./configure --prefix=/usr    \
+                --disable-static \
+                INIT_D_PATH=/tmp/init.d
+    make
+    make install
+
+    mv -v   /usr/lib/libfuse.so.* /lib
+    ln -sfv ../../lib/libfuse.so.$version /usr/lib/libfuse.so
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

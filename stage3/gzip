@@ -1,0 +1,33 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage3}
+SRC=${SRC:-/sources}
+
+name=gzip
+version=1.10
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.xz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+    
+    ./configure --prefix=/usr
+    
+    make
+    
+    make install
+    
+    mv -v /usr/bin/gzip /bin
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

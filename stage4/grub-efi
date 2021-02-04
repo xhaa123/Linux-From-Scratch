@@ -1,0 +1,56 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=grub-efi
+version=2.04
+unifont_ver=13.0.05
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/grub-$version.tar.xz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/grub-$version
+    
+    mkdir -pv /usr/share/fonts/unifont
+    gunzip -c $SRC/unifont-$unifont_ver.pcf.gz > /usr/share/fonts/unifont/unifont.pcf
+
+    ./configure --prefix=/usr            \
+        --sbindir=/sbin                  \
+        --sysconfdir=/etc                \
+        --disable-efiemu                 \
+        --enable-grub-mkfont             \
+        --with-platform=efi              \
+        --enable-boot-time               \
+        --enable-device-mapper           \
+        --target=x86_64                  \
+        --enable-cache-stats             \
+        --enable-mm-debug                \
+        --enable-nls                     \
+        --prefix="/usr"                  \
+        --bindir="/usr/bin"              \
+        --mandir="/usr/share/man"        \
+        --infodir="/usr/share/info"      \
+        --datarootdir="/usr/share"       \
+        --program-prefix=""              \
+        --with-bootdir="/boot"           \
+        --with-grubdir="grub"            \
+        --disable-silent-rules           \
+        --disable-werror
+    make
+    make  install 
+    mv -v /etc/bash_completion.d/grub /usr/share/bash-completion/completions
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

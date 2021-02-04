@@ -1,0 +1,31 @@
+#!/bin/bash
+set -e
+
+TMP=${TMP:-/tmp/work}
+LOG=${LOG:-$HOME/logs/stage1}
+SRC=${SRC:-$LFS/sources}
+
+mkdir -pv $TMP $LOG
+
+name=linux-headers
+version=5.10.12
+
+tar xf $SRC/linux-$version.tar.xz -C $TMP 
+
+{ time \
+   {
+
+    cd $TMP/linux-$version
+    make mrproper
+
+	make headers
+	find usr/include -name '.*' -delete
+	rm usr/include/Makefile
+	cp -rv usr/include $LFS/usr
+
+    }
+} 2>&1 | tee $name.log
+
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

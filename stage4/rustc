@@ -1,0 +1,78 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=rustc
+version=1.47.0
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version-src.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version-src
+    
+    cat << EOF > config.toml
+# see config.toml.example for more possible options
+# See the 8.4 book for an example using shipped LLVM
+# e.g. if not installing clang, or using a version before 10.0
+[llvm]
+# by default, rust will build for a myriad of architectures
+targets = "X86"
+
+# When using system llvm prefer shared libraries
+link-shared = true
+
+[build]
+target = ["x86_64-unknown-linux-gnu","x86_64-unknown-linux-musl"]
+tools = ["cargo", "rls", "clippy", "miri", "rustfmt", "analysis", "src"]
+cargo = "/usr/bin/cargo"
+rustc = "/usr/bin/rustc"
+python = "/usr/bin/python"
+extended = true
+sanitizers = false
+profiler = true
+vendor = true
+
+[install]
+prefix = "/usr"
+docdir = "share/doc/$name-$version"
+
+[rust]
+channel = "stable"
+rpath = false
+
+codegen-tests = false
+
+[target.x86_64-unknown-linux-gnu]
+llvm-config = "/usr/bin/llvm-config"
+
+[target.x86_64-unknown-linux-musl]
+musl-root = "/usr/lib/musl"
+
+EOF
+
+	export RUSTFLAGS="$RUSTFLAGS -C link-args=-lffi"
+	python3 ./x.py build --exclude src/tools/miri
+
+	export LIBSSH2_SYS_USE_PKG_CONFIG=1
+	DESTDIR=${PWD}/install python3 ./x.py install
+	unset LIBSSH2_SYS_USE_PKG_CONFIG
+
+	chown -R root:root install
+	cp -a install/* /
+
+	ldconfig
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

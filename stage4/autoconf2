@@ -1,0 +1,36 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=autoconf2
+version=2.13
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/${name/2}-$version.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/${name/2}-$version
+    
+	patch -Np1 -i $SRC/${name/2}-$version-consolidated_fixes-1.patch
+	mv -v autoconf.texi ${name/2}${version/.}.texi
+	rm -v autoconf.info
+	./configure --prefix=/usr --program-suffix=$version
+	make
+
+	make install
+	install -v -m644 ${name/2}${version/.}.info /usr/share/info
+	install-info --info-dir=/usr/share/info ${name/2}${version/.}.info
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

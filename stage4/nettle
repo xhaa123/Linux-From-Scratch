@@ -1,0 +1,34 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=nettle
+version=3.7
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.xz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+    
+	./configure --prefix=/usr --disable-static
+	make
+
+	make install
+	chmod   -v   755 /usr/lib/lib{hogweed,nettle}.so
+	install -v -m755 -d /usr/share/doc/$name-$version
+	install -v -m644 nettle.html /usr/share/doc/$name-$version
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

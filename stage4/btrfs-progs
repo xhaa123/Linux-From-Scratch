@@ -1,0 +1,39 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=btrfs-progs
+version=5.10
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.xz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+    
+	./configure --prefix=/usr \
+	            --bindir=/bin \
+	            --libdir=/lib \
+	            --with-pkgconfigdir=/usr/lib/pkgconfig
+	make
+
+	make install
+
+	ln -sfv ../../lib/$(readlink /lib/libbtrfs.so) /usr/lib/libbtrfs.so
+	ln -sfv ../../lib/$(readlink /lib/libbtrfsutil.so) /usr/lib/libbtrfsutil.so
+	rm -fv /lib/libbtrfs.{a,so} /lib/libbtrfsutil.{a,so}
+	mv -v /bin/{mkfs,fsck}.btrfs /sbin
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

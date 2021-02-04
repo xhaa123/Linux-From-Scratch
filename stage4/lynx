@@ -1,0 +1,50 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=lynx
+version=2.8.9rel.1
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.bz2 -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+    
+	./configure --prefix=/usr          \
+	            --sysconfdir=/etc/lynx \
+	            --datadir=/usr/share/doc/$name-$version \
+	            --with-zlib            \
+	            --with-bzlib           \
+	            --with-ssl             \
+	            --enable-ipv6          \
+	            --enable-nls           \
+	            --with-screen=ncursesw \
+	            --enable-locale-charset
+	make
+
+	make install-full
+	chgrp -v -R root /usr/share/doc/$name-$version/lynx_doc
+
+	sed -e '/#LOCALE/     a LOCALE_CHARSET:TRUE'     \
+	    -i /etc/lynx/lynx.cfg
+
+	sed -e '/#DEFAULT_ED/ a DEFAULT_EDITOR:vi'       \
+	    -i /etc/lynx/lynx.cfg
+
+	sed -e '/#PERSIST/    a PERSISTENT_COOKIES:TRUE' \
+	    -i /etc/lynx/lynx.cfg
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

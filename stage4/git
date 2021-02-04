@@ -1,0 +1,57 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=git
+version=2.30.0
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.xz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+    
+	./configure --prefix=/usr \
+	            --with-gitconfig=/etc/gitconfig \
+	            --with-python=python3           \
+	            --with-libpcre
+	make
+
+	make html
+
+	make man
+
+	make perllibdir=/usr/lib/perl5/5.32/site_perl install
+
+	make install-man
+
+	make htmldir=/usr/share/doc/$name-$version install-html
+
+	mkdir -vp /usr/share/doc/$name-$version/man-pages/{html,text}
+	mv        /usr/share/doc/$name-$version/{git*.txt,man-pages/text}
+	mv        /usr/share/doc/$name-$version/{git*.,index.,man-pages/}html
+
+	mkdir -vp /usr/share/doc/$name-$version/technical/{html,text}
+	mv        /usr/share/doc/$name-$version/technical/{*.txt,text}
+	mv        /usr/share/doc/$name-$version/technical/{*.,}html
+
+	mkdir -vp /usr/share/doc/$name-$version/howto/{html,text}
+	mv        /usr/share/doc/$name-$version/howto/{*.txt,text}
+	mv        /usr/share/doc/$name-$version/howto/{*.,}html
+
+	sed -i '/^<a href=/s|howto/|&html/|' /usr/share/doc/$name-$version/howto-index.html
+	sed -i '/^\* link:/s|howto/|&html/|' /usr/share/doc/$name-$version/howto-index.txt
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

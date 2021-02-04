@@ -1,0 +1,39 @@
+#!/bin/bash
+set -e
+
+TMP=${TMP:-/tmp/work}
+LOG=${LOG:-$HOME/logs/stage1}
+SRC=${SRC:-$LFS/sources}
+
+mkdir -pv $TMP $LOG
+
+name=xz
+version=5.2.5
+
+tar xf $SRC/$name-$version.tar.xz -C $TMP
+
+{ time \
+   {
+    
+    cd $TMP/$name-$version
+
+    ./configure --prefix=/usr                     \
+                --host=$LFS_TGT                   \
+                --build=$(build-aux/config.guess) \
+                --disable-static                  \
+                --docdir=/usr/share/doc/$name-$version
+
+    make
+
+    make DESTDIR=$LFS install
+    
+    mv -v $LFS/usr/bin/{lzma,unlzma,lzcat,xz,unxz,xzcat}  $LFS/bin
+    mv -v $LFS/usr/lib/liblzma.so.*                       $LFS/lib
+    ln -svf ../../lib/$(readlink $LFS/usr/lib/liblzma.so) $LFS/usr/lib/liblzma.so
+
+    }
+} 2>&1 | tee $name.log
+
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

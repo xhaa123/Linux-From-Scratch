@@ -1,0 +1,28 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=python3-babe
+version=0.0.7
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/babe-$version.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/babe-$version
+    
+	python3 setup.py install --optimize=1
+    
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

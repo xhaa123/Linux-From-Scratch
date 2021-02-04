@@ -1,0 +1,31 @@
+#!/bin/bash
+set -e
+
+TMP=${TMP:-/tmp/work}
+LOG=${LOG:-$HOME/logs/stage1}
+SRC=${SRC:-$LFS/sources}
+
+mkdir -pv $TMP $LOG
+
+name=grep
+version=3.6
+
+tar xf $SRC/$name-$version.tar.xz -C $TMP
+
+{ time \
+   {
+    
+    cd $TMP/$name-$version
+
+	./configure --prefix=/usr   \
+	            --host=$LFS_TGT \
+	            --bindir=/bin
+
+    make
+    
+    make DESTDIR=$LFS install
+
+    }
+} 2>&1 | tee $name.log
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+rm -fr $TMP

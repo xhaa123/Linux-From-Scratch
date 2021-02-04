@@ -1,0 +1,46 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=libgcrypt
+version=1.9.1
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.bz2 -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+    
+	./configure --prefix=/usr
+	make 
+
+	make -C doc html
+	makeinfo --html --no-split -o doc/gcrypt_nochunks.html doc/gcrypt.texi
+	makeinfo --plaintext       -o doc/gcrypt.txt           doc/gcrypt.texi
+
+	make install &&
+	install -v -dm755   /usr/share/doc/$name-$version
+	install -v -m644    README doc/{README.apichanges,fips*,libgcrypt*} \
+	                    /usr/share/doc/$name-$version &&
+
+	install -v -dm755   /usr/share/doc/$name-$version/html
+	install -v -m644 doc/gcrypt.html/* \
+	                    /usr/share/doc/$name-$version/html
+	install -v -m644 doc/gcrypt_nochunks.html \
+	                    /usr/share/doc/$name-$version
+	install -v -m644 doc/gcrypt.{txt,texi} \
+	                    /usr/share/doc/$name-$version
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

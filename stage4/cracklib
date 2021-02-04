@@ -1,0 +1,48 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=cracklib
+version=2.9.7
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.bz2 -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+
+	sed -i '/skipping/d' util/packer.c
+
+	./configure --prefix=/usr    \
+	            --disable-static \
+	            --with-default-dict=/lib/cracklib/pw_dict
+	make
+
+	make install
+	mv -v /usr/lib/libcrack.so.* /lib
+	ln -sfv ../../lib/$(readlink /usr/lib/libcrack.so) /usr/lib/libcrack.so
+
+	install -v -m644 -D    $SRC/$name-words-$version \
+	                         /usr/share/dict/cracklib-words.bz2
+
+	bunzip2 -v               /usr/share/dict/cracklib-words.bz2
+	ln -v -sf cracklib-words /usr/share/dict/words
+	echo "future" >>         /usr/share/dict/cracklib-extra-words
+	install -v -m755 -d      /lib/cracklib
+
+	create-cracklib-dict     /usr/share/dict/cracklib-words \
+	                         /usr/share/dict/cracklib-extra-words
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

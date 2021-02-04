@@ -1,0 +1,55 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage3}
+SRC=${SRC:-/sources}
+
+name=ncurses
+version=6.2
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+    
+	./configure --prefix=/usr           \
+	            --mandir=/usr/share/man \
+	            --with-shared           \
+	            --without-debug         \
+	            --without-normal        \
+	            --enable-pc-files       \
+	            --enable-widec
+    make
+    
+    make install
+    
+    mv -v /usr/lib/libncursesw.so.6* /lib
+    
+    ln -sfv ../../lib/$(readlink /usr/lib/libncursesw.so) /usr/lib/libncursesw.so
+    
+	for lib in ncurses form panel menu ; do
+	    rm -vf                    /usr/lib/lib${lib}.so
+	    echo "INPUT(-l${lib}w)" > /usr/lib/lib${lib}.so
+	    ln -sfv ${lib}w.pc        /usr/lib/pkgconfig/${lib}.pc
+	done
+	    
+	rm -vf                     /usr/lib/libcursesw.so
+	echo "INPUT(-lncursesw)" > /usr/lib/libcursesw.so
+	ln -sfv libncurses.so      /usr/lib/libcurses.so
+
+	rm -fv /usr/lib/libncurses++w.a
+
+    mkdir -v       /usr/share/doc/$name-$version
+    cp -v -R doc/* /usr/share/doc/$name-$version
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

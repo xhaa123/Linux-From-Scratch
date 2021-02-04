@@ -1,0 +1,37 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage3}
+SRC=${SRC:-/sources}
+
+name=attr
+version=2.4.48
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+
+    ./configure --prefix=/usr     \
+                --disable-static  \
+                --sysconfdir=/etc \
+                --docdir=/usr/share/doc/$name-$version
+
+    make
+
+    make install
+
+    mv -v /usr/lib/libattr.so.* /lib
+    ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

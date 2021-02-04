@@ -1,0 +1,45 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage3}
+SRC=${SRC:-/sources}
+
+name=binutils
+version=2.36
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.xz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+
+    sed -i '/@\tincremental_copy/d' gold/testsuite/Makefile.in
+
+    mkdir -v build
+    cd       build
+
+    ../configure --prefix=/usr       \
+                 --enable-gold       \
+                 --enable-ld=default \
+                 --enable-plugins    \
+                 --enable-shared     \
+                 --disable-werror    \
+                 --enable-64-bit-bfd \
+                 --with-system-zlib
+
+    make tooldir=/usr
+
+    make tooldir=/usr install
+
+    rm -fv /usr/lib/lib{bfd,ctf,ctf-nobfd,opcodes}.a
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

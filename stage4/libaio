@@ -1,0 +1,32 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=libaio
+version=0.3.112
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/${name}_$version.orig.tar.xz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+
+	sed -i '/install.*libaio.a/s/^/#/' src/Makefile
+
+	make
+
+	make install
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

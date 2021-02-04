@@ -1,0 +1,43 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage3}
+SRC=${SRC:-/sources}
+
+name=kmod
+version=28
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.xz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+    
+	./configure --prefix=/usr          \
+	            --bindir=/bin          \
+	            --sysconfdir=/etc      \
+	            --with-rootlibdir=/lib \
+	            --with-xz              \
+	            --with-zstd            \
+	            --with-zlib
+    
+    make
+    
+	make install
+
+	for target in depmod insmod lsmod modinfo modprobe rmmod; do
+	  ln -sfv ../bin/kmod /sbin/$target
+	done
+
+	ln -sfv kmod /bin/lsmod
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

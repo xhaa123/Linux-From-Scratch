@@ -1,0 +1,84 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=linux
+version=5.10.12
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.xz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+
+    make mrproper
+
+    cp $SRC/config_x64 ./.config
+    make olddefconfig
+
+    kernver=${version}$(grep CONFIG_LOCALVERSION= .config | cut -d '"' -f2)
+
+    #make menuconfig
+    make bzImage modules
+    make modules_install
+
+    mkdir -p /boot
+
+    cp  arch/x86/boot/bzImage /boot/vmlinuz-future
+    echo $kernver > /lib/modules/KERNELVERSION
+
+    make clean
+    make prepare
+
+    rm -rf /lib/firmware
+
+    for file in $(ls arch); do
+        case $file in
+            x86|Kconfig) continue ;;
+            *) rm -fr arch/$file ;;
+        esac
+    done
+
+    # strip down sources
+    # don't package the kernel in the sources directory
+    find . -name "*Image" -exec rm "{}" \;
+    find . -name "*.cmd" -exec rm -f "{}" \; 
+    rm -f .*.d
+
+    rm -fr firmware ipc .config.old .version .cocciconfig \
+        .get_maintainer.ignore .gitattributes .gitignore .mailmap \
+        COPYING CREDITS MAINTAINERS README Documentation
+    find . -name ".gitignore" -exec rm "{}" \;
+    for dir in block certs crypto drivers fs init kernel lib mm net samples security sound usr virt; do
+        find $dir -type f \( -name "*.c" -o -name "*.h" \) -exec rm "{}" \;
+    done
+    for i in $(ls tools); do
+        [ "$i" = "objtool" ] || rm -fr tools/$i
+    done
+    for i in $(ls tools/objtool); do
+        [ "$i" = "objtool" ] || rm -fr tools/objtool/$i
+    done
+
+    rm /lib/modules/$kernver/{build,source}
+    mv $SRC/linux-$version /lib/modules/$kernver/build
+    ln -sv build /lib/modules/$kernver/source
+
+    # remove now broken symlinks
+    find -L /lib/modules/$kernver/build -type l -exec rm -f "{}" \;
+
+    dracut /boot/initrd-future.img $kernver
+    depmod $kernver
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

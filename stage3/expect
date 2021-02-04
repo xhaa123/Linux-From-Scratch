@@ -1,0 +1,36 @@
+#!/bin/bash 
+set -e
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage3}
+SRC=${SRC:-/sources}
+
+name=expect
+version=5.45.4
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name$version.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name$version
+    
+    ./configure --prefix=/usr           \
+                --with-tcl=/usr/lib     \
+                --enable-shared         \
+                --mandir=/usr/share/man \
+                --with-tclinclude=/usr/include
+ 
+    make
+
+    make install
+    ln -svf expect$version/libexpect$version.so /usr/lib
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP

@@ -1,0 +1,48 @@
+#!/bin/bash 
+set -e
+
+
+TMP=${TMP:-$/tmp/work}
+LOG=${LOG:-$HOME/logs/stage4}
+SRC=${SRC:-$LFS/sources}
+
+name=efivar
+version=37
+
+mkdir -p $TMP $LOG
+
+tar xf $SRC/$name-$version.tar.gz -C $TMP
+
+{ time \
+   {
+
+    cd $TMP/$name-$version
+    
+	sed -e 's/-Werror//g' -i gcc.specs
+
+	sed 's|-rpath,$(TOPDIR)/src|-rpath,$(libdir)|g' -i src/test/Makefile
+
+	make libdir=/usr/lib/          \
+	     bindir=/usr/bin/          \
+	     mandir=/usr/share/man/    \
+	     includedir=/usr/include/
+
+	make libdir=/usr/lib/          \
+	     bindir=/usr/bin/          \
+	     mandir=/usr/share/man/    \
+	     includedir=/usr/include/  \
+	     -C src/test
+
+	make libdir=/usr/lib/          \
+	     bindir=/usr/bin/          \
+	     mandir=/usr/share/man/    \
+	     includedir=/usr/include/ install -j1 V=1
+	     
+	install -vDm 755 src/test/tester /usr/bin/efivar-tester
+
+    }
+} 2>&1 | tee $name.log
+    
+[ $PIPESTATUS = 0 ] && mv $name.log $LOG || exit $PIPESTATUS
+
+rm -fr $TMP
