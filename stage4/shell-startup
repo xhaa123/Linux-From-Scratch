@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 
 name=shell-startup
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 

@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=linux
 version=5.10.12
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.xz -C $TMP

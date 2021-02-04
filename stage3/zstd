@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=zstd
 version=1.4.8
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.gz -C $TMP

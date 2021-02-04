@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=gcc
 version=10.2.0
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.xz -C $TMP

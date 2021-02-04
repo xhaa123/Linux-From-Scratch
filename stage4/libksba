@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=libksba
 version=1.5.0
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.bz2 -C $TMP

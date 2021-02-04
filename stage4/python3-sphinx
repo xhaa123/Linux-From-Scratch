@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=python3-sphinx
 version=3.4.3
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/Sphinx--$version.tar.gz -C $TMP

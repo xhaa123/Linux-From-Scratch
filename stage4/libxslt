@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=libxslt
 version=1.1.34
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.gz -C $TMP

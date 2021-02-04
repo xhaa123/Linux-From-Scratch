@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=libaio
 version=0.3.112
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/${name}_$version.orig.tar.xz -C $TMP

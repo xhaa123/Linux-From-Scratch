@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=python3-jinja2
 version=1.2
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/Jinja2-$version.tar.gz -C $TMP

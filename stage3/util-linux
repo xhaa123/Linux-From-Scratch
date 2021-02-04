@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=util-linux
 version=2.36.1
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.xz -C $TMP

@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=inetutils
 version=1.9.4
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.xz -C $TMP

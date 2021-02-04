@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=elfutils
 version=0.182
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.bz2 -C $TMP

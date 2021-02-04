@@ -5,10 +5,11 @@ TMP=${TMP:-/tmp/work}
 LOG=${LOG:-$HOME/logs/stage1}
 SRC=${SRC:-$LFS/sources}
 
-mkdir -pv $TMP $LOG
-
 name=binutils-pass1
 version=2.36
+
+rm -fr $TMP
+mkdir -pv $TMP $LOG
 
 tar xf $SRC/binutils-$version.tar.xz -C $TMP
 

@@ -9,6 +9,7 @@ name=perl
 version=5.32.1
 
 rm -fr $TMP
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.xz -C $TMP

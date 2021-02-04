@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=perl-xml-parser
 version=2.46
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/XML-Parser-$version.tar.gz -C $TMP

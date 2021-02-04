@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=python3-requests
 version=2.25.1
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/requests-$version.tar.gz -C $TMP

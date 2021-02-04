@@ -5,10 +5,11 @@ TMP=${TMP:-/tmp/work}
 LOG=${LOG:-$HOME/logs/stage1}
 SRC=${SRC:-$LFS/sources}
 
-mkdir -pv $TMP $LOG
-
 name=sed
 version=4.8
+
+rm -fr $TMP
+mkdir -pv $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.xz -C $TMP
 

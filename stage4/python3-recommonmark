@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=python3-recommonmark
 version=0.7.1
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/recommonmark-$version.tar.gz -C $TMP

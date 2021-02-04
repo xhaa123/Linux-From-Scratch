@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=terminus-font
 version=4.49.1
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.gz -C $TMP

@@ -5,13 +5,14 @@ TMP=${TMP:-/tmp/work}
 LOG=${LOG:-$HOME/logs/stage1}
 SRC=${SRC:-$LFS/sources}
 
-mkdir -pv $TMP $LOG
-
 name=gcc-pass1
 version=10.2.0
 mpfr_ver=4.1.0
 gmp_ver=6.2.1
 mpc_ver=1.2.1
+
+rm -fr $TMP
+mkdir -pv $TMP $LOG
 
 tar xf $SRC/gcc-$version.tar.xz -C $TMP 
 

@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=js78
 version=78.7.0
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/firefox-${version}esr.source.tar.xz -C $TMP

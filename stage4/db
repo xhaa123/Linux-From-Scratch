@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=db
 version=5.3.28
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.gz -C $TMP

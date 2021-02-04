@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=tcl
 version=8.6.11
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name$version-src.tar.gz -C $TMP

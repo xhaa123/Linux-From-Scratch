@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=dejagnu
 version=1.6.2
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.gz -C $TMP

@@ -10,6 +10,7 @@ name=grub-efi
 version=2.04
 unifont_ver=13.0.05
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/grub-$version.tar.xz -C $TMP

@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=python3
 version=3.9.1
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/Python-$version.tar.xz -C $TMP

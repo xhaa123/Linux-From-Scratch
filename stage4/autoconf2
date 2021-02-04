@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=autoconf2
 version=2.13
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/${name/2}-$version.tar.gz -C $TMP

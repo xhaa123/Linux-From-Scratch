@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=bash
 version=5.1
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.gz -C $TMP

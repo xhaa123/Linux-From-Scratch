@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=grub
 version=2.04
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.xz -C $TMP

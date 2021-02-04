@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=psmisc
 version=23.3
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.xz -C $TMP

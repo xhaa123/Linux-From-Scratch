@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=systemd
 version=247
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.gz -C $TMP

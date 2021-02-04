@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=python3-sphinxcontrib-applehelp
 version=1.0.2
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRCsphinxcontrib-applehelp-$version.tar.gz -C $TMP

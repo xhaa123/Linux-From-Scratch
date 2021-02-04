@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=nghttp2
 version=1.42.0
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.xz -C $TMP

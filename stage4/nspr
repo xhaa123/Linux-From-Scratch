@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=nspr
 version=4.29
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.gz -C $TMP

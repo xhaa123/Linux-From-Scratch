@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=python3-pygments
 version=2.7.4
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/Pygments-$version.tar.xz -C $TMP

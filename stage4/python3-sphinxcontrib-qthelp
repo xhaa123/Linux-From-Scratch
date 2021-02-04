@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=python3-sphinxcontrib-qthelp
 version=1.0.3
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/sphinxcontrib-qthelp-$version.tar.gz -C $TMP

@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=fuse2
 version=2.9.9
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.gz -C $TMP

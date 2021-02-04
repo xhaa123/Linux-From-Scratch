@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=gawk
 version=5.1.0
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.xz -C $TMP

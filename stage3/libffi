@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=libffi
 version=3.3
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.gz -C $TMP

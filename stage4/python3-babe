@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=python3-babe
 version=0.0.7
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/babe-$version.tar.gz -C $TMP

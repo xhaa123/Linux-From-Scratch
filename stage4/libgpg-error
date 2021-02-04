@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=libgpg-error
 version=1.41
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.bz2 -C $TMP

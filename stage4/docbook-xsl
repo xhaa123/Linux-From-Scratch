@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=docbook-xsl
 version=1.79.2
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-nons-$version.tar.bz2 -C $TMP

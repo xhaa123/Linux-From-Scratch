@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=libtasn1
 version=4.16.0
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.gz -C $TMP

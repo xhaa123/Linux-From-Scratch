@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=libpwquality
 version=1.4.4
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.bz2 -C $TMP

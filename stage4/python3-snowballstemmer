@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=python3-snowballstemmer
 version=2.1.0
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/snowballstemmer-$version.tar.gz -C $TMP

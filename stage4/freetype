@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=freetype
 version=2.10.4
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.xz -C $TMP

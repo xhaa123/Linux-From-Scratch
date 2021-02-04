@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=python3-sphinxcontrib-htmlhelp
 version=1.0.3
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/sphinxcontrib-htmlhelp-$version.tar.gz -C $TMP

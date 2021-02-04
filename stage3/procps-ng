@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=procps-ng
 version=3.3.16
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.xz -C $TMP

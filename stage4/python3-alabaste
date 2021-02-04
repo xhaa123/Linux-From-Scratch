@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=python3-alabaster
 version=0.7.12
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/alabaster-$version.tar.gz -C $TMP

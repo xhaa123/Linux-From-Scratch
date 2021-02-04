@@ -5,10 +5,11 @@ TMP=${TMP:-/tmp/work}
 LOG=${LOG:-$HOME/logs/stage1}
 SRC=${SRC:-$LFS/sources}
 
-mkdir -pv $TMP $LOG
-
 name=linux-headers
 version=5.10.12
+
+rm -fr $TMP
+mkdir -pv $TMP $LOG
 
 tar xf $SRC/linux-$version.tar.xz -C $TMP 
 

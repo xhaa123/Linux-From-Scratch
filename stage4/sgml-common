@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=sgml-common
 version=0.6.3
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tgz -C $TMP

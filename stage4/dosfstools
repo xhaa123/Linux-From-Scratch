@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=dosfstools
 version=4.2
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.gz -C $TMP

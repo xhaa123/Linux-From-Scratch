@@ -8,6 +8,7 @@ SRC=${SRC:-/sources}
 name=ncurses
 version=6.2
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.gz -C $TMP

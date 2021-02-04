@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=python3-docutils
 version=0.16
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/docutils-$version.tar.gz -C $TMP

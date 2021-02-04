@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=nettle
 version=3.7
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.xz -C $TMP

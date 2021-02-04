@@ -5,10 +5,11 @@ TMP=${TMP:-/tmp/work}
 LOG=${LOG:-$HOME/logs/stage1}
 SRC=${SRC:-$LFS/sources}
 
-mkdir -pv $TMP $LOG
-
 name=m4
 version=1.4.18
+
+rm -fr $TMP
+mkdir -pv $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.xz -C $TMP
 

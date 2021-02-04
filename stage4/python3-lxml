@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=python3-lxml
 version=4.6.2
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/lxml-$version.tar.gz -C $TMP

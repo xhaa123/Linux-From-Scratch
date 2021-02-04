@@ -1,14 +1,15 @@
 #!/bin/bash
 set -e
 
-TMP=${TMP:-$(dirname $0)/Build-TMP}
+TMP=${TMP:-/tmp/work}
 LOG=${LOG:-$HOME/logs/stage1}
 SRC=${SRC:-$LFS/sources}
 
-mkdir -pv $TMP $LOG
-
 name=patch
 version=2.7.6
+
+rm -fr $TMP
+mkdir -pv $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.xz -C $TMP
 

@@ -9,6 +9,7 @@ SRC=${SRC:-/sources}
 name=cracklib
 version=2.9.7
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.tar.bz2 -C $TMP

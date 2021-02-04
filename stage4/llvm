@@ -10,6 +10,7 @@ name=llvm
 version=11.0.1
 
 
+rm -rf $TMP
 mkdir -p $TMP $LOG
 
 tar xf $SRC/$name-$version.src.tar.xz -C $TMP
