@@ -24,7 +24,7 @@ tar xf $SRC/$name-$version.tar.gz -C $TMP
 
 	sed -i '/if Py/{s/Py/(Py/;s/)/))/}' python/{types.c,libxml.c}
 
-	sed -i '/if Py/{s/Py/(Py/;s/)/))/}' python/{types.c,libxml.c}
+	sed -i 's/test.test/#&/' python/tests/tstLastError.py
 
 	sed -i 's/ TRUE/ true/' encoding.c
 
