@@ -29,9 +29,9 @@ tar xf $SRC/$name-nons-$version.tar.bz2 -C $TMP
 	         highlighting html htmlhelp images javahelp lib manpages params  \
 	         profiling roundtrip slides template tests tools webhelp website \
 	         xhtml xhtml-1_1 xhtml5                                          \
-	    /usr/share/xml/docbook/xsl-stylesheets-nons-1.79.2
+	    /usr/share/xml/docbook/xsl-stylesheets-nons-$version
 
-	ln -s VERSION /usr/share/xml/$name-stylesheets-nons-$version/VERSION.xsl
+	ln -s VERSION /usr/share/xml/docbook/xsl-stylesheets-nons-$version/VERSION.xsl
 
 	install -v -m644 -D README \
 	                    /usr/share/doc/$name-nons-$version/README.txt
