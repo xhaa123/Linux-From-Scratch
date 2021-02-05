@@ -19,7 +19,7 @@ tar xf $SRC/$name${version/.}.tar.gz -C $TMP
 
     cd $TMP/$name${version/.}
     
-	patch -Np1 -i $SRC/$name-$version}-consolidated_fixes-1.patch
+	patch -Np1 -i $SRC/$name-$version-consolidated_fixes-1.patch
 
 	make -f unix/Makefile generic
 
