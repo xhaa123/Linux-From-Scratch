@@ -6,7 +6,7 @@ LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 name=inetutils
-version=1.9.4
+version=2.0
 
 rm -rf $TMP
 mkdir -p $TMP $LOG

@@ -6,7 +6,7 @@ LOG=${LOG:-$HOME/logs/stage1}
 SRC=${SRC:-$LFS/sources}
 
 name=linux-headers
-version=5.10.12
+version=5.10.13
 
 rm -fr $TMP
 mkdir -pv $TMP $LOG
