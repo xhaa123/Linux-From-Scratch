@@ -52,24 +52,30 @@ PKG=(
     gnupg
     openssh
     libssh2
-    python3-sphinxcontrib-applehelp
-    python3-sphinxcontrib-devhelp
-    python3-sphinxcontrib-jsmath
-    python3-sphinxcontrib-htmlhelp
-    python3-sphinxcontrib-serializinghtml
-    python3-sphinxcontrib-qthelp
-    python3-Jinja2
-    python3-pygments
-    python3-docutils
-    python3-snowballstemmer
-    python3-babe
-    python3-alabaste
-    python3-imagesize
-    python3-requests
-    python3-commonmark
-    python3-docutils
-    python3-sphinx
-    python3-recommonmark
+	python3-pyparsing
+	python3-packaging
+	python3-certifi
+	python3-urllib3
+	python3-idna
+	python3-chardet
+	python3-requests
+	python3-imagesize
+	python3-alabaster
+	python3-pytz
+	python3-babel
+	python3-snowballstemmer
+	python3-docutils
+	python3-markupsafe
+	python3-jinja2
+	python3-sphinxcontrib-qthelp
+	python3-sphinxcontrib-serializinghtml
+	python3-sphinxcontrib-htmlhelp
+	python3-sphinxcontrib-jsmath
+	python3-sphinxcontrib-devhelp
+	python3-sphinxcontrib-applehelp
+	python3-sphinx
+	python3-commonmark
+	python3-recommonmark
     llvm
     rustc
     which
