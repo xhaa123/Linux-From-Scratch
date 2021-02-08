@@ -7,7 +7,7 @@ LOG=${LOG:-$HOME/logs/stage4}
 SRC=${SRC:-/sources}
 
 name=nghttp2
-version=1.42.0
+version=1.43.0
 
 rm -rf $TMP
 mkdir -p $TMP $LOG

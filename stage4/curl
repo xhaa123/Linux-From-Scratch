@@ -7,7 +7,7 @@ LOG=${LOG:-$HOME/logs/stage4}
 SRC=${SRC:-/sources}
 
 name=curl
-version=7.74.0
+version=7.75.0
 
 rm -rf $TMP
 mkdir -p $TMP $LOG

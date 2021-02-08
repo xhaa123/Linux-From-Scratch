@@ -7,7 +7,7 @@ LOG=${LOG:-$HOME/logs/stage4}
 SRC=${SRC:-/sources}
 
 name=glib
-version=2.66.4
+version=2.66.6
 
 rm -rf $TMP
 mkdir -p $TMP $LOG

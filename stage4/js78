@@ -7,7 +7,7 @@ LOG=${LOG:-$HOME/logs/stage4}
 SRC=${SRC:-/sources}
 
 name=js78
-version=78.7.0
+version=78.7.1
 
 rm -rf $TMP
 mkdir -p $TMP $LOG
