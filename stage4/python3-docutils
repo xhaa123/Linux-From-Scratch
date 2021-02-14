@@ -22,6 +22,10 @@ tar xf $SRC/${name/python3-/}-$version.tar.gz -C $TMP
     python3 setup.py build
     
     python3 setup.py install --optimize=1
+    
+    for f in /usr/bin/rst*.py; do
+        ln -svf $(basename $f) /usr/bin/$(basename $f .py)
+    done
 
     }
 } 2>&1 | tee $name.log

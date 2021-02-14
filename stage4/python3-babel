@@ -12,6 +12,7 @@ version=2.9.0
 rm -rf $TMP
 mkdir -p $TMP $LOG
 
+# http://unicode.org/Public/cldr/37/core.zip
 tar xf $SRC/${name/python3-/}-$version.tar.gz -C $TMP
 
 { time \
@@ -19,6 +20,9 @@ tar xf $SRC/${name/python3-/}-$version.tar.gz -C $TMP
 
     cd $TMP/${name/python3-/}-$version
     
+    cp core.zip cldr/cldr-core-37.zip
+    
+    python3 setup.py import_cldr
     python3 setup.py build
     
     python3 setup.py install --optimize=1
