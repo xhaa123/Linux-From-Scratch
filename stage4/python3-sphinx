@@ -7,20 +7,22 @@ LOG=${LOG:-$HOME/logs/stage4}
 SRC=${SRC:-/sources}
 
 name=python3-sphinx
-version=3.4.3
+version=3.5.0
 
 rm -rf $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/Sphinx--$version.tar.gz -C $TMP
+tar xf $SRC/${name/python3-/}-$version.tar.gz -C $TMP
 
 { time \
    {
 
-    cd $TMP/Sphinx--$version
+    cd $TMP/${name/python3-/}-$version
     
-	python3 setup.py install --optimize=1
+    python3 setup.py build
     
+    python3 setup.py install --optimize=1
+
     }
 } 2>&1 | tee $name.log
     

@@ -12,15 +12,17 @@ version=1.0.3
 rm -rf $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/sphinxcontrib-qthelp-$version.tar.gz -C $TMP
+tar xf $SRC/${name/python3-/}-$version.tar.gz -C $TMP
 
 { time \
    {
 
-    cd $TMP/sphinxcontrib-qthelp-$version
+    cd $TMP/${name/python3-/}-$version
     
-	python3 setup.py install --optimize=1
+    python3 setup.py build
     
+    python3 setup.py install --optimize=1
+
     }
 } 2>&1 | tee $name.log
     

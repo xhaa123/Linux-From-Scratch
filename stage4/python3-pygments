@@ -12,12 +12,14 @@ version=2.7.4
 rm -rf $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/Pygments-$version.tar.xz -C $TMP
+tar xf $SRC/Pygments-$version.tar.gz -C $TMP
 
 { time \
    {
 
     cd $TMP/Pygments-$version
+    
+    python3 setup.py build
     
     python3 setup.py install --optimize=1
 

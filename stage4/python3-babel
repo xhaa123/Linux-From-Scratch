@@ -6,20 +6,22 @@ TMP=${TMP:-/tmp/work}
 LOG=${LOG:-$HOME/logs/stage4}
 SRC=${SRC:-/sources}
 
-name=
-version=
+name=python3-babel
+version=2.9.0
 
 rm -rf $TMP
 mkdir -p $TMP $LOG
 
-tar xf $SRC/$name-$version.tar.xz -C $TMP
+tar xf $SRC/${name/python3-/}-$version.tar.gz -C $TMP
 
 { time \
    {
 
-    cd $TMP/$name-$version
+    cd $TMP/${name/python3-/}-$version
     
-
+    python3 setup.py build
+    
+    python3 setup.py install --optimize=1
 
     }
 } 2>&1 | tee $name.log

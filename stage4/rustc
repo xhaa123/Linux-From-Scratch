@@ -19,6 +19,33 @@ tar xf $SRC/$name-$version-src.tar.gz -C $TMP
 
     cd $TMP/$name-$version-src
     
+    mkdir -pv $HOME/.cargo
+    tee $HOME/.cargo/config <<-'EOF'
+[source.crates-io]
+replace-with = "rustcc"
+
+# 阿里云
+[source.rustcc]
+registry = "https://code.aliyun.com/rustcc/crates.io-index"
+
+# 清华大学
+[source.tuna]
+registry = "https://mirrors.tuna.tsinghua.edu.cn/git/crates.io-index.git"
+
+# 中国科学技术大学
+[source.ustc]
+registry = "git://mirrors.ustc.edu.cn/crates.io-index"
+
+# 上海交通大学
+[source.sjtu]
+registry = "https://mirrors.sjtug.sjtu.edu.cn/git/crates.io-index"
+
+# rustcc社区
+[source.rustcc]
+registry = "git://crates.rustcc.cn/crates.io-index"
+EOF
+
+    
     cat << EOF > config.toml
 # see config.toml.example for more possible options
 # See the 8.4 book for an example using shipped LLVM

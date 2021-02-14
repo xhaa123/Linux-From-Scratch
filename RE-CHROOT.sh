@@ -30,3 +30,6 @@ chroot "$LFS" /usr/bin/env -i   \
     PS1="\[\e[37;40m\][\[\e[31;40m\](lfs chroot) \[\e[32;40m\]\u:\[\e[36;40m\]\w \[\e[0m\]]\\$ "  \
     PATH=/bin:/usr/bin:/sbin:/usr/sbin \
     /bin/bash --login
+    
+ln -sfv /run /var/run
+ln -sfv /run/lock /var/lock
