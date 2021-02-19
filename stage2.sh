@@ -1,7 +1,10 @@
 #!/bin/bash -e
 
 cat > ~/.bashrc << "EOF"
+export CFLAGS="-march=native -O2 -pipe"
+export CXXFLAGS="${CFLAGS}"
 export MAKEFLAGS="-j$(nproc)"
+
 alias ls='ls --color=auto'
 alias ll='ls -F -b -T 0 --group-directories-first --color=auto --format=long --time-style="+%y-%m-%d %H:%M:%S" --human-readable'
 EOF

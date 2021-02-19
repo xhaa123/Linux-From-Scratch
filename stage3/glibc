@@ -24,11 +24,11 @@ tar xf $SRC/$name-$version.tar.xz -C $TMP
     cd       build
 
     ../configure --prefix=/usr                            \
-                 --disable-werror                         \
-                 --enable-kernel=3.2                      \
-                 --enable-stack-protector=strong          \
-                 --with-headers=/usr/include              \
-                 libc_cv_slibdir=/lib
+                --disable-werror                         \
+                --enable-kernel=3.2                      \
+                --enable-stack-protector=strong          \
+                --with-headers=/usr/include              \
+                libc_cv_slibdir=/lib
     
     make
     
@@ -98,7 +98,7 @@ EOF
     mkdir -pv $ZONEINFO/{posix,right}
 
     for tz in etcetera southamerica northamerica europe africa antarctica  \
-              asia australasia backward; do
+            asia australasia backward; do
         zic -L /dev/null   -d $ZONEINFO       ${tz}
         zic -L /dev/null   -d $ZONEINFO/posix ${tz}
         zic -L leapseconds -d $ZONEINFO/right ${tz}
@@ -107,8 +107,6 @@ EOF
     cp -v zone.tab zone1970.tab iso3166.tab $ZONEINFO
     zic -d $ZONEINFO -p America/New_York
     unset ZONEINFO
-
-    ln -sfv /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
     cat > /etc/ld.so.conf << "EOF"
 # Begin /etc/ld.so.conf

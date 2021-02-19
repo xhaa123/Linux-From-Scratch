@@ -6,7 +6,7 @@ LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 name=psmisc
-version=23.3
+version=23.4
 
 rm -rf $TMP
 mkdir -p $TMP $LOG

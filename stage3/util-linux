@@ -6,7 +6,7 @@ LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 name=util-linux
-version=2.36.1
+version=2.36.2
 
 rm -rf $TMP
 mkdir -p $TMP $LOG

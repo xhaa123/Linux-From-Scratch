@@ -7,7 +7,7 @@ LOG=${LOG:-$HOME/logs/stage2}
 SRC=${SRC:-/sources}
 
 name=util-linux
-version=2.36.1
+version=2.36.2
 
 rm -fr $TMP
 mkdir -p $TMP $LOG
@@ -22,7 +22,7 @@ tar xf $SRC/$name-$version.tar.xz -C $TMP
     mkdir -pv /var/lib/hwclock
 
     ./configure ADJTIME_PATH=/var/lib/hwclock/adjtime    \
-                --docdir=/usr/share/doc/$name-$version \
+                --docdir=/usr/share/doc/$name-$version   \
                 --disable-chfn-chsh  \
                 --disable-login      \
                 --disable-nologin    \

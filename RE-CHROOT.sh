@@ -5,8 +5,8 @@ export LFS=/mnt/lfs
 
 mount -v /dev/mapper/VolumeGroup-lvolroot $LFS
 mount -v /dev/mapper/VolumeGroup-lvolhome $LFS/home
-mount -v /dev/sdb2 $LFS/boot
-mount -v /dev/sdb1 $LFS/boot/efi
+mount -v /dev/sdc1 $LFS/boot
+mount -v /dev/sdb2 $LFS/boot/efi
 swapon /dev/mapper/VolumeGroup-lvolswap
 
 mkdir -pv $LFS/{dev,proc,sys,run}

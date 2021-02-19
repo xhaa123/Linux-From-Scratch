@@ -18,10 +18,10 @@ tar xf $SRC/$name-$version.tar.gz -C $TMP
     
     cd $TMP/$name-$version
 
-	./configure --prefix=/usr   \
-	            --without-guile \
-	            --host=$LFS_TGT \
-	            --build=$(build-aux/config.guess)
+    ./configure --prefix=/usr   \
+                --without-guile \
+                --host=$LFS_TGT \
+                --build=$(build-aux/config.guess)
 
     make
     

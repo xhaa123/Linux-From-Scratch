@@ -20,9 +20,9 @@ tar xf $SRC/$name-$version.tar.xz -C $TMP
 
     sed -i 's/extras//' Makefile.in
 
-	./configure --prefix=/usr   \
-	            --host=$LFS_TGT \
-	            --build=$(./config.guess)
+    ./configure --prefix=/usr   \
+                --host=$LFS_TGT \
+                --build=$(./config.guess)
 
     make
     

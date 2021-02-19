@@ -22,9 +22,9 @@ tar xf $SRC/$name-$version.tar.gz -C $TMP
     
     make prefix=/usr install
     
-	rm -v /usr/lib/libzstd.a
-	mv -v /usr/lib/libzstd.so.* /lib
-	ln -sfv ../../lib/$(readlink /usr/lib/libzstd.so) /usr/lib/libzstd.so
+    rm -v /usr/lib/libzstd.a
+    mv -v /usr/lib/libzstd.so.* /lib
+    ln -sfv ../../lib/$(readlink /usr/lib/libzstd.so) /usr/lib/libzstd.so
 
     }
 } 2>&1 | tee $name.log

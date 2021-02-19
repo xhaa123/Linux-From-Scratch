@@ -22,9 +22,9 @@ tar xf $SRC/$name-$version.tar.gz -C $TMP
 
     mkdir build
     pushd build
-      ../configure
-      make -C include
-      make -C progs tic
+        ../configure
+        make -C include
+        make -C progs tic
     popd
 
     ./configure --prefix=/usr                \
@@ -37,6 +37,7 @@ tar xf $SRC/$name-$version.tar.gz -C $TMP
                 --without-ada                \
                 --without-normal             \
                 --enable-widec
+
     make
 
     make DESTDIR=$LFS TIC_PATH=$(pwd)/build/progs/tic install

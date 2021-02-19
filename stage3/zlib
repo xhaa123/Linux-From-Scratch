@@ -24,10 +24,10 @@ tar xf $SRC/$name-$version.tar.xz -C $TMP
     
     make install
     
-	mv -v /usr/lib/libz.so.* /lib
-	ln -sfv ../../lib/$(readlink /usr/lib/libz.so) /usr/lib/libz.so
+    mv -v /usr/lib/libz.so.* /lib
+    ln -sfv ../../lib/$(readlink /usr/lib/libz.so) /usr/lib/libz.so
 
-	rm -fv /usr/lib/libz.a
+    rm -fv /usr/lib/libz.a
 
     }
 } 2>&1 | tee $name.log

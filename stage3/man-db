@@ -6,7 +6,7 @@ LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 name=man-db
-version=2.9.3
+version=2.9.4
 
 rm -rf $TMP
 mkdir -p $TMP $LOG

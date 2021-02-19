@@ -32,7 +32,7 @@ tar xf $SRC/$name-$version.tar.xz -C $TMP
     mkdir -v build
     cd       build
 
-    ../configure                             \
+    ../configure                            \
         --prefix=/usr                      \
         --host=$LFS_TGT                    \
         --build=$(../scripts/config.guess) \
@@ -41,6 +41,7 @@ tar xf $SRC/$name-$version.tar.xz -C $TMP
         libc_cv_slibdir=/lib
 
     make
+    
     make DESTDIR=$LFS install
 
     echo 'int main(){}' > dummy.c

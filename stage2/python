@@ -19,9 +19,9 @@ tar xf $SRC/Python-$version.tar.xz -C $TMP
 
     cd $TMP/Python-$version
 
-	./configure --prefix=/usr   \
-	            --enable-shared \
-	            --without-ensurepip
+    ./configure --prefix=/usr   \
+                --enable-shared \
+                --without-ensurepip
 
     make
     

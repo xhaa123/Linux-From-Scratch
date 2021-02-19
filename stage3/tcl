@@ -25,7 +25,6 @@ tar xf $SRC/$name$version-src.tar.gz -C $TMP
     ./configure --prefix=/usr           \
                 --mandir=/usr/share/man \
                 $([ "$(uname -m)" = x86_64 ] && echo --enable-64bit)
-
     make
 
     sed -e "s|$SRCDIR/unix|/usr/lib|" \

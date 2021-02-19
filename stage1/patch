@@ -18,9 +18,9 @@ tar xf $SRC/$name-$version.tar.xz -C $TMP
     
     cd $TMP/$name-$version
 
-	./configure --prefix=/usr   \
-	            --host=$LFS_TGT \
-	            --build=$(build-aux/config.guess)
+    ./configure --prefix=/usr   \
+                --host=$LFS_TGT \
+                --build=$(build-aux/config.guess)
 
     make
     

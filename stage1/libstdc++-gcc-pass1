@@ -17,6 +17,7 @@ tar xf $SRC/gcc-$version.tar.xz -C $TMP
    {
     
     cd $TMP/gcc-$version
+    
     mkdir -v build
     cd       build 
 

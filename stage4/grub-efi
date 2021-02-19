@@ -28,6 +28,7 @@ tar xf $SRC/grub-$version.tar.xz -C $TMP
         --sysconfdir=/etc                \
         --disable-efiemu                 \
         --enable-grub-mkfont             \
+        --enable-grub-mount              \
         --with-platform=efi              \
         --enable-boot-time               \
         --enable-device-mapper           \
@@ -37,6 +38,7 @@ tar xf $SRC/grub-$version.tar.xz -C $TMP
         --enable-nls                     \
         --prefix="/usr"                  \
         --bindir="/usr/bin"              \
+        --sbindir="/usr/bin"             \
         --mandir="/usr/share/man"        \
         --infodir="/usr/share/info"      \
         --datarootdir="/usr/share"       \
