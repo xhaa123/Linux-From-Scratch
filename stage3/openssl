@@ -6,7 +6,7 @@ LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 name=openssl
-version=1.1.1i
+version=1.1.1j
 
 rm -fr $TMP
 rm -rf $TMP
@@ -20,10 +20,10 @@ tar xf $SRC/$name-$version.tar.gz -C $TMP
     cd $TMP/$name-$version
     
 	./config --prefix=/usr         \
-	         --openssldir=/etc/ssl \
-	         --libdir=lib          \
-	         shared                \
-	         zlib-dynamic
+			 --openssldir=/etc/ssl \
+			 --libdir=lib          \
+			 shared                \
+			 zlib-dynamic
     
     make
 

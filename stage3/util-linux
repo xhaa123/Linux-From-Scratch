@@ -18,18 +18,18 @@ tar xf $SRC/$name-$version.tar.xz -C $TMP
 
     cd $TMP/$name-$version
     
-	./configure ADJTIME_PATH=/var/lib/hwclock/adjtime    \
-	            --docdir=/usr/share/doc/$name-$version \
-	            --disable-chfn-chsh  \
-	            --disable-login      \
-	            --disable-nologin    \
-	            --disable-su         \
-	            --disable-setpriv    \
-	            --disable-runuser    \
-	            --disable-pylibmount \
-	            --disable-static     \
-	            --without-python     \
-	            runstatedir=/run
+	./configure ADJTIME_PATH=/var/lib/hwclock/adjtime   \
+				--docdir=/usr/share/doc/$name-$version  \
+				--disable-chfn-chsh  \
+				--disable-login      \
+				--disable-nologin    \
+				--disable-su         \
+				--disable-setpriv    \
+				--disable-runuser    \
+				--disable-pylibmount \
+				--disable-static     \
+				--without-python     \
+				runstatedir=/run
     
     make
     

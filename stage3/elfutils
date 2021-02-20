@@ -6,7 +6,7 @@ LOG=${LOG:-$HOME/logs/stage3}
 SRC=${SRC:-/sources}
 
 name=elfutils
-version=0.182
+version=0.183
 
 rm -rf $TMP
 mkdir -p $TMP $LOG
@@ -19,9 +19,9 @@ tar xf $SRC/$name-$version.tar.bz2 -C $TMP
     cd $TMP/$name-$version
     
 	./configure --prefix=/usr                \
-	            --disable-debuginfod         \
-	            --enable-libdebuginfod=dummy \
-	            --libdir=/lib
+				--disable-debuginfod         \
+				--enable-libdebuginfod=dummy \
+				--libdir=/lib
     
     make
     

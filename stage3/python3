@@ -17,12 +17,15 @@ tar xf $SRC/Python-$version.tar.xz -C $TMP
    {
 
     cd $TMP/Python-$version
-    
+	
+    CXX="/usr/bin/g++"              \
     ./configure --prefix=/usr       \
                 --enable-shared     \
                 --with-system-expat \
                 --with-system-ffi   \
-                --with-ensurepip=yes
+                --with-ensurepip=yes   \
+				--enable-optimizations \
+				--with-dbmliborder=bdb:gdbm:ndbm
     
     make
     
