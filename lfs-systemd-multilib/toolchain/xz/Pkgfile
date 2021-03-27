@@ -1,0 +1,21 @@
+version=5.2.5
+source=(https://fossies.org/linux/misc/xz-$version.tar.xz)
+
+build()
+{
+cd xz-$version
+
+./configure --prefix=$LFS/tools
+make
+make install
+
+make distclean &&
+CC="${LFS_TGT}-gcc -m32"  \
+./configure               \
+    --prefix=/tools       \
+    --libdir=/tools/lib32 \
+    --host="${LFS_TGT32}"
+make
+make DESTDIR=$PWD/DESTDIR_32 install &&
+cp -Rv DESTDIR_32/tools/lib32/* /tools/lib32
+}

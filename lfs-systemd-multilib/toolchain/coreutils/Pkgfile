@@ -1,0 +1,11 @@
+version=8.32
+source=(https://mirrors.aliyun.com/gnu/coreutils/coreutils-$version.tar.xz)
+
+build()
+{
+cd coreutils-$version
+
+./configure --prefix=/tools --enable-install-program=hostname
+make
+make install
+}

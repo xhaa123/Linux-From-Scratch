@@ -1,0 +1,64 @@
+version=10.2.0
+gmp_version=6.2.0
+mpc_version=1.2.1
+mpfr_version=4.1.0
+source=(https://mirrors.aliyun.com/gnu/gmp/gmp-$gmp_version.tar.xz
+	https://mirrors.aliyun.com/gnu/mpfr/mpfr-$mpfr_version.tar.xz
+	https://mirrors.aliyun.com/gnu/mpc/mpc-$mpc_version.tar.gz
+	https://mirrors.aliyun.com/gnu/gcc/gcc-$version/gcc-$version.tar.xz)
+
+build()
+{
+gcc-$version
+
+cat gcc/limitx.h gcc/glimits.h gcc/limity.h > \
+  `dirname $($LFS_TGT-gcc -print-libgcc-file-name)`/include-fixed/limits.h
+
+for file in gcc/config/{linux,i386/linux{,64}}.h
+do
+  cp -uv $file{,.orig}
+  sed -e 's@/lib\(64\)\?\(32\)\?/ld@/tools&@g' \
+      -e 's@/usr@/tools@g' $file.orig > $file
+  echo '
+#undef STANDARD_STARTFILE_PREFIX_1
+#undef STANDARD_STARTFILE_PREFIX_2
+#define STANDARD_STARTFILE_PREFIX_1 "/tools/lib/"
+#define STANDARD_STARTFILE_PREFIX_2 ""' >> $file
+  touch $file.orig
+done
+
+sed -e '/m64=/s/lib64/lib/' \
+    -i.orig gcc/config/i386/t-linux64
+cat > gcc/config/i386/t-linux64 <<"EOF"
+comma=,
+MULTILIB_OPTIONS    = $(subst $(comma),/,$(TM_MULTILIB_CONFIG))
+MULTILIB_DIRNAMES   = $(patsubst m%, %, $(subst /, ,$(MULTILIB_OPTIONS)))
+MULTILIB_OSDIRNAMES = m64=../lib$(call if_multiarch,:x86_64-linux-gnu)
+MULTILIB_OSDIRNAMES+= m32=../lib32$(call if_multiarch,:i386-linux-gnu)
+EOF
+
+mv -v ../mpfr-$mpfr_version mpfr
+mv -v ../gmp-$gmp_version gmp
+mv -v ../mpc-$mpc_version mpc
+
+mkdir -v build
+cd       build
+CC=$LFS_TGT-gcc                                    \
+CXX=$LFS_TGT-g++                                   \
+AR=$LFS_TGT-ar                                     \
+RANLIB=$LFS_TGT-ranlib                             \
+../configure                                       \
+    --prefix=/tools                                \
+    --with-local-prefix=/tools                     \
+    --with-native-system-header-dir=/tools/include \
+    --enable-languages=c,c++                       \
+    --disable-libstdcxx-pch                        \
+    --enable-multilib                              \
+    --with-multilib-list=m32,m64                   \
+    --with-system-zlib                             \
+    --disable-bootstrap                            \
+    --disable-libgomp
+make
+make install
+ln -sv gcc $LFS/tools/bin/cc
+}

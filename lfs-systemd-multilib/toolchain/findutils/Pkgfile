@@ -1,0 +1,11 @@
+version=4.7.0
+source=(https://mirrors.aliyun.com/gnu/findutils/findutils-$version.tar.xz)
+
+build()
+{
+cd findutils-$version
+
+./configure --prefix=$LFS/tools
+make
+make install
+}

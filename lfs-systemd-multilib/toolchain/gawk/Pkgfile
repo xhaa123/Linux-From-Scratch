@@ -1,0 +1,11 @@
+version=5.1.0
+source=(https://mirrors.aliyun.com/gnu/gawk/gawk-$version.tar.xz)
+
+build()
+{
+cd gawk-$version
+
+./configure --prefix=$LFS/tools
+make
+make install
+}

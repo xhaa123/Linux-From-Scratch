@@ -1,0 +1,31 @@
+version=2.36.2
+source=(http://mirrors.ustc.edu.cn/kernel.org/linux/utils/util-linux/v${version:0:4}/util-linux-$version.tar.xz)
+
+build() {
+
+cd util-linux-$version
+
+./configure --prefix=/tools                \
+            --without-python               \
+            --disable-makeinstall-chown    \
+            --without-systemdsystemunitdir \
+            --without-ncurses              \
+            PKG_CONFIG=""
+make
+make install
+
+make distclean &&
+CC="${LFS_TGT}-gcc -m32"           \
+./configure                        \
+    --prefix=/tools                \
+    --libdir=/tools/lib32          \
+    --without-python               \
+    --disable-makeinstall-chown    \
+    --without-systemdsystemunitdir \
+    --without-ncurses              \
+    --host="${LFS_TGT32}"          \
+    PKG_CONFIG=""
+make
+make DESTDIR=$PWD/DESTDIR_32 install &&
+cp -Rv DESTDIR_32/tools/lib32/* /tools/lib32
+}

@@ -1,0 +1,11 @@
+version=3.6
+source=(https://mirrors.aliyun.com/gnu/grep/grep-$version.tar.xz)
+
+build()
+{
+cd grep-$version
+
+./configure --prefix=/tools
+make
+make installl
+}

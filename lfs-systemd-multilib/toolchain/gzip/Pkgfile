@@ -1,0 +1,11 @@
+version=1.10
+source=(https://mirrors.aliyun.com/gnu/gzip/gzip-$version.tar.xz)
+
+build()
+{
+cd gzip-$version
+
+./configure --prefix=/tools
+make
+make installl
+}

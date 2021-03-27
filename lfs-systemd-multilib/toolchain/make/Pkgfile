@@ -1,0 +1,11 @@
+version=4.3
+source=(https://mirrors.aliyun.com/gnu/make/make-$version.tar.gz)
+
+build()
+{
+cd  make-$version
+
+./configure --prefix=/tools --without-guile
+make
+make install
+}

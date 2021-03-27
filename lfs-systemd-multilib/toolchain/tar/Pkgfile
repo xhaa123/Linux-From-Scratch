@@ -1,0 +1,11 @@
+version=1.33
+source=(https://mirrors.aliyun.com/gnu/tar/tar-$version.tar.xz)
+
+build()
+{
+	cd tar-$version
+
+	./configure --prefix=$LFS/tools
+	make
+	make install
+}

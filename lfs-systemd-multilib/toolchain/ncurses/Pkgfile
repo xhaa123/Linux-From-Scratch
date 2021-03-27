@@ -1,0 +1,34 @@
+version=6.2
+source=(https://mirrors.aliyun.com/gnu/ncurses/ncurses-$version.tar.gz)
+
+build()
+{
+cd ncurses-$version
+
+sed -i s/mawk// configure
+
+./configure --prefix=/tools \
+            --with-shared   \
+            --without-debug \
+            --without-ada   \
+            --enable-widec  \
+            --enable-overwrite
+make
+make install
+
+make distclean
+CC="${LFS_TGT}-gcc -m32"          \
+./configure --prefix=/tools       \
+            --libdir=/tools/lib32 \
+            --with-shared         \
+            --without-debug       \
+            --without-ada         \
+            --enable-widec        \
+            --enable-overwrite    \
+            --host="${LFS_TGT32}"
+make
+make DESTDIR=$PWD/DESTDIR_32 install
+cp -Rv DESTDIR_32/tools/lib32/* /tools/lib32
+
+ln -s libncursesw.so /tools/lib/libncurses.so
+}

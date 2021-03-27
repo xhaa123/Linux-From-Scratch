@@ -1,0 +1,10 @@
+version=1.6.2
+source=(https://mirrors.aliyun.com/gnu/dejagnu/dejagnu-$version.tar.gz)
+
+build()
+{
+cd dejagnu-$version
+
+./configure --prefix=/tools
+make install
+}

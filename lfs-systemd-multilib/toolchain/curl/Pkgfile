@@ -1,0 +1,13 @@
+version=7.75.0
+source=(https://curl.haxx.se/download/curl-$version.tar.xz)
+
+build() {
+cd curl-$version
+./configure                    \
+    --prefix=/tools            \
+    --disable-static           \
+    --enable-threaded-resolver \
+    --with-ca-bundle=/tools/etc/ssl/certs/ca-certificates.crt
+make
+make install
+}

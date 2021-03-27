@@ -1,0 +1,11 @@
+version=5.39
+source=(https://fossies.org/linux/misc/file-$version.tar.gz)
+
+build()
+{
+cd file-$version
+
+./configure --prefix=$LFS/tools
+make
+make install
+}

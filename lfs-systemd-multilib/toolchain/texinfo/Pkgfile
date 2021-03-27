@@ -1,0 +1,11 @@
+version=6.7
+source=(https://mirrors.aliyun.com/gnu/texinfo/texinfo-$version.tar.xz)
+
+build()
+{
+cd texinfo-$version
+
+./configure --prefix=/tools
+make
+make install
+}

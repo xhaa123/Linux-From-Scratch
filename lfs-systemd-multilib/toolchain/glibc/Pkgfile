@@ -1,0 +1,50 @@
+version=2.33
+source=(https://mirrors.aliyun.com/gnu/glibc/glibc-$version.tar.xz)
+
+build()
+{
+cd glibc-$version
+
+mkdir -v build
+cd       build
+
+../configure                             \
+      --prefix=/tools                    \
+      --host=$LFS_TGT                    \
+      --build=$(../scripts/config.guess) \
+      --enable-kernel=3.2                \
+      --with-headers=/tools/include      \
+      --enable-multi-arch                \
+      libc_cv_forced_unwind=yes          \
+      libc_cv_c_cleanup=yes
+make
+make install
+
+mkdir ../build32
+cd ../build32
+
+echo slibdir=/tools/lib32 > configparms
+BUILD_CC="gcc -m32"               \
+CC="${LFS_TGT}-gcc -m32"          \
+CXX="${LFS_TGT}-g++ -m32"         \
+AR="${LFS_TGT}-ar"                \
+RANLIB="${LFS_TGT}-ranlib"        \
+../configure --prefix=/tools                    \
+             --build=$(../scripts/config.guess) \
+             --host=${LFS_TGT32}                \
+             --enable-kernel=3.2             \
+             --enable-multi-arch                \
+             --libdir=/tools/lib32              \
+             --libexecdir=/tools/lib32          \
+             --with-headers=/tools/include      \
+             --with-binutils=/tools/bin         \
+             libc_cv_forced_unwind=yes          \
+             libc_cv_c_cleanup=yes
+make
+make install_root="${PWD}/DESTDIR" install
+install -vdm755 /tools/lib32}
+cp -Rv DESTDIR/tools/lib32/* /tools/lib32
+install -vm644 DESTDIR/tools/include/gnu/{lib-names,stubs}-32.h \
+               /tools/include/gnu/
+ln -svf /tools/lib32/ld-linux.so.2 /tools/lib/
+ }

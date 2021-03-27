@@ -1,0 +1,11 @@
+version=2.7.6
+source=(https://mirrors.aliyun.com/gnu/patch/patch-$version.tar.xz)
+
+build()
+{
+	cd patch-$version
+
+	./configure --prefix=$LFS/tools
+	make
+	make install
+}

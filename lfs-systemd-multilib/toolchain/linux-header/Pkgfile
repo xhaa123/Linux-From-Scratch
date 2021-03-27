@@ -1,0 +1,10 @@
+version=5.11.10
+source=(https://mirrors.aliyun.com/linux-kernel/v5.x/linux-$version.tar.xz)
+
+build()
+{
+	cd linux-$version
+	make mrproper
+	make headers
+	cp -rv usr/include/* /tools/include
+}

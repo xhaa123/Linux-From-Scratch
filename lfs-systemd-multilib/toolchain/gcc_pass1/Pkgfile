@@ -1,0 +1,69 @@
+version=10.2.0
+gmp_version=6.2.0
+mpc_version=1.2.1
+mpfr_version=4.1.0
+source=(https://mirrors.aliyun.com/gnu/gmp/gmp-$gmp_version.tar.xz
+	https://mirrors.aliyun.com/gnu/mpfr/mpfr-$mpfr_version.tar.xz
+	https://mirrors.aliyun.com/gnu/mpc/mpc-$mpc_version.tar.gz
+	https://mirrors.aliyun.com/gnu/gcc/gcc-$version/gcc-$version.tar.xz)
+
+build()
+{
+cd  gcc-$version
+
+	mv ../mpfr-$mpfr_version mpfr
+	mv ../gmp-$gmp_version gmp
+	mv ../mpc-$mpc_version mpc
+
+	for file in gcc/config/{linux,i386/linux{,64}}.h
+	do
+	  cp -uv $file{,.orig}
+	  sed -e 's@/lib\(64\)\?\(32\)\?/ld@/tools&@g' \
+	      -e 's@/usr@/tools@g' $file.orig > $file
+	  echo '
+#undef STANDARD_STARTFILE_PREFIX_1
+#undef STANDARD_STARTFILE_PREFIX_2
+#define STANDARD_STARTFILE_PREFIX_1 "/tools/lib/"
+#define STANDARD_STARTFILE_PREFIX_2 ""' >> $file
+	  touch $file.orig
+	done
+
+	sed -e '/m64=/s/lib64/lib/' \
+	-i.orig gcc/config/i386/t-linux64
+	cat > gcc/config/i386/t-linux64 <<"EOF"
+comma=,
+MULTILIB_OPTIONS    = $(subst $(comma),/,$(TM_MULTILIB_CONFIG))
+MULTILIB_DIRNAMES   = $(patsubst m%, %, $(subst /, ,$(MULTILIB_OPTIONS)))
+MULTILIB_OSDIRNAMES = m64=../lib$(call if_multiarch,:x86_64-linux-gnu)
+MULTILIB_OSDIRNAMES+= m32=../lib32$(call if_multiarch,:i386-linux-gnu)
+EOF
+
+	mkdir -v build
+	cd       build
+
+	../configure                                       \
+	    --target=$LFS_TGT                              \
+	    --prefix=/tools                                \
+	    --with-glibc-version=2.11                      \
+	    --with-sysroot=$LFS                            \
+	    --with-newlib                                  \
+	    --without-headers                              \
+	    --with-local-prefix=/tools                     \
+	    --with-native-system-header-dir=/tools/include \
+	    --disable-nls                                  \
+	    --disable-shared                               \
+	    --enable-multilib                              \
+	    --with-multilib-list=m32,m64,mx32              \
+	    --disable-decimal-float                        \
+	    --disable-threads                              \
+	    --disable-libatomic                            \
+	    --disable-libgomp                              \
+	    --disable-libmpx                               \
+	    --disable-libquadmath                          \
+	    --disable-libssp                               \
+	    --disable-libvtv                               \
+	    --disable-libstdcxx                            \
+	    --enable-languages=c,c++
+	make
+	make install
+}

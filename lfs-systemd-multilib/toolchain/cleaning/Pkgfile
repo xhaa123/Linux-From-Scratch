@@ -1,0 +1,11 @@
+name=cleaning
+
+build()
+{
+strip --strip-debug /tools/lib{,32}/* || true
+/usr/bin/strip --strip-unneeded /tools/{,s}bin/* || true
+
+rm -rf /tools/{,share}/{info,man,doc}
+
+find /tools/{lib{,32},libexec} -name \*.la -delete
+}

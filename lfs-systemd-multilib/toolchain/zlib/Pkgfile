@@ -1,0 +1,17 @@
+version=1.2.11
+source=(http://www.zlib.net/zlib-$version.tar.xz)
+
+build()
+{
+cd zlib-$version
+
+./configure --prefix=/tools
+make
+make install
+
+make distclean
+CC="${LFS_TGT}-gcc -m32" ./configure --prefix=/tools --libdir=/tools/lib32
+make
+make DESTDIR=$PWD/DESTDIR_32 install
+cp -Rv DESTDIR_32/tools/lib32/* /tools/lib32
+}
