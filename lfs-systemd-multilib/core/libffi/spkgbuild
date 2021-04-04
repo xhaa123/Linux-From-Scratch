@@ -1,0 +1,18 @@
+# description	: Portable foreign function interface library
+# depends	: 
+
+name=libffi
+version=3.3
+release=1
+
+source="https://sourceware.org/pub/$name/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr --disable-static --with-gcc-arch=native
+
+	make
+
+	make DESTDIR=$PKG install
+}

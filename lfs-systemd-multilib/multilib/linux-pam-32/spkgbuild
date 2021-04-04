@@ -1,0 +1,23 @@
+# description	: Pluggable Authentication Modules
+# depends	: linux-pam
+
+name=linux-pam-32
+version=1.5.1
+release=1
+
+source="https://github.com/linux-pam/linux-pam/releases/download/v$version/Linux-PAM-$version.tar.xz"
+
+build() {
+	cd Linux-PAM-$version
+
+	CC="gcc -m32" ./configure \
+	    --prefix=/usr         \
+	    --disable-static      \
+	    --libdir=/usr/lib32   \
+	    --host=i686-pc-linux-gnu
+	make
+
+	make DESTDIR=$PWD/DESTDIR install
+	mkdir -pv $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

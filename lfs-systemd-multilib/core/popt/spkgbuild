@@ -1,0 +1,22 @@
+# description	: A commandline option parser
+# depends	: glibc
+
+name=popt
+version=1.18
+release=1
+
+source="http://ftp.rpm.org/popt/releases/$name-1.x/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr  --disable-static
+
+	make
+
+	make DESTDIR=$PKG install
+
+	mkdir -pv $PKG/lib
+	mv $PKG/usr/lib/libpopt.so.* $PKG/lib
+	ln -sfv ../../lib/$(readlink $PKG/usr/lib/libpopt.so) $PKG/usr/lib/libpopt.so
+}

@@ -1,0 +1,34 @@
+# description	: Miscellaneous system utilities for Linux (32-bit)
+# depends	: glibc util-linux
+
+name=util-linux-32
+version=2.36.2
+release=1
+
+source="https://www.kernel.org/pub/linux/utils/util-linux/v{$version::4}/util-linux-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	CC="gcc -m32" \
+	./configure ADJTIME_PATH=/var/lib/hwclock/adjtime   \
+	            --docdir=/usr/share/doc/$name-$version  \
+	            --disable-chfn-chsh      \
+	            --disable-login          \
+	            --disable-nologin        \
+	            --disable-su             \
+	            --disable-setpriv        \
+	            --disable-runuser        \
+	            --disable-pylibmount     \
+	            --disable-static         \
+	            --without-python         \
+	            --libdir=/usr/lib32      \
+	            --host=i686-pc-linux-gnu \
+	            --enable-libmount-force-mountinfo
+
+	make
+
+	make DESTDIR=$PWD/DESTDIR install
+	mkdir -pv $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

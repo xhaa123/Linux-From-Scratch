@@ -1,0 +1,26 @@
+# description	: Handle ELF object files and DWARF debugging information (libraries) (32-bit)
+# depends	: bzip2-32 xz-32 zlib-32 zstd-32 elfutils
+
+name=elfutils-32
+version=0.183
+release=1
+
+source="https://sourceware.org/ftp/elfutils/$version/elfutils-$version.tar.bz2"
+
+build() {
+	cd elfutils-$version
+
+	CC="gcc -m32" ./configure \
+	    --prefix=/usr            \
+	    --libdir=/usr/lib32     \
+	    --host=i686-pc-linux-gnu \
+	    --disable-debuginfod     \
+	    --enable-libdebuginfod=dummy
+
+	make
+
+	make DESTDIR=$PWD/DESTDIR -C libelf install
+	install -vDm644 config/libelf.pc DESTDIR/usr/lib32/pkgconfig/libelf.pc
+	mkdir -pv $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

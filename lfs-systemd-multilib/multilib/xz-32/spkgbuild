@@ -1,0 +1,25 @@
+# description	: Programs for compressing and decompressing files
+# homepage	: 
+# depends	: xz
+
+name=xz-32
+version=5.2.5
+release=1
+
+source="https://tukaani.org/xz/xz-$version.tar.xz"
+
+build() {
+	cd xz-$version
+
+	CC="gcc -m32" ./configure \
+	    --prefix=/usr         \
+	    --disable-static      \
+	    --libdir=/usr/lib32   \
+	    --host=i686-pc-linux-gnu
+	
+	make
+
+	make DESTDIR=$PWD/DESTDIR install
+	mkdir -p $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

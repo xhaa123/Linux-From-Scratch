@@ -1,0 +1,42 @@
+# description	: Keytable files and keyboard utilities
+# depends	: glibc linux-pam
+
+name=kbd
+version=2.4.0
+release=1
+
+source="https://www.kernel.org/pub/linux/utils/$name/$name-$version.tar.xz
+	https://lfs-hk.koddos.net/patches/downloads/$name/$name-$version-backspace-1.patch"
+
+build() {
+	cd $name-$version
+
+	patch -Np1 -i ../$name-$version-backspace-1.patch
+
+	sed -i '/RESIZECONS_PROGS=/s/yes/no/' configure
+	sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in
+	
+	./configure --prefix=/usr            \
+	            --sysconfdir=/etc        \
+	            --datadir=/usr/share/kbd \
+	            --mandir=/usr/share/man
+
+	make KEYCODES_PROGS=yes RESIZECONS_PROGS=yes
+
+	make KEYCODES_PROGS=yes RESIZECONS_PROGS=yes DESTDIR=$PKG install
+
+	mkdir -pv           $PKG/usr/share/doc/$name-$version
+	cp -R -v docs/doc/* $PKG/usr/share/doc/$name-$version
+
+	mkdir -pv $PKG/etc/pam.d         
+	cat > $PKG/etc/pam.d/vlock << "EOF"
+# Begin /etc/pam.d/vlock
+
+auth     required pam_unix.so
+account  required pam_unix.so
+password required pam_unix.so
+session  required pam_unix.so
+
+End /etc/pam.d/vlock
+EOF
+}

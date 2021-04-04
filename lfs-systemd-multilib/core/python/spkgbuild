@@ -1,0 +1,36 @@
+# description	: Next generation of the python high-level scripting language
+# depends	: bzip2 expat gdbm libffi openssl zlib sqlite
+
+name=python
+version=3.9.2
+release=1
+
+noextract="$name-$version-docs-html.tar.bz2"
+
+source="https://www.python.org/ftp/python/$version/Python-$version.tar.xz
+	https://www.python.org/ftp/python/doc/$version/$name-$version-docs-html.tar.bz2"
+
+build() {
+	cd Python-$version
+
+	sed 's|cpython/||' -i Include/cpython/pystate.h
+
+	./configure --prefix=/usr         \
+	            --enable-shared       \
+	            --with-system-expat   \
+	            --with-system-ffi     \
+	            --with-ensurepip=yes  \
+	            --with-dbmliborder=bdb:gdbm:ndbm
+
+	make
+
+	make DESTDIR=$PKG install
+
+	install -v -dm755 $PKG/usr/share/doc/$name-$version/html 
+
+	tar --strip-components=1  \
+	    --no-same-owner       \
+	    --no-same-permissions \
+	    -C $PKG/usr/share/doc/$name-$version/html \
+	    -xvf ../$name-$version-docs-html.tar.bz2
+}

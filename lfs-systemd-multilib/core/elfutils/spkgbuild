@@ -1,0 +1,24 @@
+# description	: Handle ELF object files and DWARF debugging information (libraries)
+# depends	: xz zlib zstd
+
+name=elfutils
+version=0.183
+release=1
+
+source="https://sourceware.org/ftp/elfutils/$version/elfutils-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr                \
+	            --disable-debuginfod         \
+	            --enable-libdebuginfod=dummy \
+	            --libdir=/lib
+
+	make
+
+	make -C libelf DESTDIR=$PKG install
+	mkdir -pv $PKG/usr/lib/pkgconfig
+	install -vm644 config/libelf.pc $PKG/usr/lib/pkgconfig
+	rm -v $PKG/lib/libelf.a
+}

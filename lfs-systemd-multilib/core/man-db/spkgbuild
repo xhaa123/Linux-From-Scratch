@@ -1,0 +1,28 @@
+# description	: A utility for reading man pages
+# depends	: bash gdbm zlib groff libpipeline less
+
+name=man-db
+version=2.9.4
+release=1
+
+source="https://download.savannah.gnu.org/releases/$name/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	sed -i '/find/s@/usr@@' init/systemd/man-db.service.in
+
+	./configure --prefix=/usr                          \
+	            --docdir=/usr/share/doc/$name-$version \
+	            --sysconfdir=/etc                      \
+	            --disable-setuid                       \
+	            --enable-cache-owner=bin               \
+	            --with-browser=/usr/bin/lynx           \
+	            --with-vgrind=/usr/bin/vgrind          \
+	            --with-grap=/usr/bin/grap              \
+	            --with-systemdtmpfilesdir=             \
+	            --with-systemdsystemunitdir=
+	make
+
+	make DESTDIR=$PKG install
+}

@@ -1,0 +1,22 @@
+# description	: Framework for testing other programs
+# depends	: expect
+
+name=dejagnu
+version=1.6.2
+release=1
+
+source="https://ftp.gnu.org/gnu/$name/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr
+
+	makeinfo --html --no-split -o doc/dejagnu.html doc/dejagnu.texi
+	makeinfo --plaintext       -o doc/dejagnu.txt  doc/dejagnu.texi
+
+	make DESTDIR=$PKG install
+
+	install -v -dm755  $PKG/usr/share/doc/$name-$version
+	install -v -m644   doc/dejagnu.{html,txt} $PKG/usr/share/doc/$name-$version
+}

@@ -1,0 +1,18 @@
+# description	: IP Routing Utilities
+# depends	: glibc elfutils db
+
+name=iproute2
+version=5.11.0
+release=1
+
+source="https://www.kernel.org/pub/linux/utils/net/$name/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	sed -i 's/.m_ipt.o//' tc/Makefile
+
+	make
+
+	make DESTDIR=$PKG DOCDIR=/usr/share/doc/$name-$version install
+}

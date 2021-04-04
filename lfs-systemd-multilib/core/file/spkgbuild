@@ -1,0 +1,20 @@
+# description	: Utility for determining the type of a given file or files
+# homepage	: 
+# depends	: zlib xz bzip2
+
+name=file
+version=5.39
+release=1
+
+source="ftp://ftp.astron.com/pub/$name/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+	./configure --prefix=/usr
+	make
+	make DESTDIR=$PKG install
+
+	mkdir -pv $PKG/lib
+	mv -v $PKG/usr/lib/libmagic.so.* $PKG/lib
+	ln -sfv ../../lib/$(readlink $PKG/usr/lib/libmagic.so) $PKG/usr/lib/libmagic.so
+}

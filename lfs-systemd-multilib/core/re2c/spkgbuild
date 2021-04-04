@@ -1,0 +1,19 @@
+# description	: A tool for generating C-based recognizers from regular expressions
+# depends	: 
+
+name=re2c
+version=2.1.1
+release=1
+
+source="https://github.com/skvadrik/re2c/archive/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./autogen.sh
+	./configure --prefix=/usr --enable-golang
+
+	make
+
+	make DESTDIR=$PKG install
+}

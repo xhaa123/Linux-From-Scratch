@@ -1,0 +1,47 @@
+# description	: GNU GRand Unified Bootloader (2)
+# depends	: efivar efibootmgr freetype dosfstools dejavu-fonts
+
+name=grub-efi
+version=2.06~rc1
+unifont_version=13.0.06
+release=1
+
+source="https://alpha.gnu.org/gnu/$name/$name-$version.tar.xz
+	https://ftp.gnu.org/gnu/unifont/unifont-$unifont_version/unifont-$unifont_version.pcf.gz
+	grub.default"
+
+build() {
+	cd $name-$version
+
+	mkdir -pv $PKG/usr/share/fonts/unifont
+	gunzip -c ../unifont-$unifont_version.pcf.gz > \
+		$PKG/usr/share/fonts/unifont/unifont.pcf
+
+	./configure --prefix=/usr             \
+	            --sbindir=/sbin           \
+	            --bindir=/usr/bin         \
+	            --mandir=/usr/share/man   \
+	            --infodir=/usr/share/info \
+	            --datarootdir=/usr/share  \
+	            --sysconfdir=/etc         \
+	            --disable-efiemu          \
+	            --enable-grub-mkfont      \
+	            --enable-grub-mount       \
+	            --enable-boot-time        \
+	            --with-grubdir=grub       \
+	            --with-platform=efi       \
+	            --target=x86_64           \
+	            --program-prefix=""       \
+	            --program-suffix="efi"    \
+	            --with-bootdir=/boot      \
+	            --disable-werror 
+
+	make
+
+	make DESTDIR=$PKG install
+
+	install -D -m0644 ../grub.default $PKG/etc/default/grub
+
+	mkdir -pv $PKG/usr/share/bash-completion/completions
+	mv -v $PKG/etc/bash_completion.d/grub $PKG/usr/share/bash-completion/completions
+}

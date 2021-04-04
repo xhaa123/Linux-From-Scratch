@@ -1,0 +1,29 @@
+# description	: GNU GRand Unified Bootloader (2)
+# depends	: gettext bash xz fuse2 python
+
+name=grub
+version=2.06~rc1
+release=1
+
+source="https://alpha.gnu.org/gnu/$name/$name-$version.tar.xz
+	grub.default"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr          \
+	            --sbindir=/sbin        \
+	            --sysconfdir=/etc      \
+	            --disable-efiemu       \
+	            --disable-werror       \
+	            --enable-grub-mount
+
+	make
+
+	make DESTDIR=$PKG install
+
+	install -D -m0644 ../grub.default $PKG/etc/default/grub
+
+	mkdir -pv $PKG/usr/share/bash-completion/completions
+	mv -v $PKG/etc/bash_completion.d/grub $PKG/usr/share/bash-completion/completions
+}

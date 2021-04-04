@@ -1,0 +1,41 @@
+# package install script
+
+action=$1
+newversion=$2
+oldversion=$3
+
+post_install() {
+	cat >> /etc/pam.d/system-session << "EOF"
+
+# Begin Systemd addition
+
+session   required    pam_loginuid.so
+session   optional    pam_systemd.so
+
+# End Systemd addition
+EOF
+
+	systemd-machine-id-setup
+	systemctl preset-all
+	systemctl disable systemd-time-wait-sync.service
+}
+
+post-remove() {
+	cat > /etc/pam.d/system-session << "EOF"
+# Begin /etc/pam.d/system-session
+
+session   required    pam_unix.so
+
+# End /etc/pam.d/system-session
+EOF
+}
+
+case $action in
+	post-install)
+		post_install
+	;;
+	post-remove)
+		post-remove
+	;;
+esac
+

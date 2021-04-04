@@ -1,0 +1,21 @@
+# description	: DOS filesystem utilities
+# depends	: glibc
+
+name=dosfstools
+version=4.2
+release=1
+
+source="https://github.com/dosfstools/dosfstools/releases/download/v$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/      
+	            --enable-compat-
+	            --mandir=/usr/sh
+	            --docdir=/usr/sh
+
+	make
+
+	make DESTDIR=$PKG install
+}

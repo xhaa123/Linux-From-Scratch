@@ -1,0 +1,35 @@
+# description	: Programs for compressing and decompressing files
+# homepage	: 
+# depends	: 
+
+name=bzip2
+version=1.0.8
+release=1
+
+source="https://www.sourceware.org/pub/$name/$name-$version.tar.gz
+	https://lfs-hk.koddos.net/patches/downloads/$name/$name-$version-install_docs-1.patch"
+
+build() {
+	cd $name-$version
+
+	patch -Np1 -i ../$name-$version-install_docs-1.patch
+
+	sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
+
+	sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile
+
+	make -f Makefile-libbz2_so
+	make clean
+
+	make PREFIX=$PKG/usr install
+
+	mkdir -pv $PKG/{bin,lib,usr/lib}
+	cp -v bzip2-shared $PKG/bin/bzip2
+	cp -av libbz2.so* $PKG/lib
+	ln -sv ../../lib/libbz2.so.1.0 $PKG/usr/lib/libbz2.so
+	rm -v $PKG/usr/bin/{bunzip2,bzcat,bzip2}
+	ln -sv bzip2 $PKG/bin/bunzip2
+	ln -sv bzip2 $PKG/bin/bzcat
+
+	rm -fv $PKG/usr/lib/libbz2.a
+}

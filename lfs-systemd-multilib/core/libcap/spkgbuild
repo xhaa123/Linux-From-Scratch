@@ -1,0 +1,31 @@
+# description	: POSIX 1003.1e capabilities
+# depends	: attr linux-pam
+
+name=libcap
+version=2.49
+release=1
+
+source="https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	sed -i '/install -m.*STA/d' libcap/Makefile
+
+	make prefix=/usr lib=lib
+
+	make prefix=/usr lib=lib DESTDIR=$PKG install
+
+	mkdir -p $PKG/lib
+	for libname in cap psx; do
+		mv -v $PKG/usr/lib/lib${libname}.so.* $PKG/lib
+		ln -sfv ../../lib/lib${libname}.so.2 $PKG/usr/lib/lib${libname}.so
+		chmod -v 755 $PKG/lib/lib${libname}.so.2.49
+	done
+
+	make -C pam_cap
+
+	mkdir -pv $PKG/{lib,etc}/security
+	install -v -m755 pam_cap/pam_cap.so $PKG/lib/security
+	install -v -m644 pam_cap/capability.conf $PKG/etc/security
+}

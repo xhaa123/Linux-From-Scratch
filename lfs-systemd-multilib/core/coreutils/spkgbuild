@@ -1,0 +1,38 @@
+# description	: The basic file, shell and text manipulation utilities of the GNU operating system
+# depends	: glibc acl attr gmp libcap openssl
+
+name=coreutils
+version=8.32
+release=1
+
+source="https://ftp.gnu.org/gnu/$name/$name-$version.tar.xz
+	https://lfs-hk.koddos.net/patches/downloads/$name/$name-$version-i18n-1.patch"
+
+build() {
+	cd $name-$version
+
+	patch -Np1 -i ../$name-$version-i18n-1.patch
+
+	sed -i '/test.lock/s/^/#/' gnulib-tests/gnulib.mk
+
+	autoreconf -fiv
+	FORCE_UNSAFE_CONFIGURE=1 ./configure \
+	            --prefix=/usr            \
+	            --enable-no-install-program=kill,uptime
+	
+	make
+
+	make DESTDIR=$PKG install
+
+	mkdir -pv $PKG/{bin,usr/sbin}
+	mv -v $PKG/usr/bin/{cat,chgrp,chmod,chown,cp,date,dd,df,echo} $PKG/bin
+	mv -v $PKG/usr/bin/{false,ln,ls,mkdir,mknod,mv,pwd,rm} $PKG/bin
+	mv -v $PKG/usr/bin/{rmdir,stty,sync,true,uname} $PKG/bin
+	mv -v $PKG/usr/bin/chroot $PKG/usr/sbin
+
+	mkdir -pv $PKG/usr/share/man/man8
+	mv -v $PKG/usr/share/man/man1/chroot.1 $PKG/usr/share/man/man8/chroot.8
+	sed -i 's/"1"/"8"/' $PKG/usr/share/man/man8/chroot.8
+
+	mv -v $PKG/usr/bin/{head,nice,sleep,touch} $PKG/bin
+}

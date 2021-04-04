@@ -1,0 +1,20 @@
+# description	: Zstandard - Fast real-time compression algorithm (32-bit)
+# homepage	: 
+# depends	: zstd
+
+name=zstd-32
+version=1.4.9
+release=1
+
+source="https://github.com/facebook/zstd/releases/download/v$version/zstd-$version.tar.gz"
+
+build() {
+	cd zstd-$version
+
+	CC="gcc -m32" make
+
+	CC="gcc -m32" make prefix=/usr DESTDIR=$PWD/DESTDIR install
+	mkdir -pv $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib/* $PKG/usr/lib32/
+	sed -e "/^libdir/s/lib$/lib32/" -i $PKG/usr/lib32/pkgconfig/libzstd.pc
+}

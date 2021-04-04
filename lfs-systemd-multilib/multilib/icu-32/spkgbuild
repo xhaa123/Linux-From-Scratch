@@ -1,0 +1,21 @@
+# description	: International Components for Unicode library (32 bit)
+# depends	: icu
+
+name=icu-32
+version=68.2
+release=1
+
+source="http://github.com/unicode-org/icu/releases/download/release-${version/./-}/icu4c-${version/./_}-src.tgz"
+
+build() {
+	cd cd icu/source
+
+	CC="gcc -m32" ./configure \
+	    --prefix=/usr         \
+	    --libdir=/usr/lib32   \
+	    --host=i686-pc-linux-gnu
+    
+	make DESTDIR=$PWD/DESTDIR install
+	mkdir -pv $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

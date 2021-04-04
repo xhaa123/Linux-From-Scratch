@@ -1,0 +1,118 @@
+# description	: GNU C Library
+# homepage	: 
+# depends	: 
+
+name=glibc
+version=2.33
+release=1
+
+nostrip="lib.*/ld-.*\.so$
+	lib.*/libc-.*\.so$
+	lib.*/libpthread-.*\.so$
+	lib.*/libthread_db-.*\.so$"
+
+source="https://ftp.gnu.org/gnu/$name/$name-$version.tar.xz
+	https://lfs-hk.koddos.net/patches/downloads/$name/$name-$version-fhs-1.patch"
+
+build() {
+	cd $name-$version
+
+	patch -Np1 -i ../$name-$version-fhs-1.patch
+
+	sed -e '402a\      *result = local->data.services[database_index];' \
+	    -i nss/nss_database.c
+
+	mkdir -v build
+	cd       build
+
+	../configure --prefix=/usr                            \
+	             --disable-werror                         \
+	             --enable-kernel=3.2                      \
+	             --enable-stack-protector=strong          \
+	             --with-headers=/usr/include              \
+	             --enable-multi-arch                      \
+	             libc_cv_slibdir=/lib
+	make
+
+	mkdir -p $PKG/etc
+	touch $PKG/etc/ld.so.conf
+
+	sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile
+
+	make install_root=$PKG install
+
+	rm -v $PKG/usr/bin/{zdump,tzselect}
+	rm -v $PKG/usr/sbin/zic
+
+	cp -v ../nscd/nscd.conf $PKG/etc/nscd.conf
+	mkdir -p $PKG/var/cache/nscd
+
+	mkdir -pv $PKG//usr/lib/tmpfiles.d
+	install -v -Dm644 ../nscd/nscd.tmpfiles $PKG/usr/lib/tmpfiles.d/nscd.conf
+	mkdir -pv $PKG/lib/systemd/system
+	install -v -Dm644 ../nscd/nscd.service $PKG/lib/systemd/system/nscd.service
+
+	mkdir -pv $PKG/usr/lib/locale
+	make install_root=$PKG localedata/install-locales
+
+	cat > $PKG/etc/nsswitch.conf << "EOF"
+# Begin /etc/nsswitch.conf
+
+passwd: files
+group: files
+shadow: files
+
+hosts: files dns
+networks: files
+
+protocols: files
+services: files
+ethers: files
+rpc: files
+
+# End /etc/nsswitch.conf
+EOF
+
+	cat > $PKG/etc/ld.so.conf << "EOF"
+# Begin /etc/ld.so.conf
+/usr/local/lib
+/opt/lib
+
+EOF
+
+	cat >> $PKG/etc/ld.so.conf << "EOF"
+# Add an include directory
+include /etc/ld.so.conf.d/*.conf
+
+EOF
+	mkdir -pv $PKG/etc/ld.so.conf.d
+
+	# 32bit
+	rm -rf ./*
+	find .. -name "*.a" -delete
+
+	CC="gcc -m32" CXX="g++ -m32" \
+	../configure                             \
+	      --prefix=/usr                      \
+	      --host=i686-pc-linux-gnu           \
+	      --build=$(../scripts/config.guess) \
+	      --enable-kernel=3.2                \
+	      --with-headers=/usr/include        \
+	      --enable-multi-arch                \
+	      --libdir=/usr/lib32                \
+	      --libexecdir=/usr/lib32            \
+	      libc_cv_slibdir=/lib32
+	make
+
+	make install_root=$PWD/DESTDIR install
+	mkdir -pv $PKG/lib32/
+	cp -a DESTDIR/lib32/*     $PKG/lib32/
+	mkdir -pv $PKG/usr/lib32
+	cp -a DESTDIR/usr/lib32/* $PKG/usr/lib32/
+	mkdir -pv $PKG/usr/include/gnu/
+	install -vm644 DESTDIR/usr/include/gnu/{lib-names,stubs}-32.h \
+	               $PKG/usr/include/gnu/
+	ln -svf ../lib32/ld-linux.so.2 $PKG/lib/ld-linux.so.2
+
+	echo "/usr/lib32" >> $PKG/etc/ld.so.conf
+}

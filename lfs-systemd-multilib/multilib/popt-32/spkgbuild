@@ -1,0 +1,23 @@
+# description	: Commandline option parser (32 bit)
+# depends	: popt
+
+name=popt-32
+version=1.18
+release=1
+
+source="http://ftp.rpm.org/popt/releases/popt-1.x/popt-$version.tar.gz"
+
+build() {
+	cd popt-$version
+
+	CC="gcc -m32" ./configure \
+	    --prefix=/usr         \
+	    --libdir=/usr/lib32   \
+	    --host=i686-pc-linux-gnu
+
+	make
+
+	make DESTDIR=$PWD/DESTDIR install
+	mkdir -pv $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

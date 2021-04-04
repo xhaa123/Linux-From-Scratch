@@ -1,0 +1,79 @@
+# description	: system and service manager
+# depends	: acl libcap bash kbd kmod openssl xz linux-pam libxslt python-lxml polkit
+# depends	: btrfs-progs curl cryptsetup libgcrypt libidn2 libpwquality libseccomp
+# depends	: pcre2 gnu-efi lz4 python-sphinx
+
+name=systemd
+version=247
+release=1
+
+noextract="$name-man-pages-$version.tar.xz"
+
+source="https://github.com/systemd/systemd/archive/v$version/$name-$version.tar.gz
+	http://anduin.linuxfromscratch.org/LFS/$name-man-pages-$version.tar.xz
+	https://lfs-hk.koddos.net/patches/lfs/development/$name-$version-upstream_fixes-2.patch"
+
+build() {
+	cd $name-$version
+
+	patch -Np1 -i ../$name-$version-upstream_fixes-2.patch
+
+	sed '181,$ d' -i src/resolve/meson.build
+
+	sed -i 's/GROUP="render"/GROUP="video"/' rules.d/50-udev-default.rules.in
+
+	mkdir build
+	cd    build
+	
+	LANG=en_US.UTF-8                  \
+	meson --prefix=/usr               \
+	    --sysconfdir=/etc             \
+	    --localstatedir=/var          \
+	    -Dblkid=true                  \
+	    -Dbuildtype=release           \
+	    -Ddefault-dnssec=no           \
+	    -Dfirstboot=false             \
+	    -Dinstall-tests=false         \
+	    -Dkmod-path=/bin/kmod         \
+	    -Dldconfig=false              \
+	    -Dmount-path=/bin/mount       \
+	    -Drootprefix=                 \
+	    -Drootlibdir=/lib             \
+	    -Dsplit-usr=true              \
+	    -Dsulogin-path=/sbin/sulogin  \
+	    -Dsysusers=false              \
+	    -Dumount-path=/bin/umount     \
+	    -Db_lto=false                 \
+	    -Drpmmacrosdir=no             \
+	    -Dhomed=false                 \
+	    -Duserdb=false                \
+	    -Dman=true                    \
+	    -Dmode=release                \
+	    -Dpamconfdir=/etc/pam.d       \
+	    -Ddocdir=/usr/share/doc/$name-$version \
+	    ..
+	
+	LANG=en_US.UTF-8 ninja
+	
+	LANG=en_US.UTF-8 ninja DESTDIR=$PKG install
+	
+	mkdir -pv $PKG/etc/pam.d
+	cat > $PKG/etc/pam.d/systemd-user << "EOF"
+# Begin /etc/pam.d/systemd-user
+
+account  required    pam_access.so
+account  include     system-account
+
+session  required    pam_env.so
+session  required    pam_limits.so
+session  required    pam_unix.so
+session  required    pam_loginuid.so
+session  optional    pam_keyinit.so force revoke
+session  optional    pam_systemd.so
+
+auth     required    pam_deny.so
+password required    pam_deny.so
+
+# End /etc/pam.d/systemd-user
+EOF
+}

@@ -1,0 +1,19 @@
+# description	: For extracting and viewing files in .zip archives
+# depends	: bash bzip2
+
+name=unzip
+version=6.0
+release=1
+
+source="https://downloads.sourceforge.net/infozip/${name}${version/./}.tar.gz
+	http://www.linuxfromscratch.org/patches/blfs/svn/${name}-${version}-consolidated_fixes-1.patch"
+
+build() {
+	cd $name${version/./}
+
+	patch -Np1 -i ../${name}-${version}-consolidated_fixes-1.patch
+
+	make -f unix/Makefile generic
+
+	make prefix=$PKG/usr MANDIR=$PKG/usr/share/man/man1 -f unix/Makefile install
+}

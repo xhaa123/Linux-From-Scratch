@@ -1,0 +1,36 @@
+# description	: A C library that implements an SQL database engine (32-bit)
+# depends	: sqlite
+
+name=sqlite-32
+version=3.35.3
+_maj=${version%%.*}
+_mid=${version#*.}
+_mid=${_mid%%.*}
+_min=${version##*.}
+_version=${_maj}${_mid}0${_min}00
+release=1
+
+source="https://sqlite.org/2021/sqlite-autoconf-$_version.tar.gz"
+
+build() {
+	cd sqlite-autoconf-$_version
+
+	CC="gcc -m32" CXX="g++ -m32"  \
+	./configure --prefix=/usr     \
+		    --disable-static  \
+		    --enable-fts5     \
+		    --libdir=/usr/lib32               \
+		    CPPFLAGS="-DSQLITE_ENABLE_FTS3=1  \
+		    -DSQLITE_ENABLE_FTS4=1            \
+		    -DSQLITE_ENABLE_COLUMN_METADATA=1 \
+		    -DSQLITE_ENABLE_UNLOCK_NOTIFY=1   \
+		    -DSQLITE_ENABLE_DBSTAT_VTAB=1     \
+		    -DSQLITE_SECURE_DELETE=1          \
+		    -DSQLITE_ENABLE_FTS3_TOKENIZER=1"
+
+	make
+
+	make DESTDIR=$PWD/DESTDIR install
+	mkdir -pv $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

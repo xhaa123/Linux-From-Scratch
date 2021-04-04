@@ -1,0 +1,31 @@
+# description	: Linux kernel module management tools and library
+# depends	: xz zlib zstd
+
+name=kmod
+version=28
+release=1
+
+source="https://www.kernel.org/pub/linux/utils/kernel/$name/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr          \
+	            --bindir=/bin          \
+	            --sysconfdir=/etc      \
+	            --with-rootlibdir=/lib \
+	            --with-xz              \
+	            --with-zstd            \
+	            --with-zlib
+
+	make
+
+	make DESTDIR=$PKG install
+
+	mkdir -pv $PKG/sbin
+	for target in depmod insmod lsmod modinfo modprobe rmmod; do
+		ln -sfv ../bin/kmod $PKG/sbin/$target
+	done
+
+	ln -sfv kmod $PKG/bin/lsmod
+}

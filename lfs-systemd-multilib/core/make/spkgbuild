@@ -1,0 +1,18 @@
+# description	: GNU make utility to maintain groups of programs
+# depends	: glibc
+
+name=make
+version=4.3
+release=1
+
+source="https://ftp.gnu.org/gnu/$name/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr
+
+	make
+
+	make DESTDIR=$PKG install
+}

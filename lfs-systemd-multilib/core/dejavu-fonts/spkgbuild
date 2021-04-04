@@ -1,0 +1,18 @@
+# description	: Font family based on the Bitstream Vera Fonts with a wider range of characters
+# depends	: perl-font-ttf fontforge
+
+name=dejavu-fonts
+version=2.37
+release=1
+
+source="https://github.com/dejavu-fonts/dejavu-fonts/releases/download/version_${version/./_}/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+	make  full-ttf 
+	    
+	install -v -d -m755 $PKG/usr/share/fonts/d
+	install -v -m644 build/*.ttf $PKG/usr/shar
+	fc-cache -v $PKG/usr/share/fonts/dejavu
+}

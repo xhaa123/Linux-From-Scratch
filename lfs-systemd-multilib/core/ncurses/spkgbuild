@@ -1,0 +1,55 @@
+# description	: System V Release 4.0 curses emulation library
+# depends	: gcc
+
+name=ncurses
+version=6.2
+release=1
+
+source="https://ftp.gnu.org/gnu//$name/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr           \
+	            --mandir=/usr/share/man \
+	            --with-shared           \
+	            --without-debug         \
+	            --without-normal        \
+	            --enable-pc-files       \
+	            --enable-widec
+
+	make
+
+	make DESTDIR=$PKG install
+
+	mkdir -p $PKG/lib
+	mv -v $PKG/usr/lib/libncursesw.so.6* $PKG/lib
+
+	ln -sfv ../../lib/$(readlink $PKG/usr/lib/libncursesw.so) $PKG/usr/lib/libncursesw.so
+
+	mkdir -pv $PKG/usr/lib/pkgconfig
+	for lib in ncurses form panel menu ; do
+		rm -vf                    $PKG/usr/lib/lib${lib}.so
+		echo "INPUT(-l${lib}w)" > $PKG/usr/lib/lib${lib}.so
+		ln -sfv ${lib}w.pc        $PKG/usr/lib/pkgconfig/${lib}.pc
+	done
+
+	rm -vf                     $PKG/usr/lib/libcursesw.so
+	echo "INPUT(-lncursesw)" > $PKG/usr/lib/libcursesw.so
+	ln -sfv libncurses.so      $PKG/usr/lib/libcurses.so
+
+	rm -fv $PKGPKG/usr/lib/libncurses++w.a
+	
+	mkdir -pv       $PKG/usr/share/doc/$name-$version
+	cp -v -R doc/* $PKG/usr/share/doc/$name-$version
+
+	make distclean
+	./configure --prefix=/usr         \
+	            --with-shared         \
+	            --without-normal      \
+	            --without-debug       \
+	            --without-cxx-binding \
+	            --with-abi-version=5 
+	make sources libs
+	cp -av lib/lib*.so.5* $PKG/usr/lib
+}

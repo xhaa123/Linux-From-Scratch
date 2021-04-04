@@ -1,0 +1,18 @@
+# description	: An arbitrary precision numeric processing language
+# depends	: readline
+
+name=bc
+version=3.3.4
+release=1
+
+source="https://github.com/gavinhoward/bc/releases/download/$version/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	CC=gcc ./configure --prefix=/usr -G -O3
+
+	make
+
+	make DESTDIR=$PKG install
+}

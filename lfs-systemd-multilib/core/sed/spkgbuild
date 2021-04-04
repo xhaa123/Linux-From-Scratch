@@ -1,0 +1,22 @@
+# description	: GNU stream editor
+# depends	: glibc acl attr
+
+name=sed
+version=4.8
+release=1
+
+source="https://ftp.gnu.org/gnu/$name/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr --bindir=/bin
+
+	make
+	make html
+
+	make DESTDIR=$PKG install
+
+	install -d -m755           $PKG/usr/share/doc/$name-$version
+	install -m644 doc/sed.html $PKG/usr/share/doc/$name-$version
+}

@@ -1,0 +1,25 @@
+# description	: A portable, high level programming interface to various calling conventions (32-bit)
+# depends	: libffi
+
+name=libffi-32
+version=3.3
+release=1
+
+source="https://sourceware.org/pub/libffi/libffi-$version.tar.gz"
+
+build() {
+	cd libffi-$version
+
+	CC="gcc -m32" CXX="g++ -m32" ./configure \
+	    --prefix=/usr            \
+	    --disable-static         \
+	    --libdir=/usr/lib32     \
+	    --with-gcc-arch=i686     \
+	    --host=i686-pc-linux-gnu
+
+	make
+
+	make DESTDIR=$PWD/DESTDIR install
+	mkdir -pv $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

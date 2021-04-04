@@ -1,0 +1,18 @@
+# description	: Linux user-space application to modify the EFI Boot Manager
+# depends	: glibc popt efivar
+
+name=efibootmgr
+version=17
+release=1
+
+source="https://github.com/rhboot/efibootmgr/archive/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	sed -e '/extern int efi_set_verbose/d' -i src/efibootmgr.c
+
+	make libdir=/usr/lib sbindir=/usr/bin EFIDIR=future
+
+	make DESTDIR=$PKG libdir=/usr/lib sbindir=/usr/bin EFIDIR=future install
+}

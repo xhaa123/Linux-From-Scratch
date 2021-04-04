@@ -1,0 +1,21 @@
+# description	: Command line editor library providing generic line editing, history, and tokenization functions
+# depends	: glibc ncurses
+
+name=libedit
+version=20210216_3.1
+release=1
+
+source="http://thrysoee.dk/editline/$name-${version/_/-}.tar.gz"
+
+build() {
+	cd $name-${version/_/-}
+
+	./configure --prefix=/usr
+
+	make
+
+	make DESTDIR=$PKG install
+
+	rm -v $PKG/usr/share/man/man3/history.3 # conflicts with readline
+	install -Dm 644 $PKG/usr/share/man/man3/editline.3 $PKG/usr/share/man/man3/el.3
+}

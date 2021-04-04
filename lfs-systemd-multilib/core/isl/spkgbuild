@@ -1,0 +1,25 @@
+# description	: Library for manipulating sets and relations of integer points bounded by linear constraints
+# depends	: gmp
+
+name=isl
+version=0.23
+release=1
+
+source="http://isl.gforge.inria.fr/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr    \
+	            --disable-static \
+	            --docdir=/usr/share/doc/$name-$version
+	make
+	make DESTDIR=$PKG install
+
+	install -vd $PKG/usr/share/doc/$name-$version
+	install -m644 doc/{CodingStyle,manual.pdf,SubmittingPatches,user.pod} \
+	        $PKG/usr/share/doc/$name-$version
+
+	mkdir -pv $PKG/usr/share/gdb/auto-load/usr/lib
+	mv -v $PKG/usr/lib/libisl*gdb.py $PKG/usr/share/gdb/auto-load/usr/lib
+}

@@ -1,0 +1,23 @@
+# description	: Utility for determining the type of a given file or files (32bit)
+# depends	: file
+
+name=file-32
+version=5.39
+release=1
+
+source="ftp://ftp.astron.com/pub/file/file-$version.tar.gz"
+
+build() {
+	cd file-$version
+
+	CC="gcc -m32" ./configure \
+	    --prefix=/usr         \
+	    --libdir=/usr/lib32   \
+	    --host=i686-pc-linux-gnu
+	
+	make
+
+	make DESTDIR=$PWD/DESTDIR install
+	mkdir -pv $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

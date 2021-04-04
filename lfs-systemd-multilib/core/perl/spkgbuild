@@ -1,0 +1,36 @@
+# description	: A highly capable, feature-rich programming language
+# depends	: gdbm
+
+name=perl
+version=5.32.1
+release=1
+
+source="https://www.cpan.org/src/5.0/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	export BUILD_ZLIB=False
+	export BUILD_BZIP2=0
+
+	sh Configure -des                                                  \
+	             -Dprefix=/usr                                         \
+	             -Dvendorprefix=/usr                                   \
+	             -Dprivlib=/usr/lib/perl5/${version%.*}/core_perl      \
+	             -Darchlib=/usr/lib/perl5/${version%.*}/core_perl      \
+	             -Dsitelib=/usr/lib/perl5/${version%.*}/site_perl      \
+	             -Dsitearch=/usr/lib/perl5/${version%.*}/site_perl     \
+	             -Dvendorlib=/usr/lib/perl5/${version%.*}/vendor_perl  \
+	             -Dvendorarch=/usr/lib/perl5/${version%.*}/vendor_perl \
+	             -Dman1dir=/usr/share/man/man1                         \
+	             -Dman3dir=/usr/share/man/man3                         \
+	             -Dpager="/usr/bin/less -isR"                          \
+	             -Duseshrplib                                          \
+	             -Dusethreads
+
+	make
+
+	make DESTDIR=$PKG install
+
+	unset BUILD_ZLIB BUILD_BZIP2
+}

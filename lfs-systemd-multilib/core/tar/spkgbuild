@@ -1,0 +1,22 @@
+# description	: Utility used to store, backup, and transport files
+# depends	: glibc acl attr
+
+name=tar
+version=1.34
+release=1
+
+source="https://ftp.gnu.org/gnu/$name/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	FORCE_UNSAFE_CONFIGURE=1  \
+	./configure --prefix=/usr \
+	            --bindir=/bin
+
+	make
+
+	make DESTDIR=$PKG install
+
+	make -C doc DESTDIR=$PKG install-html docdir=/usr/share/doc/$name-$version
+}

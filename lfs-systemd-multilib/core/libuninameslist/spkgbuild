@@ -1,0 +1,18 @@
+# description	: Large, sparse array mapping each unicode code point to the annotation data for it
+# depends	: 
+
+name=libuninameslist
+version=20200413
+release=1
+
+source="https://github.com/fontforge/libuninameslist/releases/download/$version/$name-dist-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr --disable-static
+
+	make
+
+	make DESTDIR=$PKG install
+}

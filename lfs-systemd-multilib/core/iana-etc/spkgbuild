@@ -1,0 +1,17 @@
+# description	: Provides data for network services and protocols
+# homepage	: 
+# depends	: 
+
+name=iana-etc
+version=20210304
+release=1
+
+source="https://github.com/Mic92/iana-etc/releases/download/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	install -d -m 755 $PKG/etc
+	install -m 644 services $PKG/etc
+	install -m 644 protocols $PKG/etc
+}

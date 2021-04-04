@@ -1,0 +1,22 @@
+# description	: Multiple-precision floating-point library
+# depends	: gmp
+
+name=mpfr
+version=4.1.0
+release=1
+
+source="https://www.mpfr.org/$name-$version/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr        \
+	            --disable-static     \
+	            --enable-thread-safe \
+	            --docdir=/usr/share/doc/$name$version
+	make
+	make html
+
+	make DESTDIR=$PKG install
+	make DESTDIR=$PKG install-html
+}

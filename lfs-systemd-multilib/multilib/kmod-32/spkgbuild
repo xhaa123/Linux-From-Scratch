@@ -1,0 +1,28 @@
+# description	: Linux kernel module handling
+# depends	: xz-32 zlib-32 kmod
+
+name=kmod-32
+version=28
+release=1
+
+source="https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-$version.tar.xz"
+
+build() {
+	cd kmod-$version
+
+	CC="gcc -m32" ./configure \
+	    --prefix=/usr                 \
+	    --bindir=/bin                 \
+	    --libdir=/usr/lib32          \
+	    --sysconfdir=/etc             \
+	    --with-xz                     \
+	    --with-zlib                   \
+	    --host=i686-pc-linux-gnu      \
+	    --with-rootlibdir=/usr/lib32
+
+	make
+
+	make DESTDIR=$PWD/DESTDIR install
+	mkdir -pv $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

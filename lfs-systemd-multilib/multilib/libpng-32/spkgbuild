@@ -1,0 +1,24 @@
+# description	: A collection of routines used to create PNG format graphics files (32-bit)
+# depends	: zlib-32 libpng
+
+name=libpng-32
+version=1.6.37
+release=1
+
+source="https://downloads.sourceforge.net/libpng/libpng-$version.tar.xz"
+
+build() {
+	cd libpng-$version
+
+	CC="gcc -m32" ./configure \
+	    --prefix=/usr         \
+	    --libdir=/usr/lib32   \
+	    --program-suffix=-32  \
+	    --host=i686-pc-linux-gnu
+
+	make
+
+	make DESTDIR=$PWD/DESTDIR install
+	mkdir -pv $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

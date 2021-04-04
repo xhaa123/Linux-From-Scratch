@@ -1,0 +1,34 @@
+# package install script
+
+action=$1
+newversion=$2
+oldversion=$3
+
+post_install() {
+	mv -v /etc/pam.d/system-auth{,.bak}
+	cat > /etc/pam.d/system-auth << "EOF"
+# Begin /etc/pam.d/system-auth
+
+auth      optional    pam_cap.so
+EOF
+	tail -n +3 /etc/pam.d/system-auth.bak >> /etc/pam.d/system-auth
+}
+
+post_remove() {
+	cat > /etc/pam.d/system-auth "EOF"
+# Begin /etc/pam.d/system-auth
+
+auth      required    pam_unix.so
+
+# End /etc/pam.d/system-auth
+EOF
+}
+
+case $action in
+	post-install)
+		post_install $newversion
+	;;
+	post-remove)
+		post_remove $newversion
+	;;
+esac

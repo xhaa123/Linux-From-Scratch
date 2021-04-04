@@ -1,0 +1,28 @@
+# description	: Utilities for monitoring your system and its processes
+# depends	: glibc ncurses systemd
+
+name=procps-ng
+version=3.3.17
+release=1
+
+source="https://sourceforge.net/projects/procps-ng/files/Production/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr                            \
+	            --exec-prefix=                           \
+	            --libdir=/usr/lib                        \
+	            --docdir=/usr/share/doc/$name-$version   \
+	            --disable-static                         \
+	            --disable-kill                           \
+	            --with-systemd
+
+	make
+
+	make DESTDIR=$PKG install
+
+	mkdir -pv $PKG/lib
+	mv -v $PKG/usr/lib/libprocps.so.* $PKG/lib
+	ln -sfv ../../lib/$(readlink $PKG/usr/lib/libprocps.so) $PKG/usr/lib/libprocps.so
+}

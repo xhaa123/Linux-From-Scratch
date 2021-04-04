@@ -1,0 +1,26 @@
+# description	: The GNU Bourne Again shell
+# depends	: ncurses readline glibc
+
+name=bash
+version=5.1
+release=1
+
+source="https://ftp.gnu.org/gnu/$name/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	sed -i  '/^bashline.o:.*shmbchar.h/a bashline.o: ${DEFDIR}/builtext.h' Makefile.in
+
+	./configure --prefix=/usr                          \
+	            --docdir=/usr/share/doc/$name-$basever \
+	            --without-bash-malloc                  \
+	            --with-installed-readline
+	
+	make
+	
+	make DESTDIR=$PKG install
+
+	mkdir -p $PKG/bin
+	mv $PKG/usr/bin/bash $PKG/bin
+}

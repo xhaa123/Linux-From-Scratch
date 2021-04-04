@@ -1,0 +1,38 @@
+# description	: GObject-based multi-platform GUI toolkit
+# depends	: at-spi2-atk gdk-pixbuf libepoxy pango adwaita-icon-theme hicolor-icon-theme 
+# depedns       : iso-codes libxkbcommon sassc wayland-protocols
+
+name=gtk3
+version=3.24.27
+release=1
+
+source="https://download.gnome.org/sources/gtk+/${version::4}/gtk+-$version.tar.xz"
+
+build() {
+	cd gtk+-$version
+
+	./configure --prefix=/usr              \
+	            --sysconfdir=/etc          \
+	            --enable-broadway-backend  \
+	            --enable-x11-backend       \
+	            --enable-wayland-backend
+
+	make
+	
+	make DESTDIR=$PKG install
+	
+	mkdir -vp $PKG/etc/gtk-3.0
+	cat > $PKG/etc/gtk-3.0/settings.ini << "EOF"
+[Settings]
+gtk-theme-name = Adwaita
+gtk-icon-theme-name = oxygen
+gtk-font-name = DejaVu Sans 12
+gtk-cursor-theme-size = 18
+gtk-toolbar-style = GTK_TOOLBAR_BOTH_HORIZ
+gtk-xft-antialias = 1
+gtk-xft-hinting = 1
+gtk-xft-hintstyle = hintslight
+gtk-xft-rgba = rgb
+gtk-cursor-theme-name = Adwaita
+EOF
+}

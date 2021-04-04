@@ -1,0 +1,23 @@
+# description	: An XML Parser library
+# depends	: expat
+
+name=expat-32
+version=2.3.0
+release=1
+
+source="https://sourceforge.net/projects/expat/files/expat/$version/expat-$version.tar.xz"
+
+build() {
+	cd expat-$version
+
+	CC="gcc -m32" ./configure \
+	    --prefix=/usr         \
+	    --libdir=/usr/lib32  \
+	    --host=i686-pc-linux-gnu
+
+	make
+
+	make DESTDIR=$PWD/DESTDIR install
+	mkdir -pv $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

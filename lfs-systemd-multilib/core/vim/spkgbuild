@@ -1,0 +1,48 @@
+# description	: Vi Improved, a highly configurable, improved version of the vi text editor
+# depends	: gpm acl glibc pcre zlib libffi
+
+name=vim
+version=8.2.2681
+release=1
+
+source="https://github.com/vim/vim/archive/v$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	echo '#define SYS_VIMRC_FILE "/etc/vimrc"' >> src/feature.h
+
+	./configure --prefix=/usr
+
+	make
+
+	make DESTDIR=$PKG install
+
+	mkdir -pv $PKG/usr/bin
+	ln -sv vim $PKG/usr/bin/vi
+	for L in  $PKG/usr/share/man/{,*/}man1/vim.1; do
+		ln -sv vim.1 $(dirname $L)/vi.1
+	done
+
+	mkdir -pv $PKG/usr/share/doc 
+	ln -sv ../vim/vim82/doc $PKG/usr/share/doc/$name-$version
+
+	mkdir -pv $PKG/etc
+	cat > $PKG/etc/vimrc << "EOF"
+" Begin /etc/vimrc
+
+" Ensure defaults are set before customizing settings, not after
+source $VIMRUNTIME/defaults.vim
+let skip_defaults_vim=1 
+
+set nocompatible
+set backspace=2
+set mouse=
+syntax on
+if (&term == "xterm") || (&term == "putty")
+  set background=dark
+endif
+
+" End /etc/vimrc
+EOF
+}

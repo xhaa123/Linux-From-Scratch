@@ -1,0 +1,22 @@
+# description	: A tool for automating interactive applications
+# depends	: tcl
+
+name=expect
+version=5.45.4
+release=1
+
+source="https://prdownloads.sourceforge.net/$name/$name$version.tar.gz"
+
+build() {
+	cd $name$version
+
+	./configure --prefix=/usr           \
+	            --with-tcl=/usr/lib     \
+	            --enable-shared         \
+	            --mandir=/usr/share/man \
+	            --with-tclinclude=/usr/include
+	make
+	make DESTDIR=$PKG install
+
+	ln -svf $name$version/lib$name$version.so $PKG/usr/lib
+}

@@ -1,0 +1,23 @@
+# description	: GNU version of awk
+# depends	: glibc mpfr
+
+name=gawk
+version=5.1.0
+release=1
+
+source="https://ftp.gnu.org/gnu/$name/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	sed -i 's/extras//' Makefile.in
+
+	./configure --prefix=/usr
+
+	make
+
+	make DESTDIR=$PKG install
+
+	mkdir -pv $PKG/usr/share/doc/$name-$version
+	cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} $PKG/usr/share/doc/$name-$version
+}

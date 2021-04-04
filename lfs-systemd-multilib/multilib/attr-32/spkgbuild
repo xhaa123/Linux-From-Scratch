@@ -1,0 +1,24 @@
+# description	: Extended attribute support library for ACL support (32-bit)
+# depends	: attr
+
+name=attr-32
+version=2.5.1
+release=1
+
+source="https://download.savannah.gnu.org/releases/attr/attr-$version.tar.gz"
+
+build() {
+	cd attr-$version
+
+	CC="gcc -m32" ./configure \
+	    --prefix=/usr         \
+	    --disable-static      \
+	    --libdir=/usr/lib32 \
+	    --host=i686-pc-linux-gnu
+	
+	make
+
+	make DESTDIR=$PWD/DESTDIR install
+	mkdir -p $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

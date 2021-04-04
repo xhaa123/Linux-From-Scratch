@@ -1,0 +1,24 @@
+# description	: XML parsing library, version 2 (32-bit)
+# depends	: zlib-32 readline-32 ncurses-32 xz-32 icu-32 libxml2
+
+name=libxml2-32
+version=2.9.10
+release=1
+
+source="http://xmlsoft.org/sources/libxml2-$version.tar.gz"
+
+build() {
+	cd libxml2-$version
+
+	CC="gcc -m32" ./configure \
+	    --prefix=/usr         \
+	    --libdir=/usr/lib32   \
+	    --with-threads        \
+	    --with-history        \
+	    --with-icu            \
+	    --host=i686-pc-linux-gnu
+    
+	make DESTDIR=$PWD/DESTDIR install
+	mkdir -pv $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

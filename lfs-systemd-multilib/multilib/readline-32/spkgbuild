@@ -1,0 +1,23 @@
+# description	: GNU readline library (32-bit)
+# depends	: readline
+
+name=readline-32
+version=8.1
+release=1
+
+source="https://ftp.gnu.org/gnu/readline/readline-$version.tar.gz"
+
+build() {
+	cd readline-$version
+
+	CC="gcc -m32" ./configure \
+	    --prefix=/usr                     \
+	    --libdir=/usr/lib32               \
+	    --disable-static                  \
+	    --host=i686-pc-linux-gnu
+	make
+
+	make DESTDIR=$PWD/DESTDIR install
+	mkdir -p $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

@@ -1,0 +1,20 @@
+# description	: POSIX 1003.1e capabilities (32-bit)
+# depends	: libcap
+
+name=libcap-32
+version=2.49
+release=1
+
+source="https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-$version.tar.xz"
+
+build() {
+	cd libcap-$version
+
+	make CC="gcc -m32 -march=i686"
+
+	make lib=lib32 prefix=$PWD/DESTDIR/usr -C libcap install
+	mkdir -pv $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+	sed -e "s|^libdir=.*|libdir=/usr/lib32|" -i $PKG/usr/lib32/pkgconfig/lib{cap,psx}.pc
+	chmod -v 755 $PKG/usr/lib32/libcap.so.${version}
+}

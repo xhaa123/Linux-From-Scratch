@@ -1,0 +1,18 @@
+# description	: A terminal based program for viewing text files
+# depends	: glibc ncurses pcre
+
+name=less
+version=563
+release=1
+
+source="https://www.greenwoodsoftware.com/$name/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+
+	make DESTDIR=$PKG install
+}

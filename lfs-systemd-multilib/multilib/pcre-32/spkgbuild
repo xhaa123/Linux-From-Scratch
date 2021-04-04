@@ -1,0 +1,33 @@
+# description	: A library that implements Perl 5-style regular expressions (32-bit)
+# depends	: pcre
+
+name=pcre-32
+version=8.44
+release=1
+
+source="https://ftp.pcre.org/pub/pcre/pcre-$version.tar.bz2"
+
+build() {
+	cd pcre-$version
+
+	export CC="gcc -m32"
+	export CXX="g++ -m32"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+	./configure                           \
+	    --prefix=/usr                     \
+	    --libdir=/usr/lib32               \
+	    --enable-unicode-properties       \
+	    --enable-pcre16                   \
+	    --enable-pcre32                   \
+	    --enable-pcregrep-libz            \
+	    --enable-pcregrep-libbz2          \
+	    --enable-pcretest-libreadline     \
+	    --disable-static
+
+	make
+
+	make DESTDIR=$PWD/DESTDIR install
+	mkdir -p $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

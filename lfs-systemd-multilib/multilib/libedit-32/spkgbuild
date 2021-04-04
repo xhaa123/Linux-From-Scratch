@@ -1,0 +1,23 @@
+# description	: Command line editor library providing generic line editing, history, and tokenization functions (32-bit)
+# depends	: glibc-32 ncurses-32 libedit 
+
+name=libedit-32
+version=20210216_3.1
+release=1
+
+source="http://thrysoee.dk/editline/libedit-${version/_/-}.tar.gz"
+
+build() {
+	cd libedit-${version/_/-}
+
+	CC="gcc -m32" ./configure \
+	    --prefix=/usr         \
+	    --libdir=/usr/lib32   \
+	    --host=i686-pc-linux-gnu
+
+	make
+
+	make DESTDIR=$PWD/DESTDIR install
+	mkdir -pv $PKG/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* $PKG/usr/lib32
+}

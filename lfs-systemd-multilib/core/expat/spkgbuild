@@ -1,0 +1,22 @@
+# description	: An XML parser library
+# depends	: 
+
+name=expat
+version=2.3.0
+release=1
+
+source="https://sourceforge.net/projects/expat/files/expat/$version/expat-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr    \
+	            --disable-static \
+	            --docdir=/usr/share/doc/$name-$version
+
+	make
+
+	make DESTDIR=$PKG install
+
+	install -v -m644 doc/*.{html,png,css} $PKG/usr/share/doc/$name-$version
+}
