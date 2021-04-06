@@ -1,0 +1,16 @@
+# description	: Python package for providing Mozilla's CA Bundle
+# depends	: 
+
+name=python-certifi
+version=2020.12.05
+release=1
+
+source="https://github.com/certifi/$name/archive/v$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	python3 setup.py build
+
+	python3 setup.py install --optimize=1 --root=$PKG
+}
