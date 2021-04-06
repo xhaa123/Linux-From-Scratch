@@ -1,0 +1,17 @@
+# description	: Sphinx extension which outputs Devhelp document
+# depends	: 
+
+name=python-sphinxcontrib-devhelp
+version=1.0.2
+release=1
+
+source="https://github.com/sphinx-doc/sphinxcontrib-devhelp/archive/$version/${name#*-}-$version.tar.gz"
+
+build() {
+	cd ${name#*-}-$version
+
+	python3 setup.py build
+
+	python3 setup.py install --root=$PKG --optimize=1
+}
+

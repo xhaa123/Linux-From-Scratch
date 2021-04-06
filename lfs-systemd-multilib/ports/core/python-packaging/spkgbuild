@@ -1,0 +1,16 @@
+# description	: Core utilities for Python packages
+# depends	: python-pyparsing python-six
+
+name=python-packaging
+version=20.9
+release=1
+
+source="https://github.com/pypa/packaging/archive/$version/${name#python-}-$version.tar.gz"
+
+build() {
+	cd ${name#python-}-$version
+
+	python3 setup.py build
+
+	python3 setup.py install --optimize=1 --root=$PKG
+}

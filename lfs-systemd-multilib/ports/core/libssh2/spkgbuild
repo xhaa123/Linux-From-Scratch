@@ -1,0 +1,21 @@
+# description	: A library implementing the SSH2 protocol as defined by Internet Drafts
+# depends	: openssl zlib
+
+name=libssh2
+version=1.9.0
+release=1
+
+source="https://www.libssh2.org/download/$name-$version.tar.gz
+	https://lfs-hk.koddos.net/patches/downloads/$name/$name-$version-security_fixes-1.patch"
+
+build() {
+	cd $name-$version
+
+	patch -Np1 -i ../$name-$version-security_fixes-1.patch
+
+	./configure --prefix=/usr --disable-static
+
+	make
+
+	make DESTDIR=$PKG install
+}

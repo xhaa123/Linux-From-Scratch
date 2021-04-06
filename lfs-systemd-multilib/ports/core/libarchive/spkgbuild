@@ -1,0 +1,18 @@
+# description	: Multi-format archive and compression library
+# depends	: acl bzip2 expat lz4 openssl xz zlib zstd
+
+name=libarchive
+version=3.5.1
+release=1
+
+source="https://github.com/libarchive/libarchive/releases/download/$version/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr --disable-static --without-xml2 --without-nettle
+
+	make
+
+	make DESTDIR=$PKG install
+}

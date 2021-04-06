@@ -1,0 +1,59 @@
+# description	: Low Level Virtual Machine, collection of modular and reusable compiler and toolchain.
+# depends	: cmake libxml2 python-pygments python-sphinx python-recommonmark python-pyyaml
+
+name=llvm
+version=11.1.0
+release=1
+
+noextract="clang-$version.src.tar.xz compiler-rt-$version.src.tar.xz"
+
+source="https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/llvm-$version.src.tar.xz
+	https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/clang-$version.src.tar.xz
+	https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/compiler-rt-$version.src.tar.xz"
+
+build() {
+	cd $name-$version.src
+
+	tar -xf ../clang-$version.src.tar.xz -C tools
+	mv tools/clang-$version.src tools/clang
+
+	tar -xf ../compiler-rt-$version.src.tar.xz -C projects
+	mv projects/compiler-rt-$version.src projects/compiler-rt
+
+	grep -rl '#!.*python' | xargs sed -i '1s/python$/python3/'
+
+	mkdir -v build
+	cd       build
+
+	CC=gcc CXX=g++                                  \
+	cmake -DCMAKE_INSTALL_PREFIX=/usr               \
+	      -DLLVM_ENABLE_FFI=ON                      \
+	      -DCMAKE_BUILD_TYPE=Release                \
+	      -DLLVM_BUILD_LLVM_DYLIB=ON                \
+	      -DLLVM_LINK_LLVM_DYLIB=ON                 \
+	      -DLLVM_ENABLE_RTTI=ON                     \
+	      -DLLVM_TARGETS_TO_BUILD="host;AMDGPU;BPF" \
+	      -DLLVM_BUILD_TESTS=ON                     \
+	      -DLLVM_BINUTILS_INCDIR=/usr/include       \
+	      -Wno-dev -G Ninja ..
+	ninja
+
+	cmake -DLLVM_BUILD_DOCS=ON            \
+	      -DLLVM_ENABLE_SPHINX=ON         \
+	      -DSPHINX_WARNINGS_AS_ERRORS=OFF \
+	      -Wno-dev -G Ninja ..
+	ninja docs-llvm-html  docs-llvm-man
+
+	ninja docs-clang-html docs-clang-man
+
+	DESTDIR=$PKG ninja install
+
+	mkdir -pv $PKG/usr/share/man/man1
+	install -v -m644 docs/man/* $PKG/usr/share/man/man1
+	install -v -d -m755 $PKG/usr/share/doc/llvm-$version/llvm-html
+	cp -Rv docs/html/* $PKG/usr/share/doc/llvm-$version/llvm-html
+
+	install -v -m644 tools/clang/docs/man/* $PKG/usr/share/man/man1
+	install -v -d -m755 $PKG/usr/share/doc/llvm-$version/clang-html
+	cp -Rv tools/clang/docs/html/* $PKG/usr/share/doc/llvm-$version/clang-html
+}

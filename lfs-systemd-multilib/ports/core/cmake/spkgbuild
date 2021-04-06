@@ -1,0 +1,26 @@
+# description	: A cross-platform open-source make system
+# depends	: libuv curl libarchive nghttp2
+
+name=cmake
+version=3.20.0
+release=1
+
+source="https://cmake.org/files/v${version%.*}/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	sed -i '/"lib64"/s/64//' Modules/GNUInstallDirs.cmake
+
+	./bootstrap --prefix=/usr        \
+	            --system-libs        \
+	            --mandir=/share/man  \
+	            --no-system-jsoncpp  \
+	            --no-system-librhash \
+	            --parallel=$(nproc)  \
+	            --docdir=/share/doc/$name-$version
+
+	make
+
+	make DESTDIR=$PKG install
+}

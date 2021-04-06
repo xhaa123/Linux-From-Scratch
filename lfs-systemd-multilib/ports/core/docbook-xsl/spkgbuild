@@ -1,0 +1,37 @@
+# description	: XML stylesheets for Docbook-xml transformations
+# depends	: libxml2 docbook-xml
+
+name=docbook-xsl
+version=1.79.2
+release=1
+
+noextract="$name-doc-$version.tar.bz2"
+
+source="https://github.com/docbook/xslt10-stylesheets/releases/download/release/$version/$name-nons-$version.tar.bz2
+	http://www.linuxfromscratch.org/patches/blfs/svn/$name-nons-$version-stack_fix-1.patch
+	https://github.com/docbook/xslt10-stylesheets/releases/download/release/$version/$name-doc-$version.tar.bz2"
+
+build() {
+	cd $name-nons-$version
+
+	patch -Np1 -i ../$name-nons-$version-stack_fix-1.patch
+
+	tar -xf ../$name-doc-$version.tar.bz2 --strip-components=1
+
+	install -v -m755 -d $PKG/usr/share/xml/docbook/xsl-stylesheets-nons-$version
+
+	cp -v -R VERSION assembly common eclipse epub epub3 extensions fo        \
+	         highlighting html htmlhelp images javahelp lib manpages params  \
+	         profiling roundtrip slides template tests tools webhelp website \
+	         xhtml xhtml-1_1 xhtml5                                          \
+	    $PKG/usr/share/xml/docbook/xsl-stylesheets-nons-$version
+
+	ln -s VERSION $PKG/usr/share/xml/docbook/xsl-stylesheets-nons-$version/VERSION.xsl
+
+	install -v -m644 -D README \
+	                    $PKG/usr/share/doc/$name-nons-$version/README.txt
+	install -v -m644    RELEASE-NOTES* NEWS* \
+	                    $PKG/usr/share/doc/$name-nons-$version
+                    
+	cp -v -R doc/* $PKG/usr/share/doc/$name-nons-$version
+}

@@ -1,0 +1,19 @@
+# description	: YAML 1.1 library
+# depends	: 
+
+name=libyaml
+version=0.2.4
+release=1
+
+source="https://github.com/yaml/libyaml/archive/$version/$name-dist-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./bootstrap
+	./configure --prefix=/usr --disable-static
+
+	make
+
+	make DESTDIR=$PKG install
+}

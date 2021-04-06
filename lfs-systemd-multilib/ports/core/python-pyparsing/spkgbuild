@@ -1,0 +1,16 @@
+# description	: General parsing module for Python
+# depends	: 
+
+name=python-pyparsing
+version=2.4.7
+release=1
+
+source="https://github.com/pyparsing/pyparsing/releases/download/${name#*-}_${version}/${name#*-}-$version.tar.gz"
+
+build() {
+	cd ${name#python-}-${version}
+
+	python3 setup.py build
+
+	python3 setup.py install --optimize=1 --root=$PKG
+}

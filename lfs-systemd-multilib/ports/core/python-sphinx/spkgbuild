@@ -1,0 +1,20 @@
+# description	: Python documentation generator
+# depends	: python-babel python-docutils python-imagesize python-jinja python-pygments 
+# depends	: python-requests python-snowballstemmer python-sphinx-alabaster-theme
+# depends	: python-sphinxcontrib-applehelp python-sphinxcontrib-devhelp 
+# depends	: python-sphinxcontrib-htmlhelp python-sphinxcontrib-jsmath
+# depends	: python-sphinxcontrib-qthelp python-sphinxcontrib-serializinghtml
+
+name=python-sphinx
+version=3.5.2
+release=1
+
+source="https://github.com/sphinx-doc/sphinx/archive/v$version/${name#python-}-$version.tar.gz"
+
+build() {
+	cd ${name#python-}-$version
+
+	python3 setup.py build
+	
+	python3 setup.py install --optimize=1 --root=$PKG
+}

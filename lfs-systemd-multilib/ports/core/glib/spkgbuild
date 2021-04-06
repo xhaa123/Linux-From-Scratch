@@ -1,0 +1,29 @@
+# description	: Low level core library
+# depends	: libffi elfutils meson gettext libxslt pcre
+
+name=glib
+version=2.66.8
+release=1
+
+source="https://download.gnome.org/sources/$name/${version%.*}/$name-$version.tar.xz
+	https://lfs-hk.koddos.net/patches/downloads/$name/$name-$version-skip_warnings-1.patch"
+
+build() {
+	cd $name-$version
+
+	patch -Np1 -i ../$name-$version-skip_warnings-1.patch
+
+	mkdir build 
+	cd    build
+
+	meson --prefix=/usr      \
+	      -Dman=true         \
+	      -Dselinux=disabled \
+	      .. 
+	ninja
+
+	DESTDIR=$PKG ninja install
+
+	mkdir -pv /usr/share/doc/$name-$version
+	cp -r ../docs/reference/{NEWS,gio,glib,gobject} /usr/share/doc/$name-$version
+}

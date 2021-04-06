@@ -1,0 +1,30 @@
+# description	: An URL retrieval utility and library
+# depends	: ca-certificates openssl zlib zstd libidn2 nghttp2 libpsl
+
+name=curl
+version=7.76.0
+release=1
+
+source="https://curl.haxx.se/download/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	grep -rl '#!.*python$' | xargs sed -i '1s/python/&3/'
+
+	./configure --prefix=/usr                           \
+	            --disable-static                        \
+	            --enable-threaded-resolver              \
+	            --with-ca-path=/etc/ssl/certs
+
+	make
+
+	make DESTDIR=$PKG install
+
+	rm -rf docs/examples/.deps
+
+	find docs \( -name Makefile\* -o -name \*.1 -o -name \*.3 \) -exec rm {} \;
+
+	install -v -d -m755 $PKG/usr/share/doc/$name-$version
+	cp -v -R docs/*     $PKG/usr/share/doc/$name-$version
+}

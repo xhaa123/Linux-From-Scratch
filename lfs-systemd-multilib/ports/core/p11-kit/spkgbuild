@@ -1,0 +1,37 @@
+# description	: Loads and enumerates PKCS#11 modules
+# depends	: coreutils libtasn1 libxslt nss
+
+name=p11-kit
+version=0.23.22
+release=1
+
+source="https://github.com/p11-glue/p11-kit/releases/download/$version/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	sed '20,$ d' -i trust/trust-extract-compat
+	cat >> trust/trust-extract-compat << "EOF"
+# Copy existing anchor modifications to /etc/ssl/local
+/usr/libexec/make-ca/copy-trust-modifications
+
+# Generate a new trust store
+/usr/sbin/make-ca -f -g
+EOF
+
+	./configure --prefix=/usr            \
+	            --sysconfdir=/etc        \
+	            --with-hash-impl=freebl  \
+	            --with-trust-paths=/etc/pki/anchors
+
+	make
+
+	make DESTDIR=$PKG install
+
+	mkdir -pv $PKG/usr/bin
+	ln -sfv $PKG/usr/libexec/p11-kit/trust-extract-compat \
+        	$PKG/usr/bin/update-ca-certificates
+
+	mkdir -pv $PKG/usr/lib
+	ln -sfv ./pkcs11/p11-kit-trust.so $PKG/usr/lib/libnssckbi.so
+}

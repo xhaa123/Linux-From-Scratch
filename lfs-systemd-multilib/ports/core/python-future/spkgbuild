@@ -1,0 +1,16 @@
+# description	: Clean single-source support for Python 3 and 2
+# depends	: 
+
+name=python-future
+version=0.18.2
+release=1
+
+source="https://github.com/PythonCharmers/python-future/archive/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	python3 setup.py build
+
+	python3 setup.py install --optimize=1 --root=$PKG
+}

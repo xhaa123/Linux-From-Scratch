@@ -1,0 +1,16 @@
+# description	: A collection of tools for internationalizing Python applications
+# depends	: python-pytz
+
+name=python-babel
+version=2.9.0
+release=1
+
+source="https://github.com/python-babel/babel/archive/v${version}/${name#python-}-${version}.tar.gz"
+
+build() {
+	cd ${name#python-}-$version
+
+	python3 setup.py build
+
+	python3 setup.py install --optimize=1 --root=$PKG
+}

@@ -1,0 +1,16 @@
+# description	: Sphinx extension which renders HTML help files
+# depends	: 
+
+name=python-sphinxcontrib-htmlhelp
+version=1.0.3
+release=1
+
+source="https://github.com/sphinx-doc/sphinxcontrib-htmlhelp/archive/$version/${name#*-}-$version.tar.gz"
+
+build() {
+	cd ${name#*-}-$version
+
+	python3 setup.py build
+
+	python3 setup.py install --root=$PKG --optimize=1
+}

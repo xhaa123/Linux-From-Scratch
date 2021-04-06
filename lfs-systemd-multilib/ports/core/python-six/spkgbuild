@@ -1,0 +1,16 @@
+# description	: Python 2 and 3 compatibility utilities
+# depends	: 
+
+name=python-six
+version=1.15.0
+release=1
+
+source="https://files.pythonhosted.org/packages/source/s/${name#python-}/${name#python-}-$version.tar.gz"
+
+build() {
+	cd ${name#python-}-$version
+
+	python3 setup.py build
+
+	python3 setup.py install --optimize=1 --root=$PKG
+}

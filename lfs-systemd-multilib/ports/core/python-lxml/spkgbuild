@@ -1,0 +1,16 @@
+# description	: ython3 binding for the libxml2 and libxslt libraries
+# depends	: libxslt
+
+name=python-lxml
+version=4.6.3
+release=1
+
+source="https://files.pythonhosted.org/packages/source/l/${name#*-}/${name#*-}-$version.tar.gz"
+
+build() {
+	cd ${name#*-}-$version
+
+	python3 setup.py build
+
+	python3 setup.py install --root=$PKG --optimize=1
+}

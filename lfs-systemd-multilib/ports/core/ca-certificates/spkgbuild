@@ -1,0 +1,27 @@
+# description	: Common CA certificates (default providers)
+# depends	: openssl p11-kit nss systemd
+
+name=ca-certificates
+version=1.7
+release=1
+
+source="https://github.com/djlucas/make-ca/releases/download/v$version/make-ca-$version.tar.xz
+	https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt
+	http://www.cacert.org/certs/root.crt
+	http://www.cacert.org/certs/class3.crt"
+
+build() {
+	cd make-ca-$version
+
+	make DESTDIR=$PKG install
+	install -vdm755 $PKG/etc/ssl/local
+
+	openssl x509 -in ../root.crt -text -fingerprint -setalias "CAcert Class 1 root" \
+	        -addtrust serverAuth -addtrust emailProtection -addtrust codeSigning \
+	        > $PKG/etc/ssl/local/CAcert_Class_1_root.pem
+	openssl x509 -in ../class3.crt -text -fingerprint -setalias "CAcert Class 3 root" \
+	        -addtrust serverAuth -addtrust emailProtection -addtrust codeSigning \
+	        > $PKG/etc/ssl/local/CAcert_Class_3_root.pem
+
+	cp ../certdata.txt $PKG/etc/ssl
+}

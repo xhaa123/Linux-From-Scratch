@@ -1,0 +1,16 @@
+# description	: Cross platform time zone library for Python
+# depends	: 
+
+name=python-pytz
+version=2021.1
+release=1
+
+source="https://mirrors.aliyun.com/macports/distfiles/py-tz/${name#python-}-${version}.tar.gz"
+
+build() {
+	cd ${name#python-}-$version
+
+	python3 setup.py build
+
+	python3 setup.py install --optimize=1 --root=$PKG
+}

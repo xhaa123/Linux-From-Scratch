@@ -1,0 +1,33 @@
+# description	: JavaScript interpreter and libraries - Version 78
+# depends	: readline zlib autoconf2.13 icu rustc which
+
+name=js78
+version=78.9.0
+release=1
+
+source="https://archive.mozilla.org/pub/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz"
+
+build() {
+	cd firefox-$version
+
+	SHELL=/bin/sh
+
+	mkdir obj
+	cd    obj
+
+	CC=gcc CXX=g++ \
+	../js/src/configure --prefix=/usr            \
+	                    --with-intl-api          \
+	                    --with-system-zlib       \
+	                    --with-system-icu        \
+	                    --disable-jemalloc       \
+	                    --disable-debug-symbols  \
+	                    --enable-readline
+
+	make
+
+	make DESTDIR=$PKG install
+
+	rm -v $PKG/usr/lib/libjs_static.ajs
+	sed -i '/@NSPR_CFLAGS@/d' $PKG/usr/bin/js78-config
+}

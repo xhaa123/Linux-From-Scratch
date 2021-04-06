@@ -1,0 +1,14 @@
+# description	: Python syntax highlighter
+# depends	: 
+
+name=python-pygments
+version=2.8.0
+release=1
+
+source="https://files.pythonhosted.org/packages/source/P/Pygments/Pygments-${version}.tar.gz"
+
+build() {
+	cd Pygments-$version
+
+	python3 setup.py install --optimize=1 --root=$PKG
+}

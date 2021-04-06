@@ -1,0 +1,16 @@
+# description	: PyYAML-based module to produce pretty and readable YAML-serialized data
+# depends	: libyaml
+
+name=python-pyyaml
+version=5.3.1
+release=1
+
+source="http://pyyaml.org/download/pyyaml/PyYAML-$version.tar.gz"
+
+build() {
+	cd PyYAML-$version
+
+	python3 setup.py build
+
+	python3 setup.py install --optimize=1 --root=$PKG
+}

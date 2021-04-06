@@ -1,0 +1,21 @@
+# description	: Set of tools for processing plaintext docs into formats such as HTML, XML, or LaTeX
+# depends	: 
+
+name=python-docutils
+version=0.16
+release=1
+
+source="http://downloads.sourceforge.net/${name#python-}/${name#python-}-$version.tar.gz"
+
+build() {
+	cd ${name#python-}-$version
+
+	python3 setup.py build
+
+	python3 setup.py install --optimize=1 --root=$PKG
+
+	mkdir -pv $PKG/usr/bin
+	for f in $PKG/usr/bin/rst*.py; do
+		ln -svf $(basename $f) $PKG/usr/bin/$(basename $f .py)
+	done
+}
