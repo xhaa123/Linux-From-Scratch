@@ -1,0 +1,23 @@
+# description   : X11 Athena Widget library
+# depends       : libxext libxmu libxt libx11 libxpm 
+    
+name=libxaw
+version=1.0.14
+release=1
+
+source="https://www.x.org/pub/individual/lib/libXaw-$version.tar.bz2"
+
+build() {
+
+	cd libXaw-$version
+
+	./configure --prefix=/usr           \
+	            --sysconfdir=/etc       \
+	            --localstatedir=/var    \
+	            --disable-static        \
+	            --docdir=/usr/share/doc/libXaw-$version
+
+	make
+    
+	make DESTDIR=$PKG install
+}

@@ -1,0 +1,24 @@
+# description	: A very minimal window manager
+# depends	: xorg-server bdftopcf font-adobe-100dpi font-adobe-75dpi font-jis-misc
+# depends	: font-daewoo-misc font-isas-misc font-misc-misc
+
+name=twm
+version=1.0.11
+release=1
+
+source="https://www.x.org/pub/individual/app/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	sed -i -e '/^rcdir =/s,^\(rcdir = \).*,\1/etc/X11/app-defaults,' src/Makefile.in
+
+	./configure --prefix=/usr            \
+	             --sysconfdir=/etc       \
+	             --localstatedir=/var    \
+	             --disable-static 
+
+	make
+
+	make DESTDIR=$PKG install
+}

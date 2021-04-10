@@ -1,0 +1,26 @@
+# description	: 80x86 assembler designed for portability and modularity
+# depends	: 
+
+name=nasm
+version=2.15.05
+release=1
+noextract="$name-$version-xdoc.tar.xz"
+
+source="https://www.nasm.us/pub/nasm/releasebuilds/$version/$name-$version.tar.xz
+	https://www.nasm.us/pub/nasm/releasebuilds/$version/$name-$version-xdoc.tar.xz"
+
+build() {
+	cd $name-$version
+
+	tar -xf ../$name-$version-xdoc.tar.xz --strip-components=1
+
+	./configure --prefix=/usr
+
+	make
+
+	make DESTDIR=$PKG install
+
+	install -m755 -d         $PKG/usr/share/doc/$name-$version/html
+	cp -v doc/html/*.html    $PKG/usr/share/doc/$name-$version/html
+	cp -v doc/*.{txt,ps,pdf} $PKG/usr/share/doc/$name-$version
+}

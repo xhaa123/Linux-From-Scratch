@@ -1,0 +1,23 @@
+# description   : X11 Session Management library
+# depends       : libice util-linux
+    
+name=libsm
+version=1.2.3
+release=1
+
+source="https://www.x.org/pub/individual/lib/libSM-$version.tar.bz2"
+
+build() {
+
+	cd libSM-$version
+
+	./configure --prefix=/usr           \
+	            --sysconfdir=/etc       \
+	            --localstatedir=/var    \
+	            --disable-static        \
+	            --docdir=/usr/share/doc/libSM-$version
+
+	make
+    
+	make DESTDIR=$PKG install
+}

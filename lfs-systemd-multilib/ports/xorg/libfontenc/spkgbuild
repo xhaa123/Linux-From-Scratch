@@ -1,0 +1,23 @@
+# description   : X11 font encoding library
+# depends       : zlib font-util xorgproto
+    
+name=libfontenc
+version=1.1.4
+release=1
+
+source="https://www.x.org/pub/individual/lib/libfontenc-$version.tar.bz2"
+
+build() {
+
+	cd libfontenc-$version
+
+	./configure --prefix=/usr           \
+	            --sysconfdir=/etc       \
+	            --localstatedir=/var    \
+	            --disable-static        \
+	            --docdir=/usr/share/doc/libfontenc-$version
+
+	make
+    
+	make DESTDIR=$PKG install
+}

@@ -1,0 +1,22 @@
+# description   : Primitive command line interface to RandR extension
+# depends       : libxrandr libxrender libx11
+    
+name=xrandr
+version=1.5.1
+release=1
+
+source="https://www.x.org/pub/individual/app/$name-$version.tar.bz2"
+
+build() {
+
+	cd $name-$version
+
+	./configure --prefix=/usr           \
+	            --sysconfdir=/etc       \
+	            --localstatedir=/var    \
+	            --disable-static
+
+	make
+    
+	make DESTDIR=$PKG install
+}

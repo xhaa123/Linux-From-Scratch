@@ -1,0 +1,21 @@
+# description	: X.Org Autotools macros
+# depends	: 
+
+name=util-macros
+version=1.19.3
+release=1
+
+source="https://www.x.org/pub/individual/util/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr            \
+	             --sysconfdir=/etc       \
+	             --localstatedir=/var    \
+	             --disable-static 
+
+	make
+
+	make DESTDIR=$PKG install
+}

@@ -1,0 +1,22 @@
+# description	: Keyboard configuration database for the X Window System
+# depends	: xorgproto libx11 xkbcomp
+
+name=xkeyboard-config
+version=2.32
+release=1
+
+source="https://www.x.org/pub/individual/data/$name/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr            \
+	             --sysconfdir=/etc       \
+	             --localstatedir=/var    \
+	             --disable-static        \
+	             --with-xkb-rules-symlink=xorg
+
+	make
+
+	make DESTDIR=$PKG install
+}

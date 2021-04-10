@@ -1,0 +1,15 @@
+# description	: Meta port for Xorg applications
+# depends	: iceauth luit mkfontscale sessreg setxkbmap smproxy x11perf xauth
+# depends	: xbacklight xcmsdb xcursorgen xdpyinfo xdriinfo xev xgamma xhost xinput 
+# depends	: xkbcomp xkbevd xkbutils xkill xlsatoms xlsclients xmessage xmodmap xpr
+# depends	: xprop xrandr xrdb xrefresh xset xsetroot xvinfo xwd xwininfo xwud
+
+name=xorg-applications
+version=1.0
+release=1
+
+
+
+build() {
+	mkdir -pv $PKG/etc
+}

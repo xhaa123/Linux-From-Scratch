@@ -1,0 +1,18 @@
+# description	: XML to PO and back again
+# depends	: docbook-xml python
+
+name=itstool
+version=2.0.6
+release=1
+
+source="http://files.itstool.org/$name/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+	PYTHON=/usr/bin/python3 ./configure --prefix=/usr
+
+	make
+
+	make DESTDIR=$PKG install
+}

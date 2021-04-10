@@ -1,5 +1,5 @@
 # description	: Freedesktop.org message bus system
-# depends	: systemd
+# depends	: systemd-libs
 
 name=dbus
 version=1.12.20

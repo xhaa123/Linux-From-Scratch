@@ -1,0 +1,23 @@
+# description   : X11 miscellaneous 'fixes' extension library
+# depends       : libx11
+    
+name=libxfixes
+version=5.0.3
+release=1
+
+source="https://www.x.org/pub/individual/lib/libXfixes-$version.tar.bz2"
+
+build() {
+
+	cd libXfixes-$version
+
+	./configure --prefix=/usr           \
+	            --sysconfdir=/etc       \
+	            --localstatedir=/var    \
+	            --disable-static        \
+	            --docdir=/usr/share/doc/libXfixes-$version
+
+	make
+    
+	make DESTDIR=$PKG install
+}

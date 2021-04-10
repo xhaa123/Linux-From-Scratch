@@ -1,0 +1,61 @@
+# description	: systemd client libraries
+# depends	: glibc libcap libgcrypt lz4 xz zstd
+
+name=systemd-libs
+version=247
+release=1
+
+noextract="systemd-man-pages-$version-2.tar.xz"
+
+source="https://github.com/systemd/systemd/archive/v$version/systemd-$version.tar.gz
+	http://anduin.linuxfromscratch.org/LFS/systemd-man-pages-$version-2.tar.xz
+	https://lfs-hk.koddos.net/patches/downloads/systemd/systemd-$version-upstream_fixes-2.patch"
+
+build() {
+	cd systemd-$version
+
+	patch -Np1 -i ../systemd-$version-upstream_fixes-2.patch
+
+	sed '181,$ d' -i src/resolve/meson.build
+
+	sed -i 's/GROUP="render"/GROUP="video"/' rules.d/50-udev-default.rules.in
+
+	mkdir -p build
+	cd       build
+
+	LANG=en_US.UTF-8                    \
+	meson --prefix=/usr                 \
+	      --sysconfdir=/etc             \
+	      --localstatedir=/var          \
+	      -Dblkid=true                  \
+	      -Dbuildtype=release           \
+	      -Ddefault-dnssec=no           \
+	      -Dfirstboot=false             \
+	      -Dinstall-tests=false         \
+	      -Dkmod-path=/bin/kmod         \
+	      -Dldconfig=false              \
+	      -Dmount-path=/bin/mount       \
+	      -Drootprefix=                 \
+	      -Drootlibdir=/lib             \
+	      -Dsplit-usr=true              \
+	      -Dsulogin-path=/sbin/sulogin  \
+	      -Dsysusers=false              \
+	      -Dumount-path=/bin/umount     \
+	      -Db_lto=false                 \
+	      -Drpmmacrosdir=no             \
+	      -Dhomed=false                 \
+	      -Duserdb=false                \
+	      -Dman=false                   \
+	      -Dmode=release                \
+	      -Ddocdir=/usr/share/doc/systemd-$version \
+	      ..
+	      
+	LANG=en_US.UTF-8 ninja
+
+	LANG=en_US.UTF-8 DESTDIR=$PKG ninja install
+
+	mkdir -pv $PKG/usr/share/man
+	tar -xf ../../systemd-man-pages-$version-2.tar.xz --strip-components=1 -C $PKG/usr/share/man
+
+	rm -rf $PKG/usr/lib/pam.d
+}

@@ -1,0 +1,30 @@
+# description	: X.Org Video Driver for Intel integrated video cards including 8xx, 9xx, Gxx, Qxx and HD graphics processors
+# depends	: xcb-util xorg-server
+
+name=xf86-video-intel
+version=20210222
+release=1
+
+source="http://anduin.linuxfromscratch.org/BLFS/$name/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	./autogen.sh --prefix=/usr          \
+	            --sysconfdir=/etc       \
+	            --localstatedir=/var    \
+	            --disable-static        \
+	            --enable-kms-only       \
+	            --enable-uxa            \
+	            --mandir=/usr/share/man 
+
+	make
+
+	make DESTDIR=$PKG install
+
+	mkdir -p $PKG/usr/share/man/man1
+	mv -v $PKG/usr/share/man/man4/intel-virtual-output.4 \
+	      $PKG/usr/share/man/man1/intel-virtual-output.1
+      
+	sed -i '/\.TH/s/4/1/' $PKG/usr/share/man/man1/intel-virtual-output.1
+}

@@ -1,0 +1,24 @@
+# description   : X11 font rasterisation library
+# depends       : zlib libfontenc freetype xtrans
+    
+name=libxfont2
+version=2.0.4
+release=1
+
+source="https://www.x.org/pub/individual/lib/libXfont2-$version.tar.bz2"
+
+build() {
+
+	cd libXfont2-$version
+
+	./configure --prefix=/usr           \
+	            --sysconfdir=/etc       \
+	            --localstatedir=/var    \
+	            --disable-static        \
+	            --disable-devel-docs    \
+	            --docdir=/usr/share/doc/libXfont2-$version
+
+	make
+    
+	make DESTDIR=$PKG install
+}

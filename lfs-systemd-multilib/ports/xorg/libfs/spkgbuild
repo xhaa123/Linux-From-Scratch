@@ -1,0 +1,23 @@
+# description   : X11 Font Services Library
+# depends       : xorgproto xtrans
+    
+name=libfs
+version=1.0.8
+release=1
+
+source="https://www.x.org/pub/individual/lib/libFS-$version.tar.bz2"
+
+build() {
+
+	cd libFS-$version
+
+	./configure --prefix=/usr           \
+	            --sysconfdir=/etc       \
+	            --localstatedir=/var    \
+	            --disable-static        \
+	            --docdir=/usr/share/doc/libFS-$version
+
+	make
+    
+	make DESTDIR=$PKG install
+}

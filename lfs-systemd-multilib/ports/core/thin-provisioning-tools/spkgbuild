@@ -1,0 +1,19 @@
+# description	: Suite of tools for manipulating the metadata of the dm-thin device-mapper target
+# depends	: boost
+
+name=thin-provisioning-tools
+version=0.9.0
+release=1
+
+source="https://github.com/jthornber/$name/archive/v$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	autoconf
+	./configure --prefix=/usr
+
+	make
+
+	make DESTDIR=$PKG install
+}

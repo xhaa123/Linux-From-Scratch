@@ -1,0 +1,18 @@
+# description	: The Linux-native asynchronous I/O facility (aio) library
+# depends	: 
+
+name=libaio
+version=0.3.112
+release=1
+
+source="https://ftp.debian.org/debian/pool/main/liba/${name}/${name}_${version}.orig.tar.xz"
+
+build() {
+	cd $name-$version
+
+	sed -i '/install.*libaio.a/s/^/#/' src/Makefile
+
+	make
+
+	make DESTDIR=$PKG install
+}

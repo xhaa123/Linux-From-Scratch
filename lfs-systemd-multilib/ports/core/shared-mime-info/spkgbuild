@@ -1,0 +1,19 @@
+# description	: A MIME database
+# depends	: glib itstool libxml2 xmlto
+
+name=shared-mime-info
+version=2.1
+release=1
+
+source="https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	mkdir build
+	cd    build
+
+	meson --prefix=/usr -Dupdate-mimedb=true ..
+
+	ninja
+}

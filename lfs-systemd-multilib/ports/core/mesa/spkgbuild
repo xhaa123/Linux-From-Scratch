@@ -1,0 +1,43 @@
+# description	: OpenGL compatible 3D graphics library
+# depends	: libdrm python-mako libva libvdpau llvm wayland-protocols
+
+name=mesa
+version=20.3.4
+release=1
+
+source="https://mesa.freedesktop.org/archive/$name-$version.tar.xz
+	https://lfs-hk.koddos.net/patches/downloads/$name/$name-$version-add_xdemos-1.patch"
+
+build() {
+	cd $name-$version
+	
+	patch -Np1 -i ../$name-$version-add_xdemos-1.patch
+
+	sed '1s/python/&3/' -i bin/symbols-check.py
+
+	GALLIUM_DRV="i915,iris,nouveau,r600,radeonsi,svga,swrast,virgl"
+	DRI_DRIVERS="i965,nouveau"
+
+	mkdir build
+	cd    build
+
+	meson --prefix=$XORG_PREFIX          \
+	      -Dbuildtype=release            \
+	      -Ddri-drivers=$DRI_DRIVERS     \
+	      -Dgallium-drivers=$GALLIUM_DRV \
+	      -Dgallium-nine=false           \
+	      -Dglx=dri                      \
+	      -Dosmesa=gallium               \
+	      -Dvalgrind=disabled            \
+	      -Dlibunwind=disabled           \
+	      ..
+
+	unset GALLIUM_DRV DRI_DRIVERS
+
+	ninja
+
+	DESTDIR=$PKG ninja install
+
+	install -v -dm755 $PKG/usr/share/doc/$name-$version
+	cp -rfv ../docs/* $PKG/usr/share/doc/$name-$version
+}

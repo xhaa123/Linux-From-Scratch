@@ -1,5 +1,5 @@
 # description	: High productivity build system
-# depends	: python3 ninja
+# depends	: python ninja
 
 name=meson
 version=0.57.1

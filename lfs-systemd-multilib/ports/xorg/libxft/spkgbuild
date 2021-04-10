@@ -1,0 +1,23 @@
+# description   : FreeType-based font drawing library for X
+# depends       : fontconfig freetype libxrender libx11 
+    
+name=libxft
+version=2.3.3
+release=1
+
+source="https://www.x.org/pub/individual/lib/libXft-$version.tar.bz2"
+
+build() {
+
+	cd libXft-$version
+
+	./configure --prefix=/usr           \
+	            --sysconfdir=/etc       \
+	            --localstatedir=/var    \
+	            --disable-static        \
+	            --docdir=/usr/share/doc/libXft-$version
+
+	make
+    
+	make DESTDIR=$PKG install
+}

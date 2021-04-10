@@ -1,0 +1,27 @@
+# description	: Btrfs filesystem utilities
+# depends	: lzo asciidoc xmlto lvm2
+
+name=btrfs-progs
+version=v5.11.1
+release=1
+
+source="https://www.kernel.org/pub/linux/kernel/people/kdave/$name/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr \
+	            --bindir=/bin \
+	            --libdir=/lib \
+	            --with-pkgconfigdir=/usr/lib/pkgconfig
+
+	make
+
+	make DESTDIR=$PKG install
+
+	mkdir -pv $PKG/{usr/lib,sbin}
+	ln -sfv ../../lib/$(readlink $PKG/lib/libbtrfs.so) $PKG/usr/lib/libbtrfs.so
+	ln -sfv ../../lib/$(readlink $PKG/lib/libbtrfsutil.so) $PKG/usr/lib/libbtrfsutil.so
+	rm -fv $PKG/lib/libbtrfs.{a,so} $PKG/lib/libbtrfsutil.{a,so}
+	mv -v $PKG/bin/{mkfs,fsck}.btrfs $PKG/sbin
+}

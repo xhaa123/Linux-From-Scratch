@@ -1,0 +1,22 @@
+# description	: X transport library
+# depends	: 
+
+name=xtrans
+version=1.4.0
+release=1
+
+source="https://www.x.org/pub/individual/lib/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr            \
+	             --sysconfdir=/etc       \
+	             --localstatedir=/var    \
+	             --disable-static        \
+	             --docdir=/usr/share/doc/$name-$version
+
+	make
+
+	make DESTDIR=$PKG install
+}

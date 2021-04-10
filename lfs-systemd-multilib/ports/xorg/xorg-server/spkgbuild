@@ -1,0 +1,26 @@
+# description	: The core of the X Window system
+# depends	: pixman font-util xkeyboard-config libepoxy wayland-protocols systemd 
+
+name=xorg-server
+version=1.20.10
+release=1
+
+source="https://www.x.org/pub/individual/xserver/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr            \
+	             --sysconfdir=/etc       \
+	             --localstatedir=/var    \
+	             --disable-static        \
+	             --enable-glamor         \
+	             --enable-suid-wrapper   \
+	             --with-xkb-output=/var/lib/xkb
+
+	make
+
+	make DESTDIR=$PKG install
+
+	mkdir -pv $PKG/etc/X11/xorg.conf.d
+}

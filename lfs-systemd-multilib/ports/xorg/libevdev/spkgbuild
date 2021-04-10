@@ -1,0 +1,21 @@
+# description	: Common functions for Xorg input drivers
+# depends	: 
+
+name=libevdev
+version=1.11.0
+release=1
+
+source="https://www.freedesktop.org/software/$name/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr            \
+	             --sysconfdir=/etc       \
+	             --localstatedir=/var    \
+	             --disable-static
+
+	make
+
+	make DESTDIR=$PKG install
+}

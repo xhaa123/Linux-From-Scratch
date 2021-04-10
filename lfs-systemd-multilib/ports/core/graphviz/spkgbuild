@@ -1,0 +1,28 @@
+# description	: Graph visualization software
+# depends	: pango cairo fontconfig libpng libjpeg-turbo libwebp
+
+name=graphviz
+version=2.47.0
+release=1
+
+source="https://gitlab.com/graphviz/graphviz/-/archive/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	sed -i '/LIBPOSTFIX="64"/s/64//' configure.ac 
+
+	./autogen.sh
+	./configure --prefix=/usr \
+	            --disable-php \
+	            PS2PDF=true   \
+	            --with-webp   \
+	            --with-smyrna
+
+	make
+
+	make DESTDIR=$PKG install
+
+	mkdir -pv $PKG/usr/share/doc/$name-$version
+	ln -v -s $PKG/usr/share/graphviz/doc $PKG/usr/share/doc/$name-$version
+}

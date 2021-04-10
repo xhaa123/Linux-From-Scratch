@@ -1,0 +1,21 @@
+# description	: Portable lossless data compression library
+# depends	: 
+
+name=lzo
+version=2.10
+release=1
+
+source="https://www.oberhumer.com/opensource/lzo/download/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr                    \
+	            --enable-shared                  \
+	            --disable-static                 \
+	            --docdir=/usr/share/doc/$name-$version
+
+	make
+
+	make DESTDIR=$PKG install
+}

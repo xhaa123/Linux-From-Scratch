@@ -1,0 +1,24 @@
+# description   : X11 Inter-Client Exchange library
+# depends       : xorgproto xtrans
+    
+name=libice
+version=1.0.10
+release=1
+
+source="https://www.x.org/pub/individual/lib/libICE-$version.tar.bz2"
+
+build() {
+
+	cd libICE-$version
+
+	./configure --prefix=/usr           \
+	            --sysconfdir=/etc       \
+	            --localstatedir=/var    \
+	            --disable-static        \
+	            --docdir=/usr/share/doc/libICE-$version  \
+	            ICE_LIBS=-lpthread
+
+	make
+    
+	make DESTDIR=$PKG install
+}

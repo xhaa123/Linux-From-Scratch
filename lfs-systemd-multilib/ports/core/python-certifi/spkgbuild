@@ -1,11 +1,11 @@
-# description	: Python package for providing Mozilla's CA Bundle
+# description	: python package for providing Mozilla's CA Bundle
 # depends	: 
 
 name=python-certifi
 version=2020.12.05
 release=1
 
-source="https://github.com/certifi/$name/archive/v$version/$name-$version.tar.gz"
+source="https://github.com/certifi/$name/archive/$version/$name-$version.tar.gz"
 
 build() {
 	cd $name-$version

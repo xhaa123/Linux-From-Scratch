@@ -1,0 +1,21 @@
+# description	: Userspace interface to kernel DRM services
+# depends	: libpciaccess
+# optdepends	: cairo cmake docbook-xml docbook-xml docutils libxslt libatomic_ops
+
+name=libdrm
+version=2.4.105
+release=1
+
+source="https://dri.freedesktop.org/$name/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	mkdir build
+	cd    build
+	
+	meson --prefix=$XORG_PREFIX -Dudev=true
+	ninja
+	
+	DESTDIR=$PKG ninja install
+}

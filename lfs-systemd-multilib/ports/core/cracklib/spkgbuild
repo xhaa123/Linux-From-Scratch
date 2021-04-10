@@ -1,0 +1,39 @@
+# description	: Library used to enforce strong passwords by comparing user selected passwords to words in chosen word lists
+# depends	: zlib
+
+name=cracklib
+version=2.9.7
+release=1
+
+noextract="$name-words-$version.bz2"
+
+source="https://github.com/cracklib/cracklib/releases/download/v$version/$name-$version.tar.bz2
+	https://github.com/cracklib/cracklib/releases/download/v$version/$name-words-$version.bz2"
+
+build() {
+	cd $name-$version
+
+	sed -i '/skipping/d' util/packer.c
+
+	PYTHON=python3  
+	./configure --prefix=/usr    \
+	            --disable-static \
+	            --with-default-dict=/lib/cracklib/pw_dict
+
+	make
+
+	make DESTDIR=$PKG install
+
+	mkdir -p $PKG/lib
+	mv -v $PKG/usr/lib/libcrack.so.* $PKG/lib
+	ln -sfv ../../lib/$(readlink $PKG/usr/lib/libcrack.so) $PKG/usr/lib/libcrack.so
+
+	mkdir -pv $PKG/usr/share/dict
+	install -v -m644 -D    ../$name-words-$version.bz2 \
+	                         $PKG/usr/share/dict/cracklib-words.bz2
+
+	bunzip2 -v               $PKG/usr/share/dict/cracklib-words.bz2
+	ln -v -sf cracklib-words $PKG/usr/share/dict/words
+	echo Future >>           $PKG/usr/share/dict/cracklib-extra-words
+	install -v -m755 -d      $PKG/lib/cracklib
+}

@@ -1,0 +1,23 @@
+# description   : X11 RandR extension library
+# depends       : libxext libxrender libx11
+    
+name=libxrandr
+version=1.5.2
+release=1
+
+source="https://www.x.org/pub/individual/lib/libXrandr-$version.tar.bz2"
+
+build() {
+
+	cd libXrandr-$version
+
+	./configure --prefix=/usr           \
+	            --sysconfdir=/etc       \
+	            --localstatedir=/var    \
+	            --disable-static        \
+	            --docdir=/usr/share/doc/libXrandr-$version
+
+	make
+    
+	make DESTDIR=$PKG install
+}

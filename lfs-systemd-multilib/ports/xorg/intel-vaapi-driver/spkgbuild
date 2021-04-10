@@ -1,0 +1,21 @@
+# description	: VA-API implementation for Intel G45 and HD Graphics family
+# depends	: libva
+
+name=intel-vaapi-driver
+version=2.4.1
+release=1
+
+source="https://github.com/intel/intel-vaapi-driver/releases/download/$version/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr            \
+	             --sysconfdir=/etc       \
+	             --localstatedir=/var    \
+	             --disable-static 
+
+	make
+
+	make DESTDIR=$PKG install
+}

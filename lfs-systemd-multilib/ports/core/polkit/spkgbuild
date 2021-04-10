@@ -1,0 +1,37 @@
+# description	: Application development toolkit for controlling system-wide privileges
+# depends	: systemd-libs glib js78 linux-pam
+
+name=polkit
+version=0.118
+release=1
+
+source="https://www.freedesktop.org/software/polkit/releases/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	sed -i "s:/sys/fs/cgroup/systemd/:/sys:g" configure
+
+	./configure --prefix=/usr        \
+	            --sysconfdir=/etc    \
+	            --localstatedir=/var \
+	            --disable-static     \
+	            --with-os-type=LFS   \
+		    --enable-libelogind=no
+
+	make
+
+	make DESTDIR=$PKG install
+
+	mkdir -pv $PKG/etc/pam.d
+	cat > $PKG/etc/pam.d/polkit-1 << "EOF"
+# Begin /etc/pam.d/polkit-1
+
+auth     include        system-auth
+account  include        system-account
+password include        system-password
+session  include        system-session
+
+# End /etc/pam.d/polkit-1
+EOF
+}

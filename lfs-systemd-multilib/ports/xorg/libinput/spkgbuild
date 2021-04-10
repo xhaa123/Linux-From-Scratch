@@ -1,0 +1,26 @@
+# description	: library that handles input devices for display servers and other applications that need to directly deal with input devices
+# depends	: libevdev mtdev
+
+name=libinput
+version=1.17.1
+release=1
+
+source="https://www.freedesktop.org/software/$name/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	mkdir build
+	cd    build
+
+	meson --prefix=/usr         
+	      -Dudev-dir=/lib/udev  
+	      -Ddebug-gui=false     
+	      -Dtests=false         
+	      -Ddocumentation=false 
+	      -Dlibwacom=false      
+	      ..
+	ninja
+
+	DESTDIR=$PKG ninja install
+}

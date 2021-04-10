@@ -1,0 +1,23 @@
+# description   : X11 Session Management library
+# depends       : 
+    
+name=libxkbfile
+version=1.1.0
+release=1
+
+source="https://www.x.org/pub/individual/lib/libxkbfile-$version.tar.bz2"
+
+build() {
+
+	cd libxkbfile-$version
+
+	./configure --prefix=/usr           \
+	            --sysconfdir=/etc       \
+	            --localstatedir=/var    \
+	            --disable-static        \
+	            --docdir=/usr/share/doc/libxkbfile-$version
+
+	make
+    
+	make DESTDIR=$PKG install
+}

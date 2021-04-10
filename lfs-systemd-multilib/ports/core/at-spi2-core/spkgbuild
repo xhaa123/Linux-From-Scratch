@@ -1,5 +1,5 @@
 # description	: Protocol definitions and daemon for D-Bus at-spi
-# depends	: dbus glib2 
+# depends	: dbus glib
 
 name=at-spi2-core
 version=2.38.0

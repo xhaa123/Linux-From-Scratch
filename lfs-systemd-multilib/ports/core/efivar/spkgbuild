@@ -5,7 +5,7 @@ name=efivar
 version=37
 release=1
 
-source="https://github.com/rhboot/efivar/releases/download/$version/$name-$version.tar.bz2"
+source="https://github.com/rhboot/efivar/archive/$version/$name-$version.tar.bz2"
 
 build() {
 	cd $name-$version
@@ -14,22 +14,22 @@ build() {
 
 	sed 's|-rpath,$(TOPDIR)/src|-rpath,$(libdir)|g' -i src/test/Makefile
 
-	make libdir=/usr/lib/          \
-	     bindir=/usr/bin/          \
-	     mandir=/usr/share/man/    \
-	     includedir=/usr/include/
+	make libdir=/usr/lib          \
+	     bindir=/usr/bin          \
+	     mandir=/usr/share/man    \
+	     includedir=/usr/include
 	
-	make libdir=/usr/lib/          \
-	     bindir=/usr/bin/          \
-	     mandir=/usr/share/man/    \
-	     includedir=/usr/include/  \
+	make libdir=/usr/lib          \
+	     bindir=/usr/bin          \
+	     mandir=/usr/share/man    \
+	     includedir=/usr/include  \
 	     -C src/test
 	
-	make DESTDIR=$PKG              \
-	     libdir=/usr/lib/          \
-	     bindir=/usr/bin/          \
-	     mandir=/usr/share/man/    \
-	     includedir=/usr/include/ install -j1 V=1
+	make DESTDIR=$PKG             \
+	     libdir=/usr/lib          \
+	     bindir=/usr/bin          \
+	     mandir=/usr/share/man    \
+	     includedir=/usr/include install -j1 V=1
 	        
 	install -vDm 755 src/test/tester $PKG/usr/bin/efivar-tester
 }

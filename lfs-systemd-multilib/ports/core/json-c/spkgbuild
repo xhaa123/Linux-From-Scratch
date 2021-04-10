@@ -1,0 +1,24 @@
+# description	: A JSON implementation in C
+# depends	: cmake
+
+name=json-c
+version=0.15
+release=1
+
+source="https://s3.amazonaws.com/json-c_releases/releases/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	mkdir build
+	cd    build
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+	      -DCMAKE_BUILD_TYPE=Release  \
+	      -DBUILD_STATIC_LIBS=OFF     \
+	      ..
+
+	make
+
+	make DESTDIR=$PKG install
+}

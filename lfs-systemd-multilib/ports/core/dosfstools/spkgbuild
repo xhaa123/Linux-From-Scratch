@@ -10,10 +10,10 @@ source="https://github.com/dosfstools/dosfstools/releases/download/v$version/$na
 build() {
 	cd $name-$version
 
-	./configure --prefix=/      
-	            --enable-compat-
-	            --mandir=/usr/sh
-	            --docdir=/usr/sh
+	./configure --prefix=/               \
+	            --enable-compat-symlinks \
+	            --mandir=/usr/share/man  \
+	            --docdir=/usr/share/doc/$name-$version
 
 	make
 

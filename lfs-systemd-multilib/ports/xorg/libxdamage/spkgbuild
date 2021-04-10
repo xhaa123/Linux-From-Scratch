@@ -1,0 +1,23 @@
+# description   : X11 damaged region extension library
+# depends       : libxfixes libx11
+    
+name=libxdamage
+version=1.1.5
+release=1
+
+source="https://www.x.org/pub/individual/lib/libXdamage-$version.tar.bz2"
+
+build() {
+
+	cd libXdamage-$version
+
+	./configure --prefix=/usr           \
+	            --sysconfdir=/etc       \
+	            --localstatedir=/var    \
+	            --disable-static        \
+	            --docdir=/usr/share/doc/libXdamage-$version
+
+	make
+    
+	make DESTDIR=$PKG install
+}

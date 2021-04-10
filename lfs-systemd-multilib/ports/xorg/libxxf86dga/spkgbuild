@@ -1,0 +1,23 @@
+# description   : X11 Direct Graphics Access extension library
+# depends       : libx11 libxext
+    
+name=libxxf86dga
+version=1.1.5
+release=1
+
+source="https://www.x.org/pub/individual/lib/libXxf86dga-$version.tar.bz2"
+
+build() {
+
+	cd libXxf86dga-$version
+
+	./configure --prefix=/usr           \
+	            --sysconfdir=/etc       \
+	            --localstatedir=/var    \
+	            --disable-static        \
+	            --docdir=/usr/share/doc/libXxf86dga-$version
+
+	make
+    
+	make DESTDIR=$PKG install
+}

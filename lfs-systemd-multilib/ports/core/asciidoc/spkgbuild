@@ -1,0 +1,21 @@
+# description	: Text document format for short documents, articles, books and UNIX man pages
+# depends	: docbook-xml libxslt
+
+name=asciidoc
+version=9.1.0
+release=1
+
+source="https://github.com/asciidoc/asciidoc-py3/releases/download/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr     \
+	            --sysconfdir=/etc \
+	            --docdir=/usr/share/doc/$name-$version
+
+	make
+
+	make DESTDIR=$PKG install
+	make docs DESTDIR=$PKG
+}
