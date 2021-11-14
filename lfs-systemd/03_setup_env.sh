@@ -14,7 +14,7 @@ PATH=$LFS/tools/bin:$PATH
 CONFIG_SITE=$LFS/usr/share/config.site
 export LFS LC_ALL LFS_TGT PATH CONFIG_SITE
 
-export CFLAGS="-march=native -O2 -pipe"
+export CFLAGS="-march=haswell -O2 -pipe"
 export CXXFLAGS="${CFLAGS}"
 export MAKEFLAGS="-j$(nproc)"
 
